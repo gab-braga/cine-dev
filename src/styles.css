@@ -1,5 +1,7 @@
 :root {
   font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  --font-family: "Roboto", sans-serif;
   --surface-ground: #eff3f8;
   --surface-section: #ffffff;
   --surface-card: #ffffff;
