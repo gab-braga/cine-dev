@@ -1,26 +1,3 @@
-:root {
-  font-size: 16px;
-  font-family: "Roboto", sans-serif;
-  --font-family: "Roboto", sans-serif;
-  --surface-ground: #eff3f8;
-  --surface-section: #ffffff;
-  --surface-card: #ffffff;
-  --surface-overlay: #ffffff;
-  --surface-border: #dfe7ef;
-  --surface-hover: #f6f9fc;
-  --surface-0: #ffffff;
-  --surface-50: #e6e6e6;
-  --surface-100: #cfcfcf;
-  --surface-200: #a6a6a6;
-  --surface-300: #808080;
-  --surface-400: #666666;
-  --surface-500: #4d4d4d;
-  --surface-600: #2e2e2e;
-  --surface-700: #1c1c1c;
-  --surface-800: #0a0a0a;
-  --surface-900: #000000;
-}
-
 html,
 body {
   height: 100%;
