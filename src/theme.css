@@ -39,10 +39,10 @@
   --surface-overlay: #ffffff;
   --surface-border: #dfe7ef;
   --surface-hover: #f6f9fc;
-  --surface-popup: rgba(59, 130, 246, 0.24);
+  --surface-popup: rgba(246, 59, 59, 0.24);
 
-  --text-color: #4b5563;
-  --text-color-secondary: #6b7280;
+  --text-color: #634b4b;
+  --text-color-secondary: #806b6b;
   --primary-color: #e80707;
   --primary-color-text: #ffffff;
   --color-shadow: rgba(0, 0, 0, 0.1);
@@ -50,8 +50,8 @@
   --highlight-bg: #eff6ff;
   --highlight-text-color: #e80707;
 
-  --bg-button-hover: rgba(59, 130, 246, 0.04);
-  --bg-button-active: rgba(59, 130, 246, 0.16);
+  --bg-button-hover: rgba(246, 59, 59, 0.04);
+  --bg-button-active: rgba(246, 59, 59, 0.16);
 
   --border-radius: 6px;
   --content-padding: 1.25rem;
@@ -86,7 +86,7 @@
   --green-200: #a0e6ba;
   --green-300: #76db9b;
   --green-400: #4cd07d;
-  --green-500: var(--green-500);
+  --green-500: #22c55e;
   --green-600: #1da750;
   --green-700: #188a42;
   --green-800: #136c34;
@@ -146,7 +146,7 @@
   --orange-200: #fcc39b;
   --orange-300: #fba86f;
   --orange-400: #fa8e42;
-  --orange-500: var(--orange-500);
+  --orange-500: #f97316;
   --orange-600: #d46213;
   --orange-700: #ae510f;
   --orange-800: #893f0c;
@@ -156,7 +156,7 @@
   --bluegray-200: #bcc3cd;
   --bluegray-300: #9fa9b7;
   --bluegray-400: #818ea1;
-  --bluegray-500: var(--bluegray-500);
+  --bluegray-500: #64748b;
   --bluegray-600: #556376;
   --bluegray-700: #465161;
   --bluegray-800: #37404c;
@@ -166,7 +166,7 @@
   --purple-200: #dab6fc;
   --purple-300: #c996fa;
   --purple-400: #b975f9;
-  --purple-500: var(--purple-500);
+  --purple-500: #a855f7;
   --purple-600: #8f48d2;
   --purple-700: #763cad;
   --purple-800: #5c2f88;
@@ -210,33 +210,33 @@
 @layer primeng-custom {
   @layer editor-container {
     .p-editor-container .p-editor-toolbar {
-      background: #f9fafb;
+      background: var(--gray-50);
       border-top-right-radius: var(--border-radius);
       border-top-left-radius: var(--border-radius);
     }
 
     .p-editor-container .p-editor-toolbar.ql-snow {
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--gray-200);
     }
 
     .p-editor-container .p-editor-toolbar.ql-snow .ql-stroke {
-      stroke: #6b7280;
+      stroke: var(--gray-500);
     }
 
     .p-editor-container .p-editor-toolbar.ql-snow .ql-fill {
-      fill: #6b7280;
+      fill: var(--gray-500);
     }
 
     .p-editor-container .p-editor-toolbar.ql-snow .ql-picker .ql-picker-label {
       border: 0 none;
-      color: #6b7280;
+      color: var(--gray-500);
     }
 
     .p-editor-container
       .p-editor-toolbar.ql-snow
       .ql-picker
       .ql-picker-label:hover {
-      color: #4b5563;
+      color: var(--gray-600);
     }
 
     .p-editor-container
@@ -244,7 +244,7 @@
       .ql-picker
       .ql-picker-label:hover
       .ql-stroke {
-      stroke: #4b5563;
+      stroke: var(--gray-600);
     }
 
     .p-editor-container
@@ -252,14 +252,14 @@
       .ql-picker
       .ql-picker-label:hover
       .ql-fill {
-      fill: #4b5563;
+      fill: var(--gray-600);
     }
 
     .p-editor-container
       .p-editor-toolbar.ql-snow
       .ql-picker.ql-expanded
       .ql-picker-label {
-      color: #4b5563;
+      color: var(--gray-600);
     }
 
     .p-editor-container
@@ -267,7 +267,7 @@
       .ql-picker.ql-expanded
       .ql-picker-label
       .ql-stroke {
-      stroke: #4b5563;
+      stroke: var(--gray-600);
     }
 
     .p-editor-container
@@ -275,14 +275,14 @@
       .ql-picker.ql-expanded
       .ql-picker-label
       .ql-fill {
-      fill: #4b5563;
+      fill: var(--gray-600);
     }
 
     .p-editor-container
       .p-editor-toolbar.ql-snow
       .ql-picker.ql-expanded
       .ql-picker-options {
-      background: #ffffff;
+      background: var(--surface-a);
       border: 0 none;
       box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
       border-radius: var(--border-radius);
@@ -294,7 +294,7 @@
       .ql-picker.ql-expanded
       .ql-picker-options
       .ql-picker-item {
-      color: #4b5563;
+      color: var(--gray-600);
     }
 
     .p-editor-container
@@ -302,8 +302,8 @@
       .ql-picker.ql-expanded
       .ql-picker-options
       .ql-picker-item:hover {
-      color: #4b5563;
-      background: #f3f4f6;
+      color: var(--gray-600);
+      background: var(--surface-c);
     }
 
     .p-editor-container
@@ -319,35 +319,35 @@
     }
 
     .p-editor-container .p-editor-content.ql-snow {
-      border: 1px solid #e5e7eb;
+      border: 1px solid var(--gray-200);
     }
 
     .p-editor-container .p-editor-content .ql-editor {
-      background: #ffffff;
-      color: #4b5563;
+      background: var(--surface-a);
+      color: var(--gray-600);
       border-bottom-right-radius: var(--border-radius);
       border-bottom-left-radius: var(--border-radius);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button:hover,
     .p-editor-container .ql-snow.ql-toolbar button:focus {
-      color: #4b5563;
+      color: var(--gray-600);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button:hover .ql-stroke,
     .p-editor-container .ql-snow.ql-toolbar button:focus .ql-stroke {
-      stroke: #4b5563;
+      stroke: var(--gray-600);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button:hover .ql-fill,
     .p-editor-container .ql-snow.ql-toolbar button:focus .ql-fill {
-      fill: #4b5563;
+      fill: var(--gray-600);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button.ql-active,
     .p-editor-container .ql-snow.ql-toolbar .ql-picker-label.ql-active,
     .p-editor-container .ql-snow.ql-toolbar .ql-picker-item.ql-selected {
-      color: #3b82f6;
+      color: var(--primary-400);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button.ql-active .ql-stroke,
@@ -359,7 +359,7 @@
       .ql-snow.ql-toolbar
       .ql-picker-item.ql-selected
       .ql-stroke {
-      stroke: #3b82f6;
+      stroke: var(--primary-400);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button.ql-active .ql-fill,
@@ -368,7 +368,7 @@
       .ql-snow.ql-toolbar
       .ql-picker-item.ql-selected
       .ql-fill {
-      fill: #3b82f6;
+      fill: var(--primary-400);
     }
 
     .p-editor-container .ql-snow.ql-toolbar button.ql-active .ql-picker-label,
@@ -380,7 +380,7 @@
       .ql-snow.ql-toolbar
       .ql-picker-item.ql-selected
       .ql-picker-label {
-      color: #3b82f6;
+      color: var(--primary-400);
     }
   }
 
