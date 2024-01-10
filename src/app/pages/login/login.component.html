@@ -1,22 +1,20 @@
-<div class="w-full min-h-screen surface-800 flex justify-content-center align-items-center">
-  <form class="w-25rem surface-700 p-6 border-round flex flex-column align-items-stretch">
-    <h1 class="text-center m-0 text-white uppercase text-2xl font-medium">Login</h1>
+<div class="w-full min-h-screen flex justify-content-center align-items-center surface-800">
+  <form class="w-25rem p-6 flex flex-column align-items-stretch surface-700 border-round">
+    <h1 class="text-2xl text-center text-white uppercase font-medium m-0">Login</h1>
 
-    <label for="email" class="inline-block text-white mt-4 mb-2">E-mail</label>
-    <input type="email" id="email" name="email" pInputText class="p-inputtext-sm">
+    <label for="email" class="block text-white mt-4 mb-2">E-mail</label>
+    <input pInputText type="email" id="email" name="email" class="p-inputtext-sm" placeholder="Digite seu e-mail" aria-label="E-mail">
 
-    <label for="password" class="inline-block text-white mt-4 mb-2">Senha</label>
-    <input type="password" id="password" name="password" pInputText class="p-inputtext-sm">
+    <label for="password" class="block text-white mt-4 mb-2">Senha</label>
+    <input pInputText type="password" id="password" name="password" class="p-inputtext-sm" placeholder="Digite sua senha" aria-label="Senha">
 
-    <a href="/" class="block text-right text-sm mt-2 text-red-500">Esqueci minha senha.</a>
+    <a href="/" class="block text-right text-sm mt-2 text-primary-400 hover:text-primary-600">Esqueci minha senha.</a>
 
     <button pButton label="Entrar" class="mt-4 uppercase cursor-pointer"></button>
-    <button pButton label="Página Inicial" class="mt-4 uppercase cursor-pointer" outlined="true"></button>
+    <button pButton label="Página Inicial" class="p-button-outlined mt-4 uppercase cursor-pointer"></button>
 
-    <!-- <a href="/" class="text-red-600 border-round border-1 mt-4 px-3 py-2 flex align-items-center justify-content-center no-underline uppercase">Página Inicial</a> -->
-
-    <span class="text-center text-sm mt-4 text-gray-400">
-      Ainda não é cadastrado? <a href="/" class="text-red-600">Cadastre-se.</a>
+    <span class="text-sm text-center text-gray-400 mt-4">
+      Ainda não é cadastrado? <a href="/" class="text-primary-400 hover:text-primary-600">Cadastre-se.</a>
     </span>
   </form>
 </div>
