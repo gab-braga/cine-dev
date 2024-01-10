@@ -1065,8 +1065,8 @@
     }
 
     .p-checkbox .p-checkbox-box {
-      border: 2px solid var(--gray-300);
-      background: var(--surface-a);
+      border: 2px solid var(--gray-500);
+      background: var(--surface-600);
       width: 22px;
       height: 22px;
       color: var(--text-color);
@@ -1550,7 +1550,7 @@
       color: var(--gray-100);
       background: var(--surface-600);
       padding: 0.75rem 0.75rem;
-      border: 1px solid var(--gray-500);
+      border: 2px solid var(--gray-500);
       transition: background-color 0.2s, color 0.2s, border-color 0.2s,
         box-shadow 0.2s;
       appearance: none;
@@ -2480,19 +2480,19 @@
     .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--primary-color);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-outlined:not(:disabled):hover {
       background: var(--bg-button-hover);
       color: var(--primary-color);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-outlined:not(:disabled):active {
       background: var(--bg-button-active);
       color: var(--primary-color);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-outlined.p-button-plain {
