@@ -4,7 +4,7 @@
 
     <div class="mt-5">
       <label for="email" class="inline-block text-white mb-2">E-mail</label>
-      <input pInputText type="email" id="email" name="email" class="w-full" placeholder="example@cinedev.com" formControlName="email" aria-label="Compo para email">
+      <input pInputText type="email" id="email" name="email" autocomplete="off" class="w-full" placeholder="example@cinedev.com" formControlName="email" aria-label="Compo para email">
       @if (loginFormSubmitted && loginForm.get('email')?.errors) {
       <small class="inline-block mt-2 text-red-500">Preencha com um e-mail válido.</small>
       } @else if (loginForm.get('email')?.touched && loginForm.get('email')?.hasError('required')) {
@@ -14,7 +14,7 @@
 
     <div class="mt-3">
       <label for="password" class="inline-block text-white mb-2">Senha</label>
-      <input pInputText type="password" id="password" name="password" class="w-full" placeholder="Digite sua senha" formControlName="password" aria-label="Campo para senha">
+      <input pInputText type="password" id="password" name="password" autocomplete="off" class="w-full" placeholder="Digite sua senha" formControlName="password" aria-label="Campo para senha">
       @if (loginFormSubmitted && loginForm.get('password')?.errors) {
       <small class="inline-block mt-2 text-red-500">Preencha com uma senha válida.</small>
       } @else if (loginForm.get('password')?.touched && loginForm.get('password')?.hasError('required')) {
