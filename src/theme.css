@@ -2647,7 +2647,7 @@
     .p-splitbutton.p-button-secondary > .p-button {
       color: var(--primary-color-text);
       background: var(--bluegray-500);
-      border: 1px solid var(--bluegray-500);
+      border: 2px solid var(--bluegray-500);
     }
 
     .p-button.p-button-secondary:not(:disabled):hover,
@@ -2677,7 +2677,7 @@
     .p-splitbutton.p-button-secondary > .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--bluegray-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-secondary.p-button-outlined:not(:disabled):hover,
@@ -2687,7 +2687,7 @@
       > .p-button.p-button-outlined:not(:disabled):hover {
       background: rgba(100, 116, 139, 0.04);
       color: var(--bluegray-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-secondary.p-button-outlined:not(:disabled):active,
@@ -2697,7 +2697,7 @@
       > .p-button.p-button-outlined:not(:disabled):active {
       background: rgba(100, 116, 139, 0.16);
       color: var(--bluegray-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-secondary.p-button-text,
@@ -2733,7 +2733,7 @@
     .p-splitbutton.p-button-info > .p-button {
       color: var(--primary-color-text);
       background: var(--primary-500);
-      border: 1px solid var(--primary-500);
+      border: 2px solid var(--primary-500);
     }
 
     .p-button.p-button-info:not(:disabled):hover,
@@ -2757,7 +2757,7 @@
     .p-splitbutton.p-button-info > .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--primary-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-info.p-button-outlined:not(:disabled):hover,
@@ -2767,7 +2767,7 @@
       > .p-button.p-button-outlined:not(:disabled):hover {
       background: rgba(14, 165, 233, 0.04);
       color: var(--primary-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-info.p-button-outlined:not(:disabled):active,
@@ -2777,7 +2777,7 @@
       > .p-button.p-button-outlined:not(:disabled):active {
       background: rgba(14, 165, 233, 0.16);
       color: var(--primary-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-info.p-button-text,
@@ -2811,7 +2811,7 @@
     .p-splitbutton.p-button-success > .p-button {
       color: var(--primary-color-text);
       background: var(--green-500);
-      border: 1px solid var(--green-500);
+      border: 2px solid var(--green-500);
     }
 
     .p-button.p-button-success:not(:disabled):hover,
@@ -2835,7 +2835,7 @@
     .p-splitbutton.p-button-success > .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--green-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-success.p-button-outlined:not(:disabled):hover,
@@ -2845,7 +2845,7 @@
       > .p-button.p-button-outlined:not(:disabled):hover {
       background: rgba(34, 197, 94, 0.04);
       color: var(--green-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-success.p-button-outlined:not(:disabled):active,
@@ -2855,7 +2855,7 @@
       > .p-button.p-button-outlined:not(:disabled):active {
       background: rgba(34, 197, 94, 0.16);
       color: var(--green-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-success.p-button-text,
@@ -2891,7 +2891,7 @@
     .p-splitbutton.p-button-warning > .p-button {
       color: var(--primary-color-text);
       background: var(--orange-500);
-      border: 1px solid var(--orange-500);
+      border: 2px solid var(--orange-500);
     }
 
     .p-button.p-button-warning:not(:disabled):hover,
@@ -2915,7 +2915,7 @@
     .p-splitbutton.p-button-warning > .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--orange-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-warning.p-button-outlined:not(:disabled):hover,
@@ -2925,7 +2925,7 @@
       > .p-button.p-button-outlined:not(:disabled):hover {
       background: rgba(249, 115, 22, 0.04);
       color: var(--orange-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-warning.p-button-outlined:not(:disabled):active,
@@ -2935,7 +2935,7 @@
       > .p-button.p-button-outlined:not(:disabled):active {
       background: rgba(249, 115, 22, 0.16);
       color: var(--orange-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-warning.p-button-text,
@@ -2971,7 +2971,7 @@
     .p-splitbutton.p-button-help > .p-button {
       color: var(--primary-color-text);
       background: var(--purple-500);
-      border: 1px solid var(--purple-500);
+      border: 2px solid var(--purple-500);
     }
 
     .p-button.p-button-help:not(:disabled):hover,
@@ -2995,7 +2995,7 @@
     .p-splitbutton.p-button-help > .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--purple-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-help.p-button-outlined:not(:disabled):hover,
@@ -3005,7 +3005,7 @@
       > .p-button.p-button-outlined:not(:disabled):hover {
       background: rgba(168, 85, 247, 0.04);
       color: var(--purple-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-help.p-button-outlined:not(:disabled):active,
@@ -3015,7 +3015,7 @@
       > .p-button.p-button-outlined:not(:disabled):active {
       background: rgba(168, 85, 247, 0.16);
       color: var(--purple-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-help.p-button-text,
@@ -3049,7 +3049,7 @@
     .p-splitbutton.p-button-danger > .p-button {
       color: var(--primary-color-text);
       background: var(--red-500);
-      border: 1px solid var(--red-500);
+      border: 2px solid var(--red-500);
     }
 
     .p-button.p-button-danger:not(:disabled):hover,
@@ -3079,7 +3079,7 @@
     .p-splitbutton.p-button-danger > .p-button.p-button-outlined {
       background-color: transparent;
       color: var(--red-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-danger.p-button-outlined:not(:disabled):hover,
@@ -3089,7 +3089,7 @@
       > .p-button.p-button-outlined:not(:disabled):hover {
       background: rgba(239, 68, 68, 0.04);
       color: var(--red-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-danger.p-button-outlined:not(:disabled):active,
@@ -3099,7 +3099,7 @@
       > .p-button.p-button-outlined:not(:disabled):active {
       background: rgba(239, 68, 68, 0.16);
       color: var(--red-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-button.p-button-danger.p-button-text,
@@ -3249,7 +3249,7 @@
     .p-splitbutton.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--primary-color);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-outlined > .p-button:not(:disabled):hover {
@@ -3347,7 +3347,7 @@
     .p-splitbutton.p-button-secondary.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--bluegray-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-secondary.p-button-outlined
@@ -3385,7 +3385,7 @@
     .p-splitbutton.p-button-info.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--blue-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-info.p-button-outlined
@@ -3423,7 +3423,7 @@
     .p-splitbutton.p-button-success.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--green-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-success.p-button-outlined
@@ -3461,7 +3461,7 @@
     .p-splitbutton.p-button-warning.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--orange-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-warning.p-button-outlined
@@ -3499,7 +3499,7 @@
     .p-splitbutton.p-button-help.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--purple-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-help.p-button-outlined
@@ -3537,7 +3537,7 @@
     .p-splitbutton.p-button-danger.p-button-outlined > .p-button {
       background-color: transparent;
       color: var(--red-500);
-      border: 1px solid;
+      border: 2px solid;
     }
 
     .p-splitbutton.p-button-danger.p-button-outlined
