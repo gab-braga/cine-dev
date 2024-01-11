@@ -3,7 +3,12 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { CheckboxModule } from 'primeng/checkbox';
 import { InputMaskModule } from 'primeng/inputmask';
-import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
+import {
+  ReactiveFormsModule,
+  FormBuilder,
+  Validators,
+  FormControl,
+} from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -19,6 +24,7 @@ import { ReactiveFormsModule, FormBuilder, Validators } from '@angular/forms';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
+  fieldTermsAndPolicies = new FormControl(false);
   signupFormSubmitted: boolean = false;
   signupForm = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(120)]],
@@ -34,8 +40,12 @@ export class SignupComponent {
 
   onSubmit(): void {
     this.signupFormSubmitted = true;
-    if (this.signupForm.valid) {
+    if (this.acceptedTermsAndPolicies() && this.signupForm.valid) {
       console.log(this.signupForm.value);
     }
+  }
+
+  protected acceptedTermsAndPolicies(): boolean {
+    return !!this.fieldTermsAndPolicies.value;
   }
 }
