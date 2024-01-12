@@ -1,0 +1,5 @@
+<p-dialog header="Editar Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+  <div class="flex flex-column justify-content-start align-items-stretch">
+    {{user?.name}}
+  </div>
+</p-dialog>

@@ -13,7 +13,7 @@
     </div>
 
     <div class="mt-5">
-      <p-table [value]="users" [tableStyle]="{ 'min-width': '60rem' }">
+      <p-table [value]="users" [tableStyle]="{ 'min-width': '60rem' }" styleClass="overflow-hidden border-round">
         <ng-template pTemplate="header">
           <tr>
             <th colspan="7" class="p-0">
@@ -59,7 +59,7 @@
           </tr>
         </ng-template>
       </p-table>
-      <modal-user [visible]="visible" (visibleChange)="closeModalUser($event)" [user]="user" />
+      <modal-user-info [visible]="visible" (visibleChange)="closeModalUser($event)" [user]="user" />
     </div>
   </div>
 </div>

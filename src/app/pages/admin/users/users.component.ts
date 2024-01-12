@@ -2,12 +2,17 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
-import { ModalUserComponent } from '../../../components/modal/user/user.component';
+import { ModalUserInfoComponent } from '../../../components/modal/user-info/user-info.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [TableModule, ButtonModule, TagUserComponent, ModalUserComponent],
+  imports: [
+    TableModule,
+    ButtonModule,
+    TagUserComponent,
+    ModalUserInfoComponent,
+  ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
