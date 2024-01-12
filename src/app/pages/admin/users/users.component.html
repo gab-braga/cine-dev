@@ -19,16 +19,9 @@
             <th colspan="7" class="p-0">
               <div class="w-full flex">
                 <input type="text" placeholder="Nome do usuário" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por nome">
-                <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar por nome">
-                  <span class="pi pi-search"></span>
-                </button>
+                <input type="text" placeholder="example@cinedev.com" class="flex-1 p-3 border-none outline-none border-left-2 border-gray-300 focus:surface-50" aria-label="Campo para filtrar por email">
+                <input type="text" placeholder="000.000.000-00" class="flex-1 p-3 border-none outline-none border-left-2 border-gray-300 focus:surface-50" aria-label="Campo para filtrar por CPF">
 
-                <input type="text" placeholder="example@cinedev.com" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por email">
-                <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar por email">
-                  <span class="pi pi-search"></span>
-                </button>
-
-                <input type="text" placeholder="000.000.000-00" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por CPF">
                 <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar por CPF">
                   <span class="pi pi-search"></span>
                 </button>
@@ -42,7 +35,7 @@
             <th>Telefone</th>
             <th>Acesso</th>
             <th>Status</th>
-            <th>-</th>
+            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-user>
@@ -56,54 +49,17 @@
             <td>{{ user.phoneNumber }}</td>
             <td>{{ user.role }}</td>
             <td>
-              @if (user?.disabled) {
-              <p-tag value="Inativo" icon="pi pi-ban" [rounded]="true" severity="danger"></p-tag>
-              } @else {
-              <p-tag value="Ativo" icon="pi pi-check-circle" [rounded]="true" severity="success"></p-tag>
-              }
+              <tag-user [disabled]="user?.disabled" styleClass="w-full" />
             </td>
             <td>
               <button (click)="openModalUser(user)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
                 <span class="pi pi-external-link"></span>
               </button>
-
             </td>
           </tr>
         </ng-template>
       </p-table>
-      <p-dialog header="Informação do Usuário" [(visible)]="visible" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false">
-        <div class="flex flex-column justify-content-start align-items-stretch">
-          <div class="flex gap-3 align-items-center mb-3">
-            <img [src]=" user?.profilePicture" [alt]="user?.name" width="120" height="120" class="border-round">
-            <div>
-              <h2 class="text-lg text-gray-500">{{user?.name}}</h2>
-              <div class="flex gap-3">
-                <p-button label="Editar" icon="pi pi-pencil" severity="secondary" [styleClass]="'p-2 text-sm'"></p-button>
-                @if(user?.disabled) {
-                <p-button label="Habilitar" icon="pi pi-check-circle" severity="success" [styleClass]="'p-2 text-sm'"></p-button>
-                } @else {
-                <p-button label="Desabilitar" icon="pi pi-ban" severity="danger" [styleClass]="'p-2 text-sm'"></p-button>
-                }
-              </div>
-            </div>
-          </div>
-
-          <h4 class="my-2 text-gray-400"><span class="pi pi-envelope pr-2"></span>E-mail:</h4>
-          <p class="ml-4 my-0">{{user?.email}} </p>
-          <h4 class="my-2 text-gray-400"><span class="pi pi-phone pr-2"></span>Telefone:</h4>
-          <p class="ml-4 my-0">{{user?.phoneNumber}}</p>
-          <h4 class="my-2 text-gray-400"><span class="pi pi-id-card pr-2"></span>CPF:</h4>
-          <p class="ml-4 my-0">{{user?.cpf}}</p>
-          <h4 class="my-2 text-gray-400"><span class="pi pi-info-circle pr-2"></span>Confirmado:</h4>
-          <p class="ml-4 my-0">{{user?.confirmed}}</p>
-          <h4 class="my-2 text-gray-400"><span class="pi pi-ban pr-2"></span>Status:</h4>
-          <p class="ml-4 my-0">{{user?.disabled}}</p>
-          <h4 class="my-2 text-gray-400"><span class="pi pi-shield pr-2"></span>Acesso:</h4>
-          <p class="ml-4 my-0">{{user?.role}}</p>
-          <h4 class="my-2 text-gray-400"><span class="pi pi-calendar-plus pr-2"></span>Filiado em:</h4>
-          <p class="ml-4 my-0">{{user?.createdAt}}</p>
-        </div>
-      </p-dialog>
+      <modal-user [visible]="visible" (visibleChange)="closeModalUser($event)" [user]="user" />
     </div>
   </div>
 </div>

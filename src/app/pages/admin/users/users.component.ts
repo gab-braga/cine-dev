@@ -1,23 +1,29 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { TagModule } from 'primeng/tag';
-import { DialogModule } from 'primeng/dialog';
+import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
+import { ModalUserComponent } from '../../../components/modal/user/user.component';
 
 @Component({
   selector: 'app-users',
   standalone: true,
-  imports: [TableModule, ButtonModule, TagModule, DialogModule],
+  imports: [TableModule, ButtonModule, TagUserComponent, ModalUserComponent],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
 export class UsersComponent {
   // Importante: Esta é apenas uma simulação para ilustração. Em um ambiente real, esses dados seriam provenientes de um banco de dados ou de outra fonte de dados.
-  visible: boolean = true;
+  visible: boolean = false;
+  user: any = null;
+
   openModalUser(user: any): void {
     this.visible = true;
-    console.log(user.name);
     this.user = user;
+  }
+
+  closeModalUser(value: boolean) {
+    this.visible = value;
+    if (!value) this.user = null;
   }
 
   users = [
@@ -152,6 +158,4 @@ export class UsersComponent {
       createdAt: '2022-01-10T00:00:00',
     },
   ];
-
-  user: any = this.users[0];
 }
