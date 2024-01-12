@@ -1,5 +1,60 @@
 <p-dialog header="Editar Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
-    {{user?.name}}
+    <form class="flex flex-column align-items-stretch" [formGroup]="formUserEdit" (ngSubmit)="onSubmit()">
+
+      <div class="mt-2">
+        <label for="name" class="inline-block text-gray-700 mb-2">Nome<span class="text-red-600">*</span></label>
+        <input formControlName="name" [value]="this.user?.name" type="text" id="name" name="name" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder=" Nome do usuário" aria-label="Campo para nome">
+        @if (formUserEditSubmitted && formUserEdit.get('name')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com o nome do usuário.</small>
+        } @else if (formUserEdit.get('name')?.touched && formUserEdit.get('name')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="cpf" class="inline-block text-gray-700 mb-2">CPF<span class="text-red-600">*</span></label>
+        <input formControlName="cpf" [value]="this.user?.cpf" type="text" id="cpf" name="cpf" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="000.000.000-00" aria-label="Campo para CPF">
+        @if (formUserEditSubmitted && formUserEdit.get('cpf')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um CPF válido.</small>
+        } @else if (formUserEdit.get('cpf')?.touched && formUserEdit.get('cpf')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="role" class="inline-block text-gray-700 mb-2">Acesso<span class="text-red-600">*</span></label>
+        <select formControlName="role" [value]="this.user?.role" type="text" id="role" name="role" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para o nível de acesso">
+          <option value="" selected disabled>Nível de acesso</option>
+          <option value="CLIENT">Cliente</option>
+          <option value="ADMIN">Administrador</option>
+        </select>
+        @if (formUserEditSubmitted && formUserEdit.get('role')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Selecione um nível de acesso para o usuário.</small>
+        } @else if (formUserEdit.get('role')?.touched && formUserEdit.get('role')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="email" class="inline-block text-gray-700 mb-2">E-mail<span class="text-red-600">*</span></label>
+        <input formControlName="email" [value]="this.user?.email" type="text" id="email" name="email" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="E-mail do usuário" aria-label="Campo para email">
+        @if (formUserEditSubmitted && formUserEdit.get('email')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um e-mail válido.</small>
+        } @else if (formUserEdit.get('email')?.touched && formUserEdit.get('email')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="phoneNumber" class="inline-block text-gray-700 mb-2">Telefone</label>
+        <input formControlName="phoneNumber" [value]="this.user?.phoneNumber" type="text" id="phoneNumber" name="phoneNumber" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="(00) 9 0000-0000" aria-label="Campo para telefone">
+        @if (formUserEditSubmitted && formUserEdit.get('phoneNumber')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um número de telefone válido.</small>
+        }
+      </div>
+
+      <button pButton label="Editar" class="mt-3 uppercase"></button>
+    </form>
   </div>
 </p-dialog>

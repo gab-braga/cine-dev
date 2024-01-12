@@ -10,9 +10,7 @@
           Controle de usuários
         </span>
       </div>
-      <a href="/admin/users/new">
-        <p-button label="Novo" icon="pi pi-plus" size="small" />
-      </a>
+      <p-button label="Novo" icon="pi pi-plus" size="small" (onClick)="openModalUserCreate()" />
     </div>
 
     <div class="mt-5">
@@ -63,6 +61,7 @@
         </ng-template>
       </p-table>
       <modal-user-info [visible]="visibleModalUserInfo" (visibleChange)="closeModalUserInfo($event)" [user]="user" />
+      <modal-user-create [visible]="visibleModalUserCreate" (visibleChange)="closeModalUserCreate($event)" />
     </div>
   </div>
 </div>

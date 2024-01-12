@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { TagUserComponent } from '../../../../components/tag-user/tag-user.component';
-import { ModalUserInfoComponent } from '../../../../components/modal/user-info/user-info.component';
-import { HeaderComponent } from '../../../../components/header/header.component';
+import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
+import { ModalUserInfoComponent } from '../../../components/modal/user-info/user-info.component';
+import { HeaderComponent } from '../../../components/header/header.component';
+import { ModalUserCreateComponent } from '../../../components/modal/user-create/user-create.component';
 
 @Component({
-  selector: 'page-user-control',
+  selector: 'page-users',
   standalone: true,
   imports: [
     HeaderComponent,
@@ -14,13 +15,15 @@ import { HeaderComponent } from '../../../../components/header/header.component'
     ButtonModule,
     TagUserComponent,
     ModalUserInfoComponent,
+    ModalUserCreateComponent,
   ],
-  templateUrl: './user-control.component.html',
-  styleUrl: './user-control.component.css',
+  templateUrl: './users.component.html',
+  styleUrl: './users.component.css',
 })
 export class UserControlComponent {
   user: any = null;
   visibleModalUserInfo: boolean = false;
+  visibleModalUserCreate: boolean = false;
 
   openModalUserInfo(user: any): void {
     this.visibleModalUserInfo = true;
@@ -30,6 +33,14 @@ export class UserControlComponent {
   closeModalUserInfo(value: boolean) {
     this.visibleModalUserInfo = value;
     if (!value) this.user = null;
+  }
+
+  openModalUserCreate(): void {
+    this.visibleModalUserCreate = true;
+  }
+
+  closeModalUserCreate(value: boolean) {
+    this.visibleModalUserCreate = value;
   }
 
   // Importante: Esta é apenas uma simulação para ilustração. Em um ambiente real, esses dados seriam provenientes de um banco de dados ou de outra fonte de dados.

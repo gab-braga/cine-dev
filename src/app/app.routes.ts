@@ -3,8 +3,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
-import { UserControlComponent } from './pages/admin/users/user-control/user-control.component';
-import { UserFormComponent } from './pages/admin/users/user-form/user-form.component';
+import { UserControlComponent } from './pages/admin/users/users.component';
 
 export const routes: Routes = [
   {
@@ -48,11 +47,6 @@ export const routes: Routes = [
             path: '',
             component: UserControlComponent,
             title: 'Controle de Usuários',
-          },
-          {
-            path: 'new',
-            component: UserFormComponent,
-            title: 'Novo Usuário',
           },
         ],
       },

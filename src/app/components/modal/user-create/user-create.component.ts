@@ -1,48 +1,40 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
-  selector: 'modal-user-edit',
+  selector: 'modal-user-create',
   standalone: true,
   imports: [ReactiveFormsModule, ButtonModule, DialogModule],
-  templateUrl: './user-edit.component.html',
-  styleUrl: './user-edit.component.css',
+  templateUrl: './user-create.component.html',
+  styleUrl: './user-create.component.css',
 })
-export class ModalUserEditComponent {
+export class ModalUserCreateComponent {
   constructor(private fb: FormBuilder) {}
   @Input()
   visible: boolean = false;
   @Output()
   visibleChange = new EventEmitter<boolean>();
-  @Input({ required: true })
-  user: any = null;
 
-  formUserEditSubmitted: boolean = false;
-  formUserEdit: FormGroup = this.fb.group(this.getUserFormGroup());
+  formUserCreateSubmitted: boolean = false;
+  formUserCreate = this.fb.group(this.getUserFormGroup());
 
   onSubmit(): void {
-    this.formUserEditSubmitted = true;
-    if (this.formUserEdit.valid) console.log(this.formUserEdit.value);
+    this.formUserCreateSubmitted = true;
+    if (this.formUserCreate.valid) console.log(this.formUserCreate.value);
   }
 
   closeModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
     this.initializeForm();
-    if (!visible) this.user = null;
   }
 
   private initializeForm(): void {
-    this.formUserEditSubmitted = false;
-    this.formUserEdit = this.fb.group(this.getUserFormGroup());
+    this.formUserCreateSubmitted = false;
+    this.formUserCreate = this.fb.group(this.getUserFormGroup());
   }
 
   private getUserFormGroup() {

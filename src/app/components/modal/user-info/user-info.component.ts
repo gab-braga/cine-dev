@@ -24,9 +24,9 @@ export class ModalUserInfoComponent {
   @Output()
   visibleChange = new EventEmitter<boolean>();
 
-  closeModal(value: boolean): void {
-    this.visibleChange.emit(value);
-    if (!value) this.user = null;
+  closeModal(visible: boolean): void {
+    this.visibleChange.emit(visible);
+    if (!visible) this.user = null;
   }
 
   visibleModalUserEdit: boolean = false;

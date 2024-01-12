@@ -1,0 +1,70 @@
+<p-dialog header="Cadastrar Novo Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+  <div class="flex flex-column justify-content-start align-items-stretch">
+    <form class="flex flex-column align-items-stretch" [formGroup]="formUserCreate" (ngSubmit)="onSubmit()">
+
+      <div class="mt-2">
+        <label for="name" class="inline-block text-gray-700 mb-2">Nome<span class="text-red-600">*</span></label>
+        <input formControlName="name" type="text" id="name" name="name" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder=" Nome do usuário" aria-label="Campo para nome">
+        @if (formUserCreateSubmitted && formUserCreate.get('name')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com o nome do usuário.</small>
+        } @else if (formUserCreate.get('name')?.touched && formUserCreate.get('name')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="cpf" class="inline-block text-gray-700 mb-2">CPF<span class="text-red-600">*</span></label>
+        <input formControlName="cpf" type="text" id="cpf" name="cpf" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="000.000.000-00" aria-label="Campo para CPF">
+        @if (formUserCreateSubmitted && formUserCreate.get('cpf')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um CPF válido.</small>
+        } @else if (formUserCreate.get('cpf')?.touched && formUserCreate.get('cpf')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="role" class="inline-block text-gray-700 mb-2">Acesso<span class="text-red-600">*</span></label>
+        <select formControlName="role" type="text" id="role" name="role" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para o nível de acesso">
+          <option value="" selected disabled>Nível de acesso</option>
+          <option value="CLIENT">Cliente</option>
+          <option value="ADMIN">Administrador</option>
+        </select>
+        @if (formUserCreateSubmitted && formUserCreate.get('role')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Selecione um nível de acesso para o usuário.</small>
+        } @else if (formUserCreate.get('role')?.touched && formUserCreate.get('role')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="email" class="inline-block text-gray-700 mb-2">E-mail<span class="text-red-600">*</span></label>
+        <input formControlName="email" type="text" id="email" name="email" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="E-mail do usuário" aria-label="Campo para email">
+        @if (formUserCreateSubmitted && formUserCreate.get('email')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um e-mail válido.</small>
+        } @else if (formUserCreate.get('email')?.touched && formUserCreate.get('email')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="password" class="inline-block text-gray-700 mb-2">Senha<span class="text-red-600">*</span></label>
+        <input formControlName="password" type="text" id="password" name="password" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Senha do usuário" aria-label="Campo para senha">
+        @if (formUserCreateSubmitted && formUserCreate.get('password')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com uma senha válida.</small>
+        } @else if (formUserCreate.get('password')?.touched && formUserCreate.get('password')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="phoneNumber" class="inline-block text-gray-700 mb-2">Telefone</label>
+        <input formControlName="phoneNumber" type="text" id="phoneNumber" name="phoneNumber" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="(00) 9 0000-0000" aria-label="Campo para telefone">
+        @if (formUserCreateSubmitted && formUserCreate.get('phoneNumber')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um número de telefone válido.</small>
+        }
+      </div>
+
+      <button pButton label="Cadastrar" class="mt-3 uppercase"></button>
+    </form>
+  </div>
+</p-dialog>
