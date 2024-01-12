@@ -3,11 +3,13 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagUserComponent } from '../../../../components/tag-user/tag-user.component';
 import { ModalUserInfoComponent } from '../../../../components/modal/user-info/user-info.component';
+import { HeaderComponent } from '../../../../components/header/header.component';
 
 @Component({
   selector: 'page-user-control',
   standalone: true,
   imports: [
+    HeaderComponent,
     TableModule,
     ButtonModule,
     TagUserComponent,

@@ -3,11 +3,13 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FileUploadModule } from 'primeng/fileupload';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { HeaderComponent } from '../../../../components/header/header.component';
 
 @Component({
   selector: 'app-user-form',
   standalone: true,
   imports: [
+    HeaderComponent,
     ButtonModule,
     InputTextModule,
     FileUploadModule,
