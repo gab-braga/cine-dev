@@ -1,39 +1,60 @@
 import { Routes } from '@angular/router';
-import { LoginComponent } from './pages/login/login.component';
-import { SignupComponent } from './pages/signup/signup.component';
+import { LoginComponent } from './pages/auth/login/login.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
-import { UsersComponent } from './pages/admin/users/users.component';
+import { UserControlComponent } from './pages/admin/users/user-control/user-control.component';
+import { UserFormComponent } from './pages/admin/users/user-form/user-form.component';
 
 export const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
     component: HomeComponent,
-    title: 'CineDev',
+    title: 'CineDev.com',
   },
   {
-    path: 'login',
-    component: LoginComponent,
-    title: 'Login',
-  },
-  {
-    path: 'signup',
-    component: SignupComponent,
-    title: 'Cadastre-se',
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        component: LoginComponent,
+        title: 'Login',
+      },
+      {
+        path: 'login',
+        component: LoginComponent,
+        title: 'Login',
+      },
+      {
+        path: 'signup',
+        component: SignupComponent,
+        title: 'Cadastre-se',
+      },
+    ],
   },
   {
     path: 'admin',
     children: [
       {
-        path: 'dashboard',
+        path: '',
         component: DashboardComponent,
         title: 'Painel de Controle',
       },
       {
         path: 'users',
-        component: UsersComponent,
-        title: 'Controle de Usuários',
+        children: [
+          {
+            path: '',
+            component: UserControlComponent,
+            title: 'Controle de Usuários',
+          },
+          {
+            path: 'new',
+            component: UserFormComponent,
+            title: 'Novo Usuário',
+          },
+        ],
       },
     ],
   },

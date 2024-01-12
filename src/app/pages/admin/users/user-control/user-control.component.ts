@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
-import { ModalUserInfoComponent } from '../../../components/modal/user-info/user-info.component';
+import { TagUserComponent } from '../../../../components/tag-user/tag-user.component';
+import { ModalUserInfoComponent } from '../../../../components/modal/user-info/user-info.component';
 
 @Component({
-  selector: 'app-users',
+  selector: 'page-user-control',
   standalone: true,
   imports: [
     TableModule,
@@ -13,24 +13,24 @@ import { ModalUserInfoComponent } from '../../../components/modal/user-info/user
     TagUserComponent,
     ModalUserInfoComponent,
   ],
-  templateUrl: './users.component.html',
-  styleUrl: './users.component.css',
+  templateUrl: './user-control.component.html',
+  styleUrl: './user-control.component.css',
 })
-export class UsersComponent {
-  // Importante: Esta é apenas uma simulação para ilustração. Em um ambiente real, esses dados seriam provenientes de um banco de dados ou de outra fonte de dados.
-  visible: boolean = false;
+export class UserControlComponent {
   user: any = null;
+  visibleModalUserInfo: boolean = false;
 
-  openModalUser(user: any): void {
-    this.visible = true;
+  openModalUserInfo(user: any): void {
+    this.visibleModalUserInfo = true;
     this.user = user;
   }
 
-  closeModalUser(value: boolean) {
-    this.visible = value;
+  closeModalUserInfo(value: boolean) {
+    this.visibleModalUserInfo = value;
     if (!value) this.user = null;
   }
 
+  // Importante: Esta é apenas uma simulação para ilustração. Em um ambiente real, esses dados seriam provenientes de um banco de dados ou de outra fonte de dados.
   users = [
     {
       uuid: '1',
