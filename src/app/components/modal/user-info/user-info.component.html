@@ -5,11 +5,11 @@
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
         <h2 class="text-lg text-gray-500">{{user?.name}}</h2>
         <div class="flex gap-3">
-          <p-button (onClick)="openModalUserEdit()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm"></p-button>
+          <p-button (onClick)="openModalUserEdit()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm" />
           @if(user?.disabled) {
-          <p-button label="Habilitar" icon="pi pi-check-circle" severity="success" styleClass="p-2 text-sm"></p-button>
+          <p-button label="Habilitar" icon="pi pi-check-circle" severity="success" styleClass="p-2 text-sm" />
           } @else {
-          <p-button label="Desabilitar" icon="pi pi-ban" severity="danger" styleClass="p-2 text-sm"></p-button>
+          <p-button label="Desabilitar" icon="pi pi-ban" severity="danger" styleClass="p-2 text-sm" />
           }
         </div>
       </div>
