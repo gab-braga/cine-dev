@@ -1,1 +1,56 @@
-<p>user-form works!</p>
+<div class="w-full min-h-screen flex flex-column align-items-center surface-800">
+  <div class="w-full sm:w-10 px-5 sm:px-0" style="max-width: 1200px">
+    <div class="mt-5">
+      <h1 class=" text-3xl text-gray-300 uppercase m-0">
+        Usuários
+      </h1>
+      <span class="inline-block text-gray-600 mt-1">
+        Novo Usuário
+      </span>
+    </div>
+
+    <form class="mt-5" [formGroup]="formUserCreate" (ngSubmit)="onSubmit()">
+      <div class="grid">
+        <div class="mt-2 col-12 md:col-6 lg:col-4">
+          <label for="name" class="inline-block text-white mb-2">Nome<span class="text-red-600">*</span></label>
+          <input pInputText formControlName="name" type="text" id="name" name="name" autocomplete="off" class="w-full" placeholder="Nome do usuário" aria-label="Campo para nome">
+        </div>
+
+        <div class="mt-2 col-12 md:col-6 lg:col-4">
+          <label for="cpf" class="inline-block text-white mb-2">CPF<span class="text-red-600">*</span></label>
+          <input pInputText formControlName="name" type="text" id="cpf" name="cpf" autocomplete="off" class="w-full" placeholder="000.000.000-00" aria-label="Campo para CPF">
+        </div>
+
+        <div class="mt-2 col-12 md:col-6 lg:col-4">
+          <label for="role" class="inline-block text-white mb-2">Acesso<span class="text-red-600">*</span></label>
+          <select pInputText formControlName="role" type="text" id="role" name="role" class="w-full" aria-label="Campo para o nível de acesso">
+            <option value="" selected disabled>Nível de acesso</option>
+            <option value="CLIENT">Cliente</option>
+            <option value="ADMIN">Administrador</option>
+          </select>
+        </div>
+
+        <div class="mt-2 col-12 md:col-6">
+          <label for="name" class="inline-block text-white mb-2">E-mail<span class="text-red-600">*</span></label>
+          <input pInputText formControlName="name" type="text" id="name" name="name" autocomplete="off" class="w-full" placeholder="E-mail do usuário" aria-label="Campo para email">
+        </div>
+
+        <div class="mt-2 col-12 md:col-6">
+          <label for="password" class="inline-block text-white mb-2">Senha<span class="text-red-600">*</span></label>
+          <input pInputText formControlName="password" type="text" id="password" name="password" autocomplete="off" class="w-full" placeholder="Senha do usuário" aria-label="Campo para senha">
+        </div>
+
+        <div class="mt-2 col-12 md:col-6">
+          <label for="phoneNumber" class="inline-block text-white mb-2">Telefone</label>
+          <input pInputText formControlName="phoneNumber" type="text" id="phoneNumber" name="phoneNumber" autocomplete="off" class="w-full" placeholder="(00) 9 0000-0000" aria-label="Campo para telefone">
+        </div>
+
+        <div class="mt-2 col-12 md:col-6">
+          <label for="profilePicture" class="inline-block text-white mb-2">Foto</label>
+          <p-fileUpload mode="basic" chooseIcon="pi-upload" chooseLabel="Selecione uma foto de perfil" name="demo[]" accept="image/*" [maxFileSize]="1000000" (onUpload)="onUpload($event)" styleClass="w-full" aria-label="Campo para foto de perfil" />
+        </div>
+      </div>
+      <p-button label="Cadastrar" styleClass="mt-3 uppercase" />
+    </form>
+  </div>
+</div>
