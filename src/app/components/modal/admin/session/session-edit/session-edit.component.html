@@ -1,0 +1,62 @@
+<p-dialog header="Editar Sessão" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+  <div class="flex flex-column justify-content-start align-items-stretch">
+    <form class="flex flex-column align-items-stretch" [formGroup]="formSessionEdit" (ngSubmit)="onSubmit()">
+
+      <div class="mt-2">
+        <label for="date" class="inline-block text-gray-700 mb-2">Data<span class="text-red-600">*</span></label>
+        <input formControlName="date" [value]="session?.date" type="date" id="date" name="date" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data">
+        @if (formSessionEditSubmitted && formSessionEdit.get('date')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com a data da sessão.</small>
+        } @else if (formSessionEdit.get('date')?.touched && formSessionEdit.get('date')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="hour" class="inline-block text-gray-700 mb-2">Hora<span class="text-red-600">*</span></label>
+        <input formControlName="hour" [value]="session?.hour" type="time" id="hour" name="hour" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para hora">
+        @if (formSessionEditSubmitted && formSessionEdit.get('hour')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com a hora da sessão.</small>
+        } @else if (formSessionEdit.get('hour')?.touched && formSessionEdit.get('hour')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="ticketPrice" class="inline-block text-gray-700 mb-2">Preço da Reserva<span class="text-red-600">*</span></label>
+        <input formControlName="ticketPrice" [value]="session?.ticketPrice" type="text" id="ticketPrice" name="ticketPrice" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Preço da reserva" aria-label="Campo para preço da reserva">
+        @if (formSessionEditSubmitted && formSessionEdit.get('ticketPrice')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com o preço da reserva.</small>
+        } @else if (formSessionEdit.get('ticketPrice')?.touched && formSessionEdit.get('ticketPrice')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="film" class="inline-block text-gray-700 mb-2">Filme<span class="text-red-600">*</span></label>
+        <select formControlName="film" id="film" name="film" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para filme">
+          <option value="" selected disabled>Selecione o filme</option>
+        </select>
+        @if (formSessionEditSubmitted && formSessionEdit.get('film')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Selecione o filme da sessão.</small>
+        } @else if (formSessionEdit.get('film')?.touched && formSessionEdit.get('film')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="room" class="inline-block text-gray-700 mb-2">Sala de Cinema<span class="text-red-600">*</span></label>
+        <select formControlName="room" id="room" name="room" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para sala de cinema">
+          <option value="" selected disabled>Selecione a sala de cinema</option>
+        </select>
+        @if (formSessionEditSubmitted && formSessionEdit.get('room')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Selecione a sala de cinema.</small>
+        } @else if (formSessionEdit.get('room')?.touched && formSessionEdit.get('room')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <button pButton label="Cadastrar" class="mt-3 uppercase"></button>
+    </form>
+  </div>
+</p-dialog>

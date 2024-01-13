@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { TagUserComponent } from '../../tag-user/tag-user.component';
+import { TagUserComponent } from '../../../../tag-user/tag-user.component';
 import { ModalUserEditComponent } from '../user-edit/user-edit.component';
 import { DatePipe } from '@angular/common';
 

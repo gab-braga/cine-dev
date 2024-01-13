@@ -1,0 +1,66 @@
+<c-layout>
+  <div class="flex gap-3 justify-content-between align-items-center">
+    <div>
+      <h1 class="text-3xl text-gray-300 uppercase m-0">
+        Sessiones
+      </h1>
+      <span class="inline-block text-gray-600 mt-1">
+        Controle de sessões
+      </span>
+    </div>
+    <p-button label="Novo" icon="pi pi-plus" size="small" (onClick)="openModalSessionCreate()" />
+  </div>
+
+  <div class="mt-5">
+    <p-table [value]="sessions" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="{first} a {last} de {totalRecords}" [rowsPerPageOptions]="[10, 20, 50, 100]" [tableStyle]="{ 'min-width': '60rem' }">
+      <ng-template pTemplate="header">
+        <tr>
+          <th colspan="7" class="p-0">
+            <div class="w-full flex">
+              <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Limpar busca">
+                <span class="pi pi-filter-slash"></span>
+              </button>
+
+              <input type="date" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por título">
+              <input type="text" placeholder="Título do filme" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por título">
+              <input type="text" placeholder="Número da sala de cinema" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por sala de cinema">
+
+              <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar">
+                <span class="pi pi-search"></span>
+              </button>
+            </div>
+          </th>
+        </tr>
+        <tr>
+          <th>Filme</th>
+          <th>Data</th>
+          <th>Hora</th>
+          <th>Status</th>
+          <th>Preço da Reserva</th>
+          <th>Sala</th>
+          <th></th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-session>
+        <tr>
+          <td class="flex gap-3 align-items-center justify-content-start">
+            <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
+            {{ session?.film?.title }}
+          </td>
+          <td>{{ session?.date | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ session?.hour }}</td>
+          <td>{{session?.open ? 'Aberta' : 'Fechada'}}</td>
+          <td>{{ session?.ticketPrice }}</td>
+          <td>{{ session?.room?.number }}</td>
+          <td>
+            <button (click)="openModalSessionInfo(session)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
+              <span class="pi pi-external-link"></span>
+            </button>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+    <modal-session-info [visible]="visibleModalSessionInfo" (visibleChange)="closeModalSessionInfo($event)" [session]="session" />
+    <modal-session-create [visible]="visibleModalSessionCreate" (visibleChange)="closeModalSessionCreate($event)" />
+  </div>
+</c-layout>

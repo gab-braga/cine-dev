@@ -5,6 +5,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
 import { UsersControlComponent } from './pages/admin/users/users.component';
 import { FilmsControlComponent } from './pages/admin/films/films.component';
+import { SessionsControlComponent } from './pages/admin/sessions/sessions.component';
 
 export const routes: Routes = [
   {
@@ -50,6 +51,11 @@ export const routes: Routes = [
         path: 'films',
         component: FilmsControlComponent,
         title: 'Controle de Filmes',
+      },
+      {
+        path: 'sessions',
+        component: SessionsControlComponent,
+        title: 'Controle de Sessões',
       },
     ],
   },

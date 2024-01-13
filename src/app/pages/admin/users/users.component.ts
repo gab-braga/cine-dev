@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
-import { ModalUserInfoComponent } from '../../../components/modal/user-info/user-info.component';
-import { ModalUserCreateComponent } from '../../../components/modal/user-create/user-create.component';
+import { ModalUserInfoComponent } from '../../../components/modal/admin/user/user-info/user-info.component';
+import { ModalUserCreateComponent } from '../../../components/modal/admin/user/user-create/user-create.component';
 import { LayoutComponent } from '../../../components/layout/layout.component';
 
 @Component({

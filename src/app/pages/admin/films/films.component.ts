@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
-import { ModalFilmInfoComponent } from '../../../components/modal/film-info/film-info.component';
-import { ModalFilmCreateComponent } from '../../../components/modal/film-create/film-create.component';
+import { ModalFilmInfoComponent } from '../../../components/modal/admin/film/film-info/film-info.component';
+import { ModalFilmCreateComponent } from '../../../components/modal/admin/film/film-create/film-create.component';
 import { LayoutComponent } from '../../../components/layout/layout.component';
 import { DatePipe } from '@angular/common';
 
