@@ -3,21 +3,19 @@ import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
 import { ModalUserInfoComponent } from '../../../components/modal/user-info/user-info.component';
-import { HeaderComponent } from '../../../components/header/header.component';
 import { ModalUserCreateComponent } from '../../../components/modal/user-create/user-create.component';
-import { FooterComponent } from '../../../components/footer/footer.component';
+import { LayoutComponent } from '../../../components/layout/layout.component';
 
 @Component({
   selector: 'page-users',
   standalone: true,
   imports: [
-    HeaderComponent,
+    LayoutComponent,
     TableModule,
     ButtonModule,
     TagUserComponent,
     ModalUserInfoComponent,
     ModalUserCreateComponent,
-    FooterComponent,
   ],
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
