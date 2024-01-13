@@ -1,0 +1,37 @@
+* {
+  box-sizing: border-box;
+}
+
+.p-component {
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+  font-size: 1rem;
+  font-weight: normal;
+}
+
+.p-component-overlay {
+  background-color: rgba(0, 0, 0, 0.4);
+  transition-duration: 0.2s;
+}
+
+.p-disabled,
+.p-component:disabled {
+  opacity: 0.6;
+}
+
+.p-error {
+  color: var(--red-500);
+}
+
+.p-text-secondary {
+  color: var(--text-color-secondary);
+}
+
+.pi {
+  font-size: 1rem;
+}
+
+.p-icon {
+  width: 1rem;
+  height: 1rem;
+}

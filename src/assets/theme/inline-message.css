@@ -1,0 +1,67 @@
+.p-inline-message {
+  padding: 0.75rem 0.75rem;
+  margin: 0;
+  border-radius: var(--border-radius);
+}
+
+.p-inline-message.p-inline-message-info {
+  background: rgba(219, 234, 254, 0.7);
+  border: solid var(--primary-color);
+  border-width: 0px;
+  color: var(--primary-color);
+}
+
+.p-inline-message.p-inline-message-info .p-inline-message-icon {
+  color: var(--primary-color);
+}
+
+.p-inline-message.p-inline-message-success {
+  background: rgba(228, 248, 240, 0.7);
+  border: solid var(--green-500);
+  border-width: 0px;
+  color: var(--green-500);
+}
+
+.p-inline-message.p-inline-message-success .p-inline-message-icon {
+  color: var(--green-500);
+}
+
+.p-inline-message.p-inline-message-warn {
+  background: rgba(255, 242, 226, 0.7);
+  border: solid var(--yellow-500);
+  border-width: 0px;
+  color: var(--yellow-500);
+}
+
+.p-inline-message.p-inline-message-warn .p-inline-message-icon {
+  color: var(--yellow-500);
+}
+
+.p-inline-message.p-inline-message-error {
+  background: rgba(255, 231, 230, 0.7);
+  border: solid var(--red-500);
+  border-width: 0px;
+  color: var(--red-500);
+}
+
+.p-inline-message.p-inline-message-error .p-inline-message-icon {
+  color: var(--red-500);
+}
+
+.p-inline-message .p-inline-message-icon {
+  font-size: 1rem;
+  margin-right: 0.5rem;
+}
+
+.p-inline-message .p-icon {
+  width: 1rem;
+  height: 1rem;
+}
+
+.p-inline-message .p-inline-message-text {
+  font-size: 1rem;
+}
+
+.p-inline-message.p-inline-message-icon-only .p-inline-message-icon {
+  margin-right: 0;
+}

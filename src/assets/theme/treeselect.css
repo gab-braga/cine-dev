@@ -1,0 +1,153 @@
+.p-treeselect {
+  background: var(--surface-a);
+  border: 1px solid var(--gray-300);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  border-radius: var(--border-radius);
+}
+
+.p-treeselect:not(.p-disabled):hover {
+  border-color: var(--primary-color);
+}
+
+.p-treeselect:not(.p-disabled).p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+  border-color: var(--primary-color);
+}
+
+.p-treeselect .p-treeselect-label {
+  padding: 0.75rem 0.75rem;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.p-treeselect .p-treeselect-label.p-placeholder {
+  color: var(--text-color-secondary);
+}
+
+.p-treeselect.p-treeselect-chip .p-treeselect-token {
+  padding: 0.375rem 0.75rem;
+  margin-right: 0.5rem;
+  background: var(--surface-d);
+  color: var(--text-color);
+  border-radius: 16px;
+}
+
+.p-treeselect .p-treeselect-trigger {
+  background: transparent;
+  color: var(--text-color-secondary);
+  width: 3rem;
+  border-top-right-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}
+
+p-treeselect.ng-invalid.ng-dirty > .p-treeselect {
+  border-color: var(--red-500);
+}
+
+.p-inputwrapper-filled .p-treeselect.p-treeselect-chip .p-treeselect-label {
+  padding: 0.375rem 0.75rem;
+}
+
+.p-treeselect-panel {
+  background: var(--surface-a);
+  color: var(--text-color);
+  border: 0 none;
+  border-radius: var(--border-radius);
+  box-shadow: 0 2px 12px 0 var(--color-shadow);
+}
+
+.p-treeselect-panel .p-treeselect-header {
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid var(--surface-d);
+  color: var(--gray-700);
+  background: var(--surface-b);
+  margin: 0;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+
+.p-treeselect-panel .p-treeselect-header .p-treeselect-filter-container {
+  margin-right: 0.5rem;
+}
+
+.p-treeselect-panel
+  .p-treeselect-header
+  .p-treeselect-filter-container
+  .p-treeselect-filter {
+  padding-right: 1.75rem;
+}
+
+.p-treeselect-panel
+  .p-treeselect-header
+  .p-treeselect-filter-container
+  .p-treeselect-filter-icon {
+  right: 0.75rem;
+  color: var(--text-color-secondary);
+}
+
+.p-treeselect-panel
+  .p-treeselect-header
+  .p-treeselect-filter-container.p-treeselect-clearable-filter
+  .p-treeselect-filter {
+  padding-right: 3.5rem;
+}
+
+.p-treeselect-panel
+  .p-treeselect-header
+  .p-treeselect-filter-container.p-treeselect-clearable-filter
+  .p-treeselect-filter-clear-icon {
+  right: 2.5rem;
+}
+
+.p-treeselect-panel .p-treeselect-header .p-treeselect-close {
+  width: 2rem;
+  height: 2rem;
+  color: var(--text-color-secondary);
+  border: 0 none;
+  background: transparent;
+  border-radius: 50%;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.p-treeselect-panel .p-treeselect-header .p-treeselect-close:enabled:hover {
+  color: var(--gray-700);
+  border-color: transparent;
+  background: var(--surface-c);
+}
+
+.p-treeselect-panel .p-treeselect-header .p-treeselect-close:focus-visible {
+  outline: 0 none;
+  outline-offset: 0;
+}
+
+.p-treeselect-panel .p-treeselect-items-wrapper .p-tree {
+  border: 0 none;
+}
+
+.p-treeselect-panel .p-treeselect-items-wrapper .p-treeselect-empty-message {
+  padding: 0.75rem 1.25rem;
+  color: var(--text-color);
+  background: transparent;
+}
+
+.p-input-filled .p-treeselect {
+  background: var(--surface-c);
+}
+
+.p-input-filled .p-treeselect:not(.p-disabled):hover {
+  background-color: var(--surface-c);
+}
+
+.p-input-filled .p-treeselect:not(.p-disabled).p-focus {
+  background-color: var(--surface-a);
+}
+
+p-treeselect.p-treeselect-clearable .p-treeselect-label-container {
+  padding-right: 1.75rem;
+}
+p-treeselect.p-treeselect-clearable .p-treeselect-clear-icon {
+  color: var(--text-color-secondary);
+  right: 3rem;
+}

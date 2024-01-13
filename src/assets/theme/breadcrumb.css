@@ -1,0 +1,37 @@
+.p-breadcrumb {
+  background: var(--surface-a);
+  border: 1px solid var(--surface-d);
+  border-radius: var(--border-radius);
+  padding: 1rem;
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link {
+  transition: box-shadow 0.2s;
+  border-radius: var(--border-radius);
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link:focus-visible {
+  outline: 0 none;
+  outline-offset: 0;
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-text {
+  color: var(--text-color);
+}
+
+.p-breadcrumb .p-breadcrumb-list li .p-menuitem-link .p-menuitem-icon {
+  color: var(--text-color-secondary);
+}
+
+.p-breadcrumb .p-breadcrumb-list li.p-menuitem-separator {
+  margin: 0 0.5rem 0 0.5rem;
+  color: var(--text-color);
+}
+
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-text {
+  color: var(--text-color);
+}
+
+.p-breadcrumb .p-breadcrumb-list li:last-child .p-menuitem-icon {
+  color: var(--text-color-secondary);
+}

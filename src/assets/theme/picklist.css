@@ -1,0 +1,108 @@
+.p-picklist .p-picklist-buttons {
+  padding: 1.25rem;
+}
+
+.p-picklist .p-picklist-buttons .p-button {
+  margin-bottom: 0.5rem;
+}
+
+.p-picklist .p-picklist-header {
+  background: var(--surface-b);
+  color: var(--gray-700);
+  border: 1px solid var(--surface-d);
+  padding: 1.25rem;
+  border-bottom: 0 none;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+
+.p-picklist .p-picklist-header .p-picklist-title {
+  font-weight: 700;
+}
+
+.p-picklist .p-picklist-filter-container {
+  padding: 1.25rem;
+  background: var(--surface-a);
+  border: 1px solid var(--surface-d);
+  border-bottom: 0 none;
+}
+
+.p-picklist .p-picklist-filter-container .p-picklist-filter-input {
+  padding-right: 1.75rem;
+}
+
+.p-picklist .p-picklist-filter-container .p-picklist-filter-icon {
+  right: 0.75rem;
+  color: var(--text-color-secondary);
+}
+
+.p-picklist .p-picklist-list {
+  border: 1px solid var(--surface-d);
+  background: var(--surface-a);
+  color: var(--text-color);
+  padding: 0.75rem 0;
+  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+  outline: 0 none;
+}
+
+.p-picklist .p-picklist-list .p-picklist-item {
+  padding: 0.75rem 1.25rem;
+  margin: 0;
+  border: 0 none;
+  color: var(--text-color);
+  background: transparent;
+  transition: box-shadow 0.2s;
+}
+
+.p-picklist .p-picklist-list .p-picklist-item:not(.p-highlight):hover {
+  background: var(--surface-c);
+  color: var(--text-color);
+}
+
+.p-picklist .p-picklist-list .p-picklist-item.p-focus {
+  color: var(--text-color);
+  background: var(--surface-d);
+}
+
+.p-picklist .p-picklist-list .p-picklist-item.p-highlight {
+  color: var(--highlight-text-color);
+  background: var(--highlight-bg);
+}
+
+.p-picklist .p-picklist-list .p-picklist-item.p-highlight.p-focus {
+  background: var(--surface-popup);
+}
+
+.p-picklist .p-picklist-list .p-picklist-empty-message {
+  padding: 0.75rem 1.25rem;
+  color: var(--text-color);
+}
+
+.p-picklist
+  .p-picklist-list:not(.cdk-drop-list-dragging)
+  .p-picklist-item:not(.p-highlight):hover {
+  background: var(--surface-c);
+  color: var(--text-color);
+}
+
+.p-picklist.p-picklist-striped
+  .p-picklist-list
+  .p-picklist-item:nth-child(even) {
+  background: var(--gray-50);
+}
+
+.p-picklist.p-picklist-striped
+  .p-picklist-list
+  .p-picklist-item:nth-child(even):hover {
+  background: var(--surface-c);
+}
+
+.p-picklist-item.cdk-drag-preview {
+  padding: 0.75rem 1.25rem;
+  box-shadow: 0 2px 12px 0 var(--color-shadow);
+  border: 0 none;
+  color: var(--text-color);
+  background: var(--surface-a);
+  margin: 0;
+}

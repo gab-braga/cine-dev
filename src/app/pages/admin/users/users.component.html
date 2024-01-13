@@ -12,7 +12,7 @@
   </div>
 
   <div class="mt-5">
-    <p-table [value]="users" [tableStyle]="{ 'min-width': '60rem' }" styleClass="overflow-hidden border-round">
+    <p-table [value]="users" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="{first} a {last} de {totalRecords}" [rowsPerPageOptions]="[10, 20, 50, 100]" [tableStyle]="{ 'min-width': '60rem' }">
       <ng-template pTemplate="header">
         <tr>
           <th colspan="7" class="p-0">

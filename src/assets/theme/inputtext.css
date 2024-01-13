@@ -1,0 +1,109 @@
+.p-inputtext {
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+  font-size: 1rem;
+  color: var(--gray-100);
+  background: var(--surface-600);
+  padding: 0.75rem 0.75rem;
+  border: 2px solid var(--gray-500);
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s,
+    box-shadow 0.2s;
+  appearance: none;
+  border-radius: var(--border-radius);
+}
+
+.p-inputtext:enabled:hover {
+  border-color: var(--primary-color);
+}
+
+.p-inputtext:enabled:focus {
+  outline: 0 none;
+  outline-offset: 0;
+  border-color: var(--primary-color);
+}
+
+.p-inputtext.ng-dirty.ng-invalid {
+  border-color: var(--red-500);
+}
+
+.p-inputtext.p-inputtext-sm {
+  font-size: 0.875rem;
+  padding: 0.65625rem 0.65625rem;
+}
+
+.p-inputtext.p-inputtext-lg {
+  font-size: 1.25rem;
+  padding: 0.9375rem 0.9375rem;
+}
+
+.p-float-label > label {
+  left: 0.75rem;
+  color: var(--text-color-secondary);
+  transition-duration: 0.2s;
+}
+
+.p-float-label > .ng-invalid.ng-dirty + label {
+  color: var(--red-500);
+}
+
+.p-input-icon-left > .p-icon-wrapper.p-icon,
+.p-input-icon-left > i:first-of-type {
+  left: 0.75rem;
+  color: var(--text-color-secondary);
+}
+
+.p-input-icon-left > .p-inputtext {
+  padding-left: 2.5rem;
+}
+
+.p-input-icon-left.p-float-label > label {
+  left: 2.5rem;
+}
+
+.p-input-icon-right > .p-icon-wrapper,
+.p-input-icon-right > i:last-of-type {
+  right: 0.75rem;
+  color: var(--text-color-secondary);
+}
+
+.p-input-icon-right > .p-inputtext {
+  padding-right: 2.5rem;
+}
+
+::-webkit-input-placeholder {
+  color: var(--text-color-secondary);
+}
+
+:-moz-placeholder {
+  color: var(--text-color-secondary);
+}
+
+::-moz-placeholder {
+  color: var(--text-color-secondary);
+}
+
+:-ms-input-placeholder {
+  color: var(--text-color-secondary);
+}
+
+.p-input-filled .p-inputtext {
+  background-color: var(--surface-c);
+}
+
+.p-input-filled .p-inputtext:enabled:hover {
+  background-color: var(--surface-c);
+}
+
+.p-input-filled .p-inputtext:enabled:focus {
+  background-color: var(--surface-a);
+}
+
+.p-inputtext-sm .p-inputtext {
+  font-size: 0.875rem;
+  padding: 0.65625rem 0.65625rem;
+}
+
+.p-inputtext-lg .p-inputtext {
+  font-size: 1.25rem;
+  padding: 0.9375rem 0.9375rem;
+}

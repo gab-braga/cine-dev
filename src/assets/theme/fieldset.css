@@ -1,0 +1,46 @@
+.p-fieldset {
+  border: 1px solid var(--surface-d);
+  background: var(--surface-a);
+  color: var(--text-color);
+  border-radius: var(--border-radius);
+}
+
+.p-fieldset .p-fieldset-legend {
+  padding: 1.25rem;
+  border: 1px solid var(--surface-d);
+  color: var(--gray-700);
+  background: var(--surface-b);
+  font-weight: 700;
+  border-radius: var(--border-radius);
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend {
+  padding: 0;
+  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a {
+  padding: 1.25rem;
+  color: var(--gray-700);
+  border-radius: var(--border-radius);
+  transition: box-shadow 0.2s;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a .p-fieldset-toggler {
+  margin-right: 0.5rem;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend a:focus-visible {
+  outline: 0 none;
+  outline-offset: 0;
+}
+
+.p-fieldset.p-fieldset-toggleable .p-fieldset-legend:hover {
+  background: var(--surface-c);
+  border-color: var(--surface-d);
+  color: var(--gray-700);
+}
+
+.p-fieldset .p-fieldset-content {
+  padding: 1.25rem;
+}
