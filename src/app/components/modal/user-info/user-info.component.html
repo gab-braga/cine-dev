@@ -26,7 +26,7 @@
     <h4 class="my-2 text-gray-400"><span class="pi pi-shield pr-2"></span>Acesso:</h4>
     <p class="ml-4 my-0">{{user?.role}}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-calendar-plus pr-2"></span>Filiado em:</h4>
-    <p class="ml-4 my-0">{{user?.createdAt}}</p>
+    <p class="ml-4 my-0">{{user?.createdAt | date: 'dd/MM/yyyy HH:mm'}}</p>
   </div>
 </p-dialog>
 
