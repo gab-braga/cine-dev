@@ -41,7 +41,7 @@
       <ng-template pTemplate="body" let-film>
         <tr>
           <td class="flex gap-3 align-items-center justify-content-start">
-            <img [src]="film?.coverImage" [alt]="film?.title" width="40" height="60" class="border-round">
+            <img [src]="film?.coverImage" [alt]="film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
             {{ film?.title }}
           </td>
           <td>{{ film?.genres }}</td>
