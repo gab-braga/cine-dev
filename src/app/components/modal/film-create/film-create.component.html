@@ -1,0 +1,58 @@
+<p-dialog header="Cadastrar Novo Filme" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+  <div class="flex flex-column justify-content-start align-items-stretch">
+    <form class="flex flex-column align-items-stretch" [formGroup]="formFilmCreate" (ngSubmit)="onSubmit()">
+
+      <div class="mt-2">
+        <label for="title" class="inline-block text-gray-700 mb-2">Título<span class="text-red-600">*</span></label>
+        <input formControlName="title" type="text" id="title" name="title" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Título do filme" aria-label="Campo para título">
+        @if (formFilmCreateSubmitted && formFilmCreate.get('title')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com o título do filme.</small>
+        } @else if (formFilmCreate.get('title')?.touched && formFilmCreate.get('title')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="resume" class="inline-block text-gray-700 mb-2">Sinopse<span class="text-red-600">*</span></label>
+        <textarea formControlName="resume" type="text" id="resume" name="resume" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Sinopse do filme" aria-label="Campo para sinopse"></textarea>
+        @if (formFilmCreateSubmitted && formFilmCreate.get('resume')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com a sinopse do filme.</small>
+        } @else if (formFilmCreate.get('resume')?.touched && formFilmCreate.get('resume')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="genres" class="inline-block text-gray-700 mb-2">Gêneros<span class="text-red-600">*</span></label>
+        <input formControlName="genres" type="text" id="genres" name="genres" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Ação, Comédia, Ficção" aria-label="Campo para lista de gêneros">
+        @if (formFilmCreateSubmitted && formFilmCreate.get('genres')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com os gêneros do filme.</small>
+        } @else if (formFilmCreate.get('genres')?.touched && formFilmCreate.get('genres')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="duration" class="inline-block text-gray-700 mb-2">Duração em Minutos<span class="text-red-600">*</span></label>
+        <input formControlName="duration" type="number" id="duration" name="duration" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Duração em minutos" aria-label="Campo para duração do filme">
+        @if (formFilmCreateSubmitted && formFilmCreate.get('duration')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com a duração do filme em minutos.</small>
+        } @else if (formFilmCreate.get('duration')?.touched && formFilmCreate.get('duration')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="publishedIn" class="inline-block text-gray-700 mb-2">Lançamento<span class="text-red-600">*</span></label>
+        <input formControlName="publishedIn" type="date" id="publishedIn" name="publishedIn" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data de laçamento">
+        @if (formFilmCreateSubmitted && formFilmCreate.get('publishedIn')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com a data de laçamento do filme.</small>
+        } @else if (formFilmCreate.get('publishedIn')?.touched && formFilmCreate.get('publishedIn')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <button pButton label="Cadastrar" class="mt-3 uppercase"></button>
+    </form>
+  </div>
+</p-dialog>

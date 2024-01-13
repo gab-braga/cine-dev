@@ -20,7 +20,7 @@ import { LayoutComponent } from '../../../components/layout/layout.component';
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
-export class UserControlComponent {
+export class UsersControlComponent {
   user: any = null;
   visibleModalUserInfo: boolean = false;
   visibleModalUserCreate: boolean = false;

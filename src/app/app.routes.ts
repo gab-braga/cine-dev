@@ -3,7 +3,8 @@ import { LoginComponent } from './pages/auth/login/login.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DashboardComponent } from './pages/admin/dashboard/dashboard.component';
-import { UserControlComponent } from './pages/admin/users/users.component';
+import { UsersControlComponent } from './pages/admin/users/users.component';
+import { FilmsControlComponent } from './pages/admin/films/films.component';
 
 export const routes: Routes = [
   {
@@ -42,13 +43,13 @@ export const routes: Routes = [
       },
       {
         path: 'users',
-        children: [
-          {
-            path: '',
-            component: UserControlComponent,
-            title: 'Controle de Usuários',
-          },
-        ],
+        component: UsersControlComponent,
+        title: 'Controle de Usuários',
+      },
+      {
+        path: 'films',
+        component: FilmsControlComponent,
+        title: 'Controle de Filmes',
       },
     ],
   },

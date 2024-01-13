@@ -1,0 +1,26 @@
+<p-dialog header="Informação do Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+  <div class="flex flex-column justify-content-start align-items-stretch">
+    <div class="flex gap-3 align-items-center mb-3">
+      <img [src]="film?.coverImage" [alt]="film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
+      <div class="flex-1 flex flex-column justify-content-between align-items-start">
+        <h2 class="text-lg text-gray-500">{{film?.title}}</h2>
+        <div class="flex gap-3">
+          <p-button (onClick)="openModalFilmEdit()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm" />
+        </div>
+      </div>
+    </div>
+
+    <h4 class="my-2 text-gray-400"><span class="pi pi-hashtag pr-2"></span>Título:</h4>
+    <p class="ml-4 my-0">{{film?.title}} </p>
+    <h4 class="my-2 text-gray-400"><span class="pi pi-info-circle pr-2"></span>Sinopse:</h4>
+    <p class="ml-4 my-0">{{film?.resume}}</p>
+    <h4 class="my-2 text-gray-400"><span class="pi pi-star pr-2"></span>Gêneros:</h4>
+    <p class="ml-4 my-0">{{film?.genres}}</p>
+    <h4 class="my-2 text-gray-400"><span class="pi pi-clock pr-2"></span>Duração:</h4>
+    <p class="ml-4 my-0">{{film?.duration}}</p>
+    <h4 class="my-2 text-gray-400"><span class="pi pi-calendar pr-2"></span>Lançado em:</h4>
+    <p class="ml-4 my-0">{{film?.publishedIn | date: 'dd/MM/yyyy'}}</p>
+  </div>
+</p-dialog>
+
+<modal-film-edit [film]="film" [visible]="visibleModalFilmEdit" (visibleChange)="closeModalFilmEdit($event)" />
