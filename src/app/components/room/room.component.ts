@@ -38,4 +38,12 @@ export class RoomComponent {
       if (elem.number == number) elem.disabled = true;
     });
   }
+
+  getCountSeat(): number {
+    let count = 0;
+    this.seats.forEach((elem: any) => {
+      if (!elem.disabled) count++;
+    });
+    return count;
+  }
 }
