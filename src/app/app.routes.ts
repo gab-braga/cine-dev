@@ -7,6 +7,7 @@ import { UsersControlComponent } from './pages/admin/users/users.component';
 import { FilmsControlComponent } from './pages/admin/films/films.component';
 import { SessionsControlComponent } from './pages/admin/sessions/sessions.component';
 import { RoomsControlComponent } from './pages/admin/rooms/rooms.component';
+import { RoomCreateComponent } from './pages/admin/room-create/room-create.component';
 
 export const routes: Routes = [
   {
@@ -60,8 +61,18 @@ export const routes: Routes = [
       },
       {
         path: 'rooms',
-        component: RoomsControlComponent,
-        title: 'Controle de Salas',
+        children: [
+          {
+            path: '',
+            component: RoomsControlComponent,
+            title: 'Controle de Salas',
+          },
+          {
+            path: 'new',
+            component: RoomCreateComponent,
+            title: 'Cadastro de Sala',
+          },
+        ],
       },
     ],
   },

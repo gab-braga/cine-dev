@@ -1,0 +1,61 @@
+<c-layout>
+  <div>
+    <h1 class="text-3xl text-gray-300 uppercase m-0">
+      Nova Sala de Cinema
+    </h1>
+    <span class="inline-block text-gray-600 mt-1">
+      Cadastro de sala de cinemas
+    </span>
+  </div>
+
+  <form class="mt-2 grid">
+    <div class="mt-3 col-12 md:col-6">
+      <label for="number" class="inline-block text-white mb-2">Número da Sala</label>
+      <input pInputText formControlName="number" type="number" id="number" name="number" autocomplete="off" class="w-full" placeholder="example@cinedev.com" aria-label="Compo para número da sala">
+      @if (formSubmitted && form.get('number')?.errors) {
+      <small class="inline-block mt-2 text-red-500">Preencha com o número da sala.</small>
+      } @else if (form.get('number')?.touched && form.get('number')?.hasError('required')) {
+      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+      }
+    </div>
+
+    <div class="mt-3 col-12 md:col-6">
+      <label for="projectionType" class="inline-block text-white mb-2">Número da Sala</label>
+      <select pInputText formControlName="projectionType" id="projectionType" name="projectionType" class="w-full" aria-label="Compo para número da sala">
+        <option value="" selected disabled>Selecione um tipo de projeção</option>
+        <option value="2D">2D</option>
+        <option value="3D">3D</option>
+      </select>
+      @if (formSubmitted && form.get('projectionType')?.errors) {
+      <small class="inline-block mt-2 text-red-500">Preencha com o número da sala.</small>
+      } @else if (form.get('projectionType')?.touched && form.get('projectionType')?.hasError('required')) {
+      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+      }
+    </div>
+
+    <div class="mt-3 col-12 md:col-6">
+      <label for="width" class="inline-block text-white mb-2">Número de Cadeiras em Largura</label>
+      <input pInputText formControlName="width" type="number" id="width" name="width" autocomplete="off" class="w-full" placeholder="Preencha com a largura da sala." aria-label="Compo para largura da sala">
+      @if (formSubmitted && form.get('width')?.errors) {
+      <small class="inline-block mt-2 text-red-500">Preencha com a largura da sala.</small>
+      } @else if (form.get('width')?.touched && form.get('width')?.hasError('required')) {
+      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+      }
+    </div>
+
+    <div class="mt-3 col-12 md:col-6">
+      <label for="height" class="inline-block text-white mb-2">Número de Cadeiras em Altura</label>
+      <input pInputText formControlName="height" type="number" id="height" name="height" autocomplete="off" class="w-full" placeholder="Preencha com a altura da sala." aria-label="Compo para altura da sala">
+      @if (formSubmitted && form.get('height')?.errors) {
+      <small class="inline-block mt-2 text-red-500">Preencha com a altura da sala.</small>
+      } @else if (form.get('height')?.touched && form.get('height')?.hasError('required')) {
+      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+      }
+    </div>
+  </form>
+
+  <div class="mt-5">
+    <c-room />
+  </div>
+
+</c-layout>

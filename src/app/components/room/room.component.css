@@ -1,0 +1,46 @@
+.cine-seat-item {
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-family: "Helvetica", sans-serif;
+  background: none;
+  width: 60px;
+  height: 60px;
+}
+
+.cine-seat-item:not(.disabled).selected svg path:nth-child(1) {
+  fill: #437f34;
+}
+
+.cine-seat-item:not(.disabled).selected svg path:nth-child(2) {
+  fill: #589749;
+}
+
+.cine-seat-item:not(.disabled):hover svg path:nth-child(1) {
+  fill: #7f3434;
+}
+
+.cine-seat-item:not(.disabled):hover svg path:nth-child(2) {
+  fill: #974949;
+}
+
+.cine-seat-item.disabled svg path:nth-child(1) {
+  fill: #2f2f2f;
+}
+
+.cine-seat-item.disabled svg path:nth-child(2) {
+  fill: #474747;
+}
+
+.cine-screen {
+  width: 100%;
+  height: 2rem;
+  background-color: #616161;
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Helvetica", sans-serif;
+  border-radius: 10px;
+  font-size: 1.5rem;
+}
