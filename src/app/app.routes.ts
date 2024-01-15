@@ -6,6 +6,7 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { UsersControlComponent } from './pages/admin/users/users.component';
 import { FilmsControlComponent } from './pages/admin/films/films.component';
 import { SessionsControlComponent } from './pages/admin/sessions/sessions.component';
+import { RoomsControlComponent } from './pages/admin/rooms/rooms.component';
 
 export const routes: Routes = [
   {
@@ -56,6 +57,11 @@ export const routes: Routes = [
         path: 'sessions',
         component: SessionsControlComponent,
         title: 'Controle de Sessões',
+      },
+      {
+        path: 'rooms',
+        component: RoomsControlComponent,
+        title: 'Controle de Salas',
       },
     ],
   },
