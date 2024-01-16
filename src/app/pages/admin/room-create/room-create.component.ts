@@ -1,20 +1,43 @@
 import { Component } from '@angular/core';
 import { LayoutComponent } from '../../../components/layout/layout.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { FormBuilder } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { RoomComponent } from '../../../components/room/room.component';
+import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-room-create',
   standalone: true,
-  imports: [LayoutComponent, InputTextModule, RoomComponent],
+  imports: [
+    ReactiveFormsModule,
+    LayoutComponent,
+    InputTextModule,
+    RoomComponent,
+    ButtonModule,
+  ],
   templateUrl: './room-create.component.html',
   styleUrl: './room-create.component.css',
 })
 export class RoomCreateComponent {
   formSubmitted: boolean = false;
-  form: any = this.fb.group({});
-  capacity: number = 0;
+  form: FormGroup = this.fb.group({
+    number: ['', [Validators.required]],
+    projectionType: ['', [Validators.required]],
+    width: [12, [Validators.required]],
+    height: [8, [Validators.required]],
+    capacity: [24, [Validators.required]],
+    seats: [[], [Validators.required]],
+  });
 
   constructor(private fb: FormBuilder) {}
+
+  onSubmit(): void {
+    this.formSubmitted = true;
+    if (this.form.valid) console.log(this.form.value);
+  }
 }

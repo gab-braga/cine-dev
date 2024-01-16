@@ -7,28 +7,28 @@
   height: 60px;
 }
 
-.cine-seat-item:not(.disabled).selected svg path:nth-child(1) {
+.cine-seat-item:not(:disabled):not(.cine-create):hover svg path:nth-child(1) {
   fill: #437f34;
 }
 
-.cine-seat-item:not(.disabled).selected svg path:nth-child(2) {
+.cine-seat-item:not(:disabled):not(.cine-create):hover svg path:nth-child(2) {
   fill: #589749;
 }
 
-.cine-seat-item:not(.disabled):hover svg path:nth-child(1) {
-  fill: #7f3434;
-}
-
-.cine-seat-item:not(.disabled):hover svg path:nth-child(2) {
-  fill: #974949;
-}
-
-.cine-seat-item.disabled svg path:nth-child(1) {
+.cine-seat-item:not(:disabled).cine-create:not(.cine-seat-empty):hover
+  svg
+  path:nth-child(1) {
   fill: #2f2f2f;
 }
 
-.cine-seat-item.disabled svg path:nth-child(2) {
+.cine-seat-item:not(:disabled).cine-create:not(.cine-seat-empty):hover
+  svg
+  path:nth-child(2) {
   fill: #474747;
+}
+
+.cine-seat-item:not(:disabled).cine-seat-empty {
+  opacity: 0.1;
 }
 
 .cine-screen {
