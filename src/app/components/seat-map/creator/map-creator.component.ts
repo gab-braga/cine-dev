@@ -4,15 +4,13 @@ import { Subscription, debounceTime, merge } from 'rxjs';
 import { FormGroup } from '@angular/forms';
 
 @Component({
-  selector: 'c-room',
+  selector: 'c-seat-map-creator',
   standalone: true,
   imports: [NgClass],
-  templateUrl: './room.component.html',
-  styleUrl: './room.component.css',
+  templateUrl: './map-creator.component.html',
+  styleUrl: './map-creator.component.css',
 })
-export class RoomComponent implements OnInit, OnDestroy {
-  @Input()
-  create: boolean = false;
+export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   @Input()
   form: FormGroup = new FormGroup({});
   private subscriptions: Subscription[] = [];

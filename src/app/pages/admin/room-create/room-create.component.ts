@@ -1,3 +1,4 @@
+import { SeatMapCreatorComponent } from './../../../components/seat-map/creator/map-creator.component';
 import { Component } from '@angular/core';
 import { LayoutComponent } from '../../../components/layout/layout.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -7,7 +8,6 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { RoomComponent } from '../../../components/room/room.component';
 import { ButtonModule } from 'primeng/button';
 
 @Component({
@@ -17,7 +17,7 @@ import { ButtonModule } from 'primeng/button';
     ReactiveFormsModule,
     LayoutComponent,
     InputTextModule,
-    RoomComponent,
+    SeatMapCreatorComponent,
     ButtonModule,
   ],
   templateUrl: './room-create.component.html',
