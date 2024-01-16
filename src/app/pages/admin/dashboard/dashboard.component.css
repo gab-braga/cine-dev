@@ -1,0 +1,12 @@
+.btn-admin-link {
+  padding: 0.5rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 1.5rem;
+  background-color: var(--surface-600);
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--surface-50);
+  border-radius: var(--border-radius);
+}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { LayoutComponent } from '../../../components/layout/layout.component';
+import { LayoutComponent } from '../../../../components/layout/layout.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
 

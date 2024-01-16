@@ -1,6 +1,6 @@
-import { SeatMapCreatorComponent } from './../../../components/seat-map/creator/map-creator.component';
+import { SeatMapCreatorComponent } from '../../../../components/seat-map/creator/map-creator.component';
 import { Component } from '@angular/core';
-import { LayoutComponent } from '../../../components/layout/layout.component';
+import { LayoutComponent } from '../../../../components/layout/layout.component';
 import { InputTextModule } from 'primeng/inputtext';
 import {
   FormBuilder,

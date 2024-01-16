@@ -6,8 +6,8 @@ import { DashboardComponent } from './pages/admin/dashboard/dashboard.component'
 import { UsersControlComponent } from './pages/admin/users/users.component';
 import { FilmsControlComponent } from './pages/admin/films/films.component';
 import { SessionsControlComponent } from './pages/admin/sessions/sessions.component';
-import { RoomsControlComponent } from './pages/admin/rooms/rooms.component';
-import { RoomCreateComponent } from './pages/admin/room-create/room-create.component';
+import { RoomsControlComponent } from './pages/admin/rooms/rooms/rooms.component';
+import { RoomCreateComponent } from './pages/admin/rooms/create/room-create.component';
 
 export const routes: Routes = [
   {
