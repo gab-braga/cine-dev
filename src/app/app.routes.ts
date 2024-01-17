@@ -8,6 +8,7 @@ import { FilmsControlComponent } from './pages/admin/films/films.component';
 import { SessionsControlComponent } from './pages/admin/sessions/sessions.component';
 import { RoomsControlComponent } from './pages/admin/rooms/rooms/rooms.component';
 import { RoomCreateComponent } from './pages/admin/rooms/create/room-create.component';
+import { authGuard } from './guards/auth-guard.guard';
 
 export const routes: Routes = [
   {
@@ -38,6 +39,7 @@ export const routes: Routes = [
   },
   {
     path: 'admin',
+    canActivate: [authGuard],
     children: [
       {
         path: '',

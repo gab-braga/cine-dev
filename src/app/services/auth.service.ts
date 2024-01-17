@@ -15,7 +15,7 @@ export class AuthService {
       .pipe(
         map((data: any) => {
           const { accessToken } = data;
-          localStorage.setItem('accessToken', accessToken);
+          this.storeToken(accessToken);
           return data;
         }),
         catchError((error) => {
@@ -36,5 +36,18 @@ export class AuthService {
 
   public logout(): void {
     localStorage.removeItem('accessToken');
+  }
+
+  public isLogged(): boolean {
+    const token: string | null = this.getStoredToken();
+    return !!token;
+  }
+
+  private storeToken(accessToken: string): void {
+    localStorage.setItem('accessToken', accessToken);
+  }
+
+  private getStoredToken(): string | null {
+    return localStorage.getItem('accessToken');
   }
 }
