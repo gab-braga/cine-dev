@@ -56,8 +56,7 @@ export class SignupComponent {
         next: () => {
           this.router.navigate(['/auth/login']);
         },
-        error: (error) => {
-          console.error(error);
+        error: () => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',

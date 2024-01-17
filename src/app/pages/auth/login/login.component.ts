@@ -43,8 +43,7 @@ export class LoginComponent {
         next: () => {
           this.router.navigate(['/']);
         },
-        error: (error) => {
-          console.error(error);
+        error: () => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
