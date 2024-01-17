@@ -46,7 +46,7 @@
 }
 
 .p-toast .p-toast-message .p-toast-icon-close:hover {
-  background: rgba(255, 255, 255, 0.5);
+  background: var(--surface-500);
 }
 
 .p-toast .p-toast-message .p-toast-icon-close:focus-visible {
@@ -55,19 +55,19 @@
 }
 
 .p-toast .p-toast-message.p-toast-message-info {
-  background: rgba(219, 234, 254, 0.7);
-  border: solid var(--primary-color);
+  background: var(--surface-600);
+  border: solid var(--blue-500);
   border-width: 0 0 0 6px;
-  color: var(--primary-color);
+  color: var(--blue-500);
 }
 
 .p-toast .p-toast-message.p-toast-message-info .p-toast-message-icon,
 .p-toast .p-toast-message.p-toast-message-info .p-toast-icon-close {
-  color: var(--primary-color);
+  color: var(--blue-500);
 }
 
 .p-toast .p-toast-message.p-toast-message-success {
-  background: rgba(228, 248, 240, 0.7);
+  background: var(--surface-600);
   border: solid var(--green-500);
   border-width: 0 0 0 6px;
   color: var(--green-500);
@@ -79,7 +79,7 @@
 }
 
 .p-toast .p-toast-message.p-toast-message-warn {
-  background: rgba(255, 242, 226, 0.7);
+  background: var(--surface-600);
   border: solid var(--yellow-500);
   border-width: 0 0 0 6px;
   color: var(--yellow-500);
@@ -91,7 +91,7 @@
 }
 
 .p-toast .p-toast-message.p-toast-message-error {
-  background: rgba(255, 231, 230, 0.7);
+  background: var(--surface-600);
   border: solid var(--red-500);
   border-width: 0 0 0 6px;
   color: var(--red-500);
