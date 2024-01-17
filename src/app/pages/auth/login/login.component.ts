@@ -40,10 +40,11 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;
       this.authService.login(credentials).subscribe({
-        next: (info) => {
+        next: () => {
           this.router.navigate(['/']);
         },
         error: (error) => {
+          console.error(error);
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',

@@ -9,7 +9,10 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
 
 @Component({
   selector: 'app-signup',
@@ -21,7 +24,9 @@ import { RouterLink } from '@angular/router';
     RouterLink,
     CheckboxModule,
     ReactiveFormsModule,
+    ToastModule,
   ],
+  providers: [MessageService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })
@@ -30,20 +35,36 @@ export class SignupComponent {
   signupFormSubmitted: boolean = false;
   signupForm = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(120)]],
-    cpf: [
-      '',
-      [Validators.required, Validators.minLength(14), Validators.maxLength(14)],
-    ],
+    cpf: ['', [Validators.required, Validators.maxLength(14)]],
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   onSubmit(): void {
     this.signupFormSubmitted = true;
     if (this.acceptedTermsAndPolicies() && this.signupForm.valid) {
-      console.log(this.signupForm.value);
+      const user = this.signupForm.value;
+      if (user.cpf) user.cpf = user.cpf.replace(/[^\d]/g, '');
+      this.authService.signup(user).subscribe({
+        next: () => {
+          this.router.navigate(['/auth/login']);
+        },
+        error: (error) => {
+          console.error(error);
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Erro interno. Tente mais tarde.',
+          });
+        },
+      });
     }
   }
 
