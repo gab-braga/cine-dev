@@ -22,16 +22,16 @@
       }
     </div>
 
-    <a href="/auth/forgot-password" class="block text-right text-sm mt-2 text-primary-400 hover:text-primary-600">Esqueci minha senha.</a>
+    <a routerLink="/auth/forgot-password" class="block text-right text-sm mt-2 text-primary-400 hover:text-primary-600">Esqueci minha senha.</a>
 
     <button pButton type="submit" label="Entrar" class="mt-4 uppercase"></button>
 
-    <a href="/" class="mt-4">
+    <a routerLink="/" class="mt-4">
       <p-button label="Página Inicial" [outlined]="true" styleClass="w-full uppercase" />
     </a>
 
     <span class="text-sm text-center text-gray-400 mt-4">
-      Ainda não é cadastrado? <a href="/auth/signup" class="text-primary-400 hover:text-primary-600">Cadastre-se.</a>
+      Ainda não é cadastrado? <a routerLink="/auth/signup" class="text-primary-400 hover:text-primary-600">Cadastre-se.</a>
     </span>
   </form>
 </div>

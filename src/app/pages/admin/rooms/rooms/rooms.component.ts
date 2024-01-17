@@ -2,11 +2,12 @@ import { Component } from '@angular/core';
 import { LayoutComponent } from '../../../../components/layout/layout.component';
 import { ButtonModule } from 'primeng/button';
 import { TableModule } from 'primeng/table';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-rooms',
   standalone: true,
-  imports: [LayoutComponent, ButtonModule, TableModule],
+  imports: [LayoutComponent, ButtonModule, RouterLink, TableModule],
   templateUrl: './rooms.component.html',
   styleUrl: './rooms.component.css',
 })

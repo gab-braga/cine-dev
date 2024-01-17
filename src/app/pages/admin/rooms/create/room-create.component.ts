@@ -9,6 +9,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-room-create',
@@ -16,6 +17,7 @@ import { ButtonModule } from 'primeng/button';
   imports: [
     ReactiveFormsModule,
     LayoutComponent,
+    RouterLink,
     InputTextModule,
     SeatMapCreatorComponent,
     ButtonModule,

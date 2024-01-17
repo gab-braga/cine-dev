@@ -9,6 +9,7 @@ import {
   Validators,
   FormControl,
 } from '@angular/forms';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -17,6 +18,7 @@ import {
     InputTextModule,
     InputMaskModule,
     ButtonModule,
+    RouterLink,
     CheckboxModule,
     ReactiveFormsModule,
   ],
