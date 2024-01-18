@@ -1,7 +1,7 @@
 <p-dialog header="Informação do Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
-      <img [src]="user?.profilePicture" [alt]="user?.name" width="120" height="120" class="border-round" style="object-fit: cover;">
+      <img [src]="user?.profilePicture || '../../../../../../assets/person.png'" [alt]="user?.name" width="120" height="120" class="border-round" style="object-fit: cover;">
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
         <h2 class="text-lg text-gray-500">{{user?.name}}</h2>
         <div class="flex gap-3">

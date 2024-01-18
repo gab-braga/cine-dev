@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
@@ -49,6 +49,15 @@ export class AuthService {
     const token = this.getStoredToken();
     if (token) return this.isAdminRole(token);
     return false;
+  }
+
+  public generateAuthorizationHeader(): any {
+    const token: string = localStorage.getItem('accessToken') || '';
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    });
+    return { headers: headers };
   }
 
   private storeToken(accessToken: string): void {
