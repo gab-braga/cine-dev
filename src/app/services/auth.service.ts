@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
+import { jwtDecode } from 'jwt-decode';
 
 @Injectable({
   providedIn: 'root',
@@ -39,8 +40,15 @@ export class AuthService {
   }
 
   public isLogged(): boolean {
-    const token: string | null = this.getStoredToken();
-    return !!token;
+    const token = this.getStoredToken();
+    if (token) return this.isTokenExpired(token);
+    return false;
+  }
+
+  public isAdmin(): boolean {
+    const token = this.getStoredToken();
+    if (token) return this.isAdminRole(token);
+    return false;
   }
 
   private storeToken(accessToken: string): void {
@@ -49,5 +57,17 @@ export class AuthService {
 
   private getStoredToken(): string | null {
     return localStorage.getItem('accessToken');
+  }
+
+  private isTokenExpired(token: string): boolean {
+    const payload = jwtDecode(token);
+    const exp = (payload.exp || 0) * 1000;
+    return exp > Date.now();
+  }
+
+  private isAdminRole(token: string): boolean {
+    const payload: any = jwtDecode(token);
+    const role: string = payload.role;
+    return role === 'ROLE_ADMIN';
   }
 }
