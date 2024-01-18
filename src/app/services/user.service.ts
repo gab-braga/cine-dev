@@ -1,7 +1,7 @@
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, catchError, first, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -20,7 +20,8 @@ export class UserService {
         catchError((error) => {
           console.error(error);
           return throwError(() => error);
-        })
+        }),
+        first()
       );
   }
 
@@ -34,7 +35,8 @@ export class UserService {
         catchError((error) => {
           console.error(error);
           return throwError(() => error);
-        })
+        }),
+        first()
       );
   }
 
@@ -49,7 +51,8 @@ export class UserService {
         catchError((error) => {
           console.error(error);
           return throwError(() => error);
-        })
+        }),
+        first()
       );
   }
 
@@ -64,7 +67,8 @@ export class UserService {
         catchError((error) => {
           console.error(error);
           return throwError(() => error);
-        })
+        }),
+        first()
       );
   }
 
@@ -79,7 +83,8 @@ export class UserService {
         catchError((error) => {
           console.error(error);
           return throwError(() => error);
-        })
+        }),
+        first()
       );
   }
 
@@ -94,7 +99,8 @@ export class UserService {
         catchError((error) => {
           console.error(error);
           return throwError(() => error);
-        })
+        }),
+        first()
       );
   }
 }

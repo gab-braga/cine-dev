@@ -26,7 +26,6 @@ import { ToastModule } from 'primeng/toast';
     ReactiveFormsModule,
     ToastModule,
   ],
-  providers: [MessageService],
   templateUrl: './signup.component.html',
   styleUrl: './signup.component.css',
 })

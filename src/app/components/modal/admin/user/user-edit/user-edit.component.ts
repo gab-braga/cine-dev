@@ -1,4 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +15,8 @@ import {
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { UserService } from '../../../../../services/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'modal-user-edit',
@@ -15,8 +25,7 @@ import { DialogModule } from 'primeng/dialog';
   templateUrl: './user-edit.component.html',
   styleUrl: './user-edit.component.css',
 })
-export class ModalUserEditComponent {
-  constructor(private fb: FormBuilder) {}
+export class ModalUserEditComponent implements OnChanges {
   @Input()
   visible: boolean = false;
   @Output()
@@ -25,33 +34,60 @@ export class ModalUserEditComponent {
   user: any = null;
 
   formUserEditSubmitted: boolean = false;
-  formUserEdit: FormGroup = this.fb.group(this.getUserFormGroup());
+  formUserEdit: FormGroup = this.fb.group(this.getUserFormGroup(this.user));
+
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private messageService: MessageService
+  ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.initializeForm();
+  }
 
   onSubmit(): void {
     this.formUserEditSubmitted = true;
-    if (this.formUserEdit.valid) console.log(this.formUserEdit.value);
+    if (this.formUserEdit.valid) {
+      const user = this.formUserEdit.value;
+      const uuid: string = user.uuid || '';
+      this.userService.update(uuid, user).subscribe({
+        next: () => {
+          this.closeModal(false);
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Algo deu errado. Verifique o formato dos dados.',
+          });
+        },
+      });
+    }
   }
 
   closeModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
-    this.initializeForm();
     if (!visible) this.user = null;
   }
 
   private initializeForm(): void {
     this.formUserEditSubmitted = false;
-    this.formUserEdit = this.fb.group(this.getUserFormGroup());
+    this.formUserEdit = this.fb.group(this.getUserFormGroup(this.user));
   }
 
-  private getUserFormGroup() {
+  private getUserFormGroup(user: any) {
     return {
-      name: ['', [Validators.required, Validators.maxLength(120)]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
-      cpf: ['', [Validators.required]],
-      role: ['', [Validators.required]],
-      phoneNumber: [''],
+      uuid: [user?.uuid || ''],
+      name: [
+        user?.name || '',
+        [Validators.required, Validators.maxLength(120)],
+      ],
+      email: [user?.email || '', [Validators.required, Validators.email]],
+      cpf: [user?.cpf || '', [Validators.required]],
+      role: [user?.role || '', [Validators.required]],
+      phoneNumber: [user?.phoneNumber || ''],
     };
   }
 }
