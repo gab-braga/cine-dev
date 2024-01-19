@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { UserService } from '../../../../../services/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'modal-user-create',
@@ -11,7 +13,6 @@ import { DialogModule } from 'primeng/dialog';
   styleUrl: './user-create.component.css',
 })
 export class ModalUserCreateComponent {
-  constructor(private fb: FormBuilder) {}
   @Input()
   visible: boolean = false;
   @Output()
@@ -20,9 +21,29 @@ export class ModalUserCreateComponent {
   formUserCreateSubmitted: boolean = false;
   formUserCreate = this.fb.group(this.getUserFormGroup());
 
+  constructor(
+    private fb: FormBuilder,
+    private userService: UserService,
+    private messageService: MessageService
+  ) {}
+
   onSubmit(): void {
     this.formUserCreateSubmitted = true;
-    if (this.formUserCreate.valid) console.log(this.formUserCreate.value);
+    if (this.formUserCreate.valid) {
+      const user: any = this.formUserCreate.value;
+      this.userService.create(user).subscribe({
+        next: () => {
+          this.closeModal(false);
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Algo deu errado. Verifique o formato dos dados.',
+          });
+        },
+      });
+    }
   }
 
   closeModal(visible: boolean): void {
