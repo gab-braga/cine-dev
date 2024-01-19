@@ -8,6 +8,7 @@ import { ModalUserCreateComponent } from '../../../components/modal/admin/user/u
 import { LayoutComponent } from '../../../components/layout/layout.component';
 import { UserService } from '../../../services/user.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { User } from '../../../interfaces/user';
 
 @Component({
   selector: 'page-users',
@@ -25,8 +26,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
   styleUrl: './users.component.css',
 })
 export class UsersControlComponent implements OnInit, OnDestroy {
-  users: any = [];
-  user: any = null;
+  users: User[] = [];
+  user: User | null = null;
   visibleModalUserInfo: boolean = false;
   visibleModalUserCreate: boolean = false;
   private subscriptions: Subscription[] = [];
@@ -63,7 +64,7 @@ export class UsersControlComponent implements OnInit, OnDestroy {
     this.initializeTable();
   }
 
-  protected openModalUserInfo(user: any): void {
+  protected openModalUserInfo(user: User): void {
     this.visibleModalUserInfo = true;
     this.user = user;
   }

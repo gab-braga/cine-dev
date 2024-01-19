@@ -6,7 +6,12 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { UserService } from '../../../../../services/user.service';
@@ -26,7 +31,7 @@ export class ModalUserCreateComponent implements OnChanges {
   visibleChange = new EventEmitter<boolean>();
 
   protected formUserCreateSubmitted: boolean = false;
-  protected formUserCreate = this.fb.group(this.getUserFormGroup());
+  protected formUserCreate: FormGroup = this.fb.group(this.getUserFormGroup());
 
   constructor(
     private fb: FormBuilder,
