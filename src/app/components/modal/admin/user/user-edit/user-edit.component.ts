@@ -33,8 +33,10 @@ export class ModalUserEditComponent implements OnChanges {
   @Input({ required: true })
   user: any = null;
 
-  formUserEditSubmitted: boolean = false;
-  formUserEdit: FormGroup = this.fb.group(this.getUserFormGroup(this.user));
+  protected formUserEditSubmitted: boolean = false;
+  protected formUserEdit: FormGroup = this.fb.group(
+    this.getUserFormGroup(this.user)
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -42,18 +44,18 @@ export class ModalUserEditComponent implements OnChanges {
     private messageService: MessageService
   ) {}
 
-  ngOnChanges(changes: SimpleChanges): void {
+  public ngOnChanges(changes: SimpleChanges): void {
     this.initializeForm();
   }
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     this.formUserEditSubmitted = true;
     if (this.formUserEdit.valid) {
       const user = this.formUserEdit.value;
       const uuid: string = user.uuid || '';
       this.userService.update(uuid, user).subscribe({
         next: () => {
-          this.closeModal(false);
+          this.handleVisibleChange(false);
         },
         error: () => {
           this.messageService.add({
@@ -66,7 +68,7 @@ export class ModalUserEditComponent implements OnChanges {
     }
   }
 
-  closeModal(visible: boolean): void {
+  protected handleVisibleChange(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
     if (!visible) this.user = null;
