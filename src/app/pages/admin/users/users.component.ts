@@ -7,6 +7,7 @@ import { ModalUserInfoComponent } from '../../../components/modal/admin/user/use
 import { ModalUserCreateComponent } from '../../../components/modal/admin/user/user-create/user-create.component';
 import { LayoutComponent } from '../../../components/layout/layout.component';
 import { UserService } from '../../../services/user.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'page-users',
@@ -15,6 +16,7 @@ import { UserService } from '../../../services/user.service';
     LayoutComponent,
     TableModule,
     ButtonModule,
+    ReactiveFormsModule,
     TagUserComponent,
     ModalUserInfoComponent,
     ModalUserCreateComponent,
@@ -28,8 +30,13 @@ export class UsersControlComponent implements OnInit, OnDestroy {
   visibleModalUserInfo: boolean = false;
   visibleModalUserCreate: boolean = false;
   private subscriptions: Subscription[] = [];
+  protected formFilter: FormGroup = this.fb.group({
+    name: [''],
+    email: [''],
+    cpf: [''],
+  });
 
-  constructor(private userService: UserService) {}
+  constructor(private fb: FormBuilder, private userService: UserService) {}
 
   public ngOnInit(): void {
     this.subscriptions.push(
@@ -44,10 +51,16 @@ export class UsersControlComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  private initializeTable(): void {
-    this.userService.findAll().subscribe((users) => {
+  protected onSubmit(): void {
+    const filter = this.formFilter.value;
+    this.userService.findAll(filter).subscribe((users) => {
       this.users = users;
     });
+  }
+
+  protected clearFilter(): void {
+    this.formFilter.reset();
+    this.initializeTable();
   }
 
   protected openModalUserInfo(user: any): void {
@@ -66,5 +79,11 @@ export class UsersControlComponent implements OnInit, OnDestroy {
 
   protected handleVisibleModalUserCreate(value: boolean) {
     this.visibleModalUserCreate = value;
+  }
+
+  private initializeTable(): void {
+    this.userService.findAll().subscribe((users) => {
+      this.users = users;
+    });
   }
 }

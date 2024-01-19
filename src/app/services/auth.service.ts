@@ -59,7 +59,7 @@ export class AuthService {
       'Content-Type': 'application/json',
       Authorization: `Bearer ${token}`,
     });
-    return { headers: headers };
+    return headers;
   }
 
   private storeToken(accessToken: string): void {

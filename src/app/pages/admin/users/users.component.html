@@ -16,19 +16,19 @@
       <ng-template pTemplate="header">
         <tr>
           <th colspan="7" class="p-0">
-            <div class="w-full flex">
-              <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Limpar busca">
+            <form [formGroup]="formFilter" (ngSubmit)="onSubmit()" class="w-full flex">
+              <button type="button" (click)="clearFilter()" class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Limpar busca">
                 <span class="pi pi-filter-slash"></span>
               </button>
 
-              <input type="text" placeholder="Nome do usuário" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por nome">
-              <input type="text" placeholder="example@cinedev.com" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por email">
-              <input type="text" placeholder="000.000.000-00" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por CPF">
+              <input type="text" formControlName="name" placeholder="Nome do usuário" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por nome">
+              <input type="text" formControlName="email" placeholder="example@cinedev.com" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por email">
+              <input type="text" formControlName="cpf" placeholder="000.000.000-00" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por CPF">
 
-              <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar">
+              <button type="submit" class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar">
                 <span class="pi pi-search"></span>
               </button>
-            </div>
+            </form>
           </th>
         </tr>
         <tr>
