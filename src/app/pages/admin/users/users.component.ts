@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { TagUserComponent } from '../../../components/tag-user/tag-user.component';
@@ -21,37 +22,49 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './users.component.html',
   styleUrl: './users.component.css',
 })
-export class UsersControlComponent implements OnInit {
+export class UsersControlComponent implements OnInit, OnDestroy {
   users: any = [];
   user: any = null;
   visibleModalUserInfo: boolean = false;
   visibleModalUserCreate: boolean = false;
+  private subscriptions: Subscription[] = [];
 
   constructor(private userService: UserService) {}
 
   public ngOnInit(): void {
-    this.userService.findAll().subscribe({
-      next: (users) => {
-        this.users = users;
-      },
+    this.subscriptions.push(
+      this.userService.getListenerUsersModified().subscribe(() => {
+        this.initializeTable();
+      })
+    );
+    this.userService.notifyUsersModified();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  private initializeTable(): void {
+    this.userService.findAll().subscribe((users) => {
+      this.users = users;
     });
   }
 
-  openModalUserInfo(user: any): void {
+  protected openModalUserInfo(user: any): void {
     this.visibleModalUserInfo = true;
     this.user = user;
   }
 
-  closeModalUserInfo(value: boolean) {
+  protected handleVisibleModalUserInfo(value: boolean) {
     this.visibleModalUserInfo = value;
     if (!value) this.user = null;
   }
 
-  openModalUserCreate(): void {
+  protected openModalUserCreate(): void {
     this.visibleModalUserCreate = true;
   }
 
-  closeModalUserCreate(value: boolean) {
+  protected handleVisibleModalUserCreate(value: boolean) {
     this.visibleModalUserCreate = value;
   }
 }

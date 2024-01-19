@@ -62,7 +62,7 @@
         </tr>
       </ng-template>
     </p-table>
-    <modal-user-info [visible]="visibleModalUserInfo" (visibleChange)="closeModalUserInfo($event)" [user]="user" />
-    <modal-user-create [visible]="visibleModalUserCreate" (visibleChange)="closeModalUserCreate($event)" />
+    <modal-user-info [visible]="visibleModalUserInfo" (visibleChange)="handleVisibleModalUserInfo($event)" [user]="user" />
+    <modal-user-create [visible]="visibleModalUserCreate" (visibleChange)="handleVisibleModalUserCreate($event)" />
   </div>
 </c-layout>

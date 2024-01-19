@@ -34,7 +34,7 @@ export class ModalUserInfoComponent {
     private messageService: MessageService
   ) {}
 
-  protected closeModal(visible: boolean): void {
+  protected handleVisibleChange(visible: boolean): void {
     this.visibleChange.emit(visible);
     if (!visible) this.user = null;
   }
@@ -43,7 +43,7 @@ export class ModalUserInfoComponent {
     this.visibleModalUserEdit = true;
   }
 
-  protected closeModalUserEdit(value: boolean): void {
+  protected handleVisibleChangeUserEdit(value: boolean): void {
     this.visibleModalUserEdit = value;
   }
 
@@ -51,7 +51,8 @@ export class ModalUserInfoComponent {
     const uuid: string = user.uuid;
     this.userService.disable(uuid).subscribe({
       next: () => {
-        this.closeModal(false);
+        this.handleVisibleChange(false);
+        this.userService.notifyUsersModified();
       },
       error: () => {
         this.messageService.add({
@@ -67,7 +68,8 @@ export class ModalUserInfoComponent {
     const uuid: string = user.uuid;
     this.userService.enable(uuid).subscribe({
       next: () => {
-        this.closeModal(false);
+        this.handleVisibleChange(false);
+        this.userService.notifyUsersModified();
       },
       error: () => {
         this.messageService.add({

@@ -1,14 +1,24 @@
 import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, first, throwError } from 'rxjs';
+import { Observable, Subject, catchError, first, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
+  private usersModifiedSubject = new Subject<void>();
+
   constructor(private http: HttpClient, private authService: AuthService) {}
+
+  public getListenerUsersModified(): Observable<void> {
+    return this.usersModifiedSubject.asObservable();
+  }
+
+  public notifyUsersModified(): void {
+    this.usersModifiedSubject.next();
+  }
 
   public findByUUID(uuid: string): Observable<any> {
     return this.http

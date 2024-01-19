@@ -45,6 +45,7 @@ export class ModalUserCreateComponent implements OnChanges {
       this.userService.create(user).subscribe({
         next: () => {
           this.handleVisibleChange(false);
+          this.userService.notifyUsersModified();
         },
         error: () => {
           this.messageService.add({

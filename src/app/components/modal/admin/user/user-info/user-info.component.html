@@ -1,4 +1,4 @@
-<p-dialog header="Informação do Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+<p-dialog header="Informação do Usuário" [visible]="visible" (visibleChange)="handleVisibleChange($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
       <img [src]="user?.profilePicture || '../../../../../../assets/person.png'" [alt]="user?.name" width="120" height="120" class="border-round" style="object-fit: cover;">
@@ -30,4 +30,4 @@
   </div>
 </p-dialog>
 
-<modal-user-edit [user]="user" [visible]="visibleModalUserEdit" (visibleChange)="closeModalUserEdit($event)" />
+<modal-user-edit [user]="user" [visible]="visibleModalUserEdit" (visibleChange)="handleVisibleChangeUserEdit($event)" />
