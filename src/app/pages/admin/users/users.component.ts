@@ -31,6 +31,7 @@ export class UsersControlComponent implements OnInit, OnDestroy {
   visibleModalUserInfo: boolean = false;
   visibleModalUserCreate: boolean = false;
   private subscriptions: Subscription[] = [];
+
   protected formFilter: FormGroup = this.fb.group({
     name: [''],
     email: [''],

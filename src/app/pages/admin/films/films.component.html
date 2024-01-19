@@ -16,18 +16,18 @@
       <ng-template pTemplate="header">
         <tr>
           <th colspan="5" class="p-0">
-            <div class="w-full flex">
-              <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Limpar busca">
+            <form [formGroup]="formFilter" (ngSubmit)="onSubmit()" class="w-full flex">
+              <button type="button" (click)="clearFilter()" class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Limpar busca">
                 <span class="pi pi-filter-slash"></span>
               </button>
 
-              <input type="text" placeholder="Título do filme" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por título">
-              <input type="text" placeholder="Gênero do filme" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por gênero">
+              <input formControlName="title" type="text" placeholder="Título do filme" class="flex-1 p-3 border-none outline-none focus:surface-50" aria-label="Campo para filtrar por título">
+              <input formControlName="genres" type="text" placeholder="Gênero do filme" class="flex-1 p-3 border-none outline-none border-left-1 border-gray-200 focus:surface-50" aria-label="Campo para filtrar por gênero">
 
-              <button class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar">
+              <button type="submit" class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Buscar">
                 <span class="pi pi-search"></span>
               </button>
-            </div>
+            </form>
           </th>
         </tr>
         <tr>
