@@ -4,6 +4,8 @@ import { DialogModule } from 'primeng/dialog';
 import { TagUserComponent } from '../../../../tag-user/tag-user.component';
 import { ModalUserEditComponent } from '../user-edit/user-edit.component';
 import { DatePipe } from '@angular/common';
+import { UserService } from '../../../../../services/user.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'modal-user-info',
@@ -25,19 +27,55 @@ export class ModalUserInfoComponent {
   visible: boolean = false;
   @Output()
   visibleChange = new EventEmitter<boolean>();
+  visibleModalUserEdit: boolean = false;
 
-  closeModal(visible: boolean): void {
+  constructor(
+    private userService: UserService,
+    private messageService: MessageService
+  ) {}
+
+  protected closeModal(visible: boolean): void {
     this.visibleChange.emit(visible);
     if (!visible) this.user = null;
   }
 
-  visibleModalUserEdit: boolean = false;
-
-  openModalUserEdit(): void {
+  protected openModalUserEdit(): void {
     this.visibleModalUserEdit = true;
   }
 
-  closeModalUserEdit(value: boolean): void {
+  protected closeModalUserEdit(value: boolean): void {
     this.visibleModalUserEdit = value;
+  }
+
+  protected disableUser(user: any): void {
+    const uuid: string = user.uuid;
+    this.userService.disable(uuid).subscribe({
+      next: () => {
+        this.closeModal(false);
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'ERRO',
+          detail: 'Algo deu errado. Tente mais tarde.',
+        });
+      },
+    });
+  }
+
+  protected enableUser(user: any): void {
+    const uuid: string = user.uuid;
+    this.userService.enable(uuid).subscribe({
+      next: () => {
+        this.closeModal(false);
+      },
+      error: () => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'ERRO',
+          detail: 'Algo deu errado. Tente mais tarde.',
+        });
+      },
+    });
   }
 }

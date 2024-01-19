@@ -1,5 +1,5 @@
-@if (disabled) {
-<p-tag value="Inativo" icon="pi pi-ban" [rounded]="true" severity="danger" [styleClass]="styleClass" />
-} @else {
+@if (active) {
 <p-tag value="Ativo" icon="pi pi-check-circle" [rounded]="true" severity="success" [styleClass]="styleClass" />
+} @else {
+<p-tag value="Inativo" icon="pi pi-ban" [rounded]="true" severity="danger" [styleClass]="styleClass" />
 }

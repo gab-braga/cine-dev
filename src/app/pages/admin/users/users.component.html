@@ -52,7 +52,7 @@
           <td>{{ user?.phoneNumber }}</td>
           <td>{{ user?.role }}</td>
           <td>
-            <tag-user [disabled]="user?.disabled" styleClass="w-full" />
+            <tag-user [active]="user?.active" styleClass="w-full" />
           </td>
           <td>
             <button (click)="openModalUserInfo(user)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">

@@ -10,7 +10,7 @@ import { TagModule } from 'primeng/tag';
 })
 export class TagUserComponent {
   @Input({ required: true })
-  disabled: boolean = false;
+  active: boolean = false;
   @Input({ required: false })
   styleClass: string = '';
 }
