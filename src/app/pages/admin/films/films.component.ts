@@ -52,7 +52,7 @@ export class FilmsControlComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  protected onSubmit(): void {
+  protected submitFilter(): void {
     const filter = this.formFilter.value;
     this.filmService.findAll(filter).subscribe((films) => {
       this.films = films;

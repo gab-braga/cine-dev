@@ -16,7 +16,7 @@
       <ng-template pTemplate="header">
         <tr>
           <th colspan="5" class="p-0">
-            <form [formGroup]="formFilter" (ngSubmit)="onSubmit()" class="w-full flex">
+            <form [formGroup]="formFilter" (ngSubmit)="submitFilter()" class="w-full flex">
               <button type="button" (click)="clearFilter()" class="border-none px-3 surface-100 text-gray-600 cursor-pointer hover:surface-200" aria-label="Limpar busca">
                 <span class="pi pi-filter-slash"></span>
               </button>

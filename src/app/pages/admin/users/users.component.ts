@@ -53,7 +53,7 @@ export class UsersControlComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  protected onSubmit(): void {
+  protected submitFilter(): void {
     const filter = this.formFilter.value;
     this.userService.findAll(filter).subscribe((users) => {
       this.users = users;
