@@ -46,9 +46,9 @@
           <td>{{ room?.capacity }} assentos</td>
           <td>{{ room?.projectionType}}</td>
           <td>
-            <button class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
+            <a [routerLink]="['/admin/rooms/edit', room?.uuid]" class="no-underline text-gray-700 p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
               <span class="pi pi-pencil"></span>
-            </button>
+            </a>
           </td>
         </tr>
       </ng-template>

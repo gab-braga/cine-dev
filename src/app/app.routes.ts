@@ -10,6 +10,7 @@ import { RoomsControlComponent } from './pages/admin/rooms/rooms/rooms.component
 import { RoomCreateComponent } from './pages/admin/rooms/create/room-create.component';
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
+import { RoomEditComponent } from './pages/admin/rooms/edit/room-edit.component';
 
 export const routes: Routes = [
   {
@@ -73,7 +74,12 @@ export const routes: Routes = [
           {
             path: 'new',
             component: RoomCreateComponent,
-            title: 'Cadastro de Sala',
+            title: 'Nova Sala de Cinema',
+          },
+          {
+            path: 'edit/:uuid',
+            component: RoomEditComponent,
+            title: 'Editar Sala de Cinema',
           },
         ],
       },

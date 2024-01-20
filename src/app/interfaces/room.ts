@@ -1,3 +1,5 @@
+import { Seat } from './seat';
+
 export interface Room {
   uuid: string;
   number: number;
@@ -5,4 +7,5 @@ export interface Room {
   height: number;
   capacity: number;
   projectionType: string;
+  seats: Seat[];
 }

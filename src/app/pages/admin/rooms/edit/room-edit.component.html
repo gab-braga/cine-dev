@@ -1,10 +1,10 @@
 <c-layout>
   <div>
     <h1 class="text-3xl text-gray-300 uppercase m-0">
-      Nova Sala de Cinema
+      Editar Sala de Cinema
     </h1>
     <span class="inline-block text-gray-600 mt-1">
-      Cadastrar nova sala de cinema
+      Atualizar sala de cinema
     </span>
   </div>
 
@@ -54,7 +54,7 @@
     </div>
 
     <div class="w-full mt-4">
-      <c-seat-map-creator [form]="form" />
+      <c-seat-map-creator [form]="form" [uuid]="uuid" />
     </div>
 
     <div class="w-full mt-4 flex justify-content-between align-content-center">
