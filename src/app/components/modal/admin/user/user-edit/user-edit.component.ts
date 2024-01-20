@@ -71,7 +71,6 @@ export class ModalUserEditComponent implements OnChanges {
   protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
-    if (!visible) this.user = null;
   }
 
   private initializeForm(): void {
