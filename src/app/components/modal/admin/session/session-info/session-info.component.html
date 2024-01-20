@@ -1,4 +1,4 @@
-<p-dialog header="Informação do Usuário" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+<p-dialog header="Informação da Sessão" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
       <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">

@@ -1,4 +1,4 @@
-<p-dialog header="Cadastrar Novo Filme" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+<p-dialog header="Novo Filme" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <form class="flex flex-column align-items-stretch" [formGroup]="formFilmCreate" (ngSubmit)="onSubmit()">
 
