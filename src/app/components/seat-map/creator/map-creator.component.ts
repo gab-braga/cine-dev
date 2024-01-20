@@ -17,13 +17,25 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   protected seats: any = [];
   protected styleGrid: string = '';
 
-  ngOnInit(): void {
-    this.handleChangeDimension();
+  public ngOnInit(): void {
     this.synchronizeFormAndRoomSize();
+    this.handleChangeDimension();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.clearSubscriptions();
+  }
+
+  protected toggleSeatDisabledStatus(seat: any): void {
+    const { number } = seat;
+    const targetSeat = this.seats.find((elem: any) => elem.number == number);
+    if (targetSeat) targetSeat.empty = !targetSeat.empty;
+    this.recalculateCapacityValue();
+    this.rearrangeSeatsMap();
+  }
+
+  protected getCountSeat(): number {
+    return this.seats.filter((elem: any) => !elem.empty).length;
   }
 
   private handleChangeDimension(): void {
@@ -34,7 +46,8 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
       const height = heightControl.value || 0;
       this.styleGrid = `display: grid; grid-template-columns: repeat(${width}, 1fr); gap: 2rem`;
       this.initializeListSeats(width, height);
-      this.updateCapacityAndSeatsFormValues();
+      this.recalculateCapacityValue();
+      this.rearrangeSeatsMap();
     }
   }
 
@@ -46,16 +59,25 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
           number: num,
           positionInX: x,
           positionInY: y,
-          disabled: false,
+          empty: false,
         });
       }
     }
   }
 
-  private updateCapacityAndSeatsFormValues(): void {
+  private recalculateCapacityValue(): void {
     const capacityControl = this.form.get('capacity');
-    const seatsControl = this.form.get('seats');
     if (capacityControl) capacityControl.setValue(this.getCountSeat());
+  }
+
+  private rearrangeSeatsMap(): void {
+    let seatCount = 1;
+    let emptyCount = -1;
+    this.seats.forEach((seat: any) => {
+      if (seat.empty) seat.number = emptyCount--;
+      else seat.number = seatCount++;
+    });
+    const seatsControl = this.form.get('seats');
     if (seatsControl) seatsControl.setValue(this.seats);
   }
 
@@ -71,17 +93,6 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
             this.handleChangeDimension();
           })
       );
-  }
-
-  toggleSeatDisabledStatus(seat: any): void {
-    const { number } = seat;
-    const targetSeat = this.seats.find((elem: any) => elem.number == number);
-    if (targetSeat) targetSeat.disabled = !targetSeat.disabled;
-    this.updateCapacityAndSeatsFormValues();
-  }
-
-  getCountSeat(): number {
-    return this.seats.filter((elem: any) => !elem.disabled).length;
   }
 
   private clearSubscriptions(): void {

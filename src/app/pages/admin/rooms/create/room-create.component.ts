@@ -9,7 +9,9 @@ import {
   Validators,
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { RoomService } from '../../../../services/room.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-room-create',
@@ -36,10 +38,29 @@ export class RoomCreateComponent {
     seats: [[], [Validators.required]],
   });
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private roomService: RoomService,
+    private router: Router,
+    private messageService: MessageService
+  ) {}
 
   onSubmit(): void {
     this.formSubmitted = true;
-    if (this.form.valid) console.log(this.form.value);
+    if (this.form.valid) {
+      const room = this.form.value;
+      this.roomService.create(room).subscribe({
+        next: () => {
+          this.router.navigate(['/admin/rooms']);
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Algo deu errado. Confira os valores.',
+          });
+        },
+      });
+    }
   }
 }
