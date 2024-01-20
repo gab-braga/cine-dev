@@ -49,8 +49,8 @@ export class ModalUserCreateComponent implements OnChanges {
       const user: any = this.formUserCreate.value;
       this.userService.create(user).subscribe({
         next: () => {
-          this.handleVisibleChange(false);
-          this.userService.notifyUsersModified();
+          this.changeVisibilityModal(false);
+          this.userService.notifyChangesToUsersData();
         },
         error: () => {
           this.messageService.add({
@@ -63,7 +63,7 @@ export class ModalUserCreateComponent implements OnChanges {
     }
   }
 
-  protected handleVisibleChange(visible: boolean): void {
+  protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
   }

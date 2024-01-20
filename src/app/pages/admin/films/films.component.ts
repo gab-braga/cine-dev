@@ -28,8 +28,8 @@ import { FilmService } from '../../../services/film.service';
 export class FilmsControlComponent implements OnInit, OnDestroy {
   film: Film | null = null;
   films: Film[] = [];
-  visibleModalFilmInfo: boolean = false;
-  visibleModalFilmCreate: boolean = false;
+  visibilityInfoModal: boolean = false;
+  visibleCreateModal: boolean = false;
   private subscriptions: Subscription[] = [];
 
   protected formFilter: FormGroup = this.fb.group({
@@ -41,11 +41,11 @@ export class FilmsControlComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.subscriptions.push(
-      this.filmService.getListenerFilmsModified().subscribe(() => {
-        this.initializeTable();
+      this.filmService.getListenerOfFilmsData().subscribe(() => {
+        this.loadData();
       })
     );
-    this.filmService.notifyFilmsModified();
+    this.filmService.notifyChangesToFilmsData();
   }
 
   public ngOnDestroy(): void {
@@ -61,28 +61,28 @@ export class FilmsControlComponent implements OnInit, OnDestroy {
 
   protected clearFilter(): void {
     this.formFilter.reset();
-    this.initializeTable();
+    this.loadData();
   }
 
-  protected openModalFilmInfo(film: any): void {
-    this.visibleModalFilmInfo = true;
+  protected showInfoModal(film: any): void {
+    this.visibilityInfoModal = true;
     this.film = film;
   }
 
-  protected closeModalFilmInfo(value: boolean) {
-    this.visibleModalFilmInfo = value;
+  protected changeVisibilityOfInfoModal(value: boolean) {
+    this.visibilityInfoModal = value;
     if (!value) this.film = null;
   }
 
-  protected openModalFilmCreate(): void {
-    this.visibleModalFilmCreate = true;
+  protected showCreateModal(): void {
+    this.visibleCreateModal = true;
   }
 
-  protected closeModalFilmCreate(value: boolean) {
-    this.visibleModalFilmCreate = value;
+  protected changeVisibilityOfCreateModal(value: boolean) {
+    this.visibleCreateModal = value;
   }
 
-  private initializeTable(): void {
+  private loadData(): void {
     this.filmService.findAll().subscribe((films) => {
       this.films = films;
     });

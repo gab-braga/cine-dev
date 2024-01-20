@@ -14,11 +14,11 @@ export class UserService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public getListenerUsersModified(): Observable<void> {
+  public getListenerOfUsersData(): Observable<void> {
     return this.usersModifiedSubject.asObservable();
   }
 
-  public notifyUsersModified(): void {
+  public notifyChangesToUsersData(): void {
     this.usersModifiedSubject.next();
   }
 

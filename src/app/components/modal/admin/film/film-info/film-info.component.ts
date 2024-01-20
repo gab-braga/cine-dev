@@ -18,19 +18,18 @@ export class ModalFilmInfoComponent {
   visible: boolean = false;
   @Output()
   visibleChange = new EventEmitter<boolean>();
+  visibilityEditModal: boolean = false;
 
-  closeModal(visible: boolean): void {
+  protected changeVisibilityModal(visible: boolean): void {
     this.visibleChange.emit(visible);
     if (!visible) this.film = null;
   }
 
-  visibleModalFilmEdit: boolean = false;
-
-  openModalFilmEdit(): void {
-    this.visibleModalFilmEdit = true;
+  protected showEditModal(): void {
+    this.visibilityEditModal = true;
   }
 
-  closeModalFilmEdit(value: boolean): void {
-    this.visibleModalFilmEdit = value;
+  changeVisibilityEditModal(value: boolean): void {
+    this.visibilityEditModal = value;
   }
 }

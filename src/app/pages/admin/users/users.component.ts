@@ -28,8 +28,8 @@ import { User } from '../../../interfaces/user';
 export class UsersControlComponent implements OnInit, OnDestroy {
   users: User[] = [];
   user: User | null = null;
-  visibleModalUserInfo: boolean = false;
-  visibleModalUserCreate: boolean = false;
+  visibilityInfoModal: boolean = false;
+  visibilityCreateModal: boolean = false;
   private subscriptions: Subscription[] = [];
 
   protected formFilter: FormGroup = this.fb.group({
@@ -42,11 +42,11 @@ export class UsersControlComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.subscriptions.push(
-      this.userService.getListenerUsersModified().subscribe(() => {
-        this.initializeTable();
+      this.userService.getListenerOfUsersData().subscribe(() => {
+        this.loadData();
       })
     );
-    this.userService.notifyUsersModified();
+    this.userService.notifyChangesToUsersData();
   }
 
   public ngOnDestroy(): void {
@@ -62,28 +62,28 @@ export class UsersControlComponent implements OnInit, OnDestroy {
 
   protected clearFilter(): void {
     this.formFilter.reset();
-    this.initializeTable();
+    this.loadData();
   }
 
-  protected openModalUserInfo(user: User): void {
-    this.visibleModalUserInfo = true;
+  protected showInfoModal(user: User): void {
+    this.visibilityInfoModal = true;
     this.user = user;
   }
 
-  protected handleVisibleModalUserInfo(value: boolean) {
-    this.visibleModalUserInfo = value;
+  protected changeVisibilityOfInfoModal(value: boolean) {
+    this.visibilityInfoModal = value;
     if (!value) this.user = null;
   }
 
-  protected openModalUserCreate(): void {
-    this.visibleModalUserCreate = true;
+  protected showCreateModal(): void {
+    this.visibilityCreateModal = true;
   }
 
-  protected handleVisibleModalUserCreate(value: boolean) {
-    this.visibleModalUserCreate = value;
+  protected changeVisibilityOfCreateModal(value: boolean) {
+    this.visibilityCreateModal = value;
   }
 
-  private initializeTable(): void {
+  private loadData(): void {
     this.userService.findAll().subscribe((users) => {
       this.users = users;
     });

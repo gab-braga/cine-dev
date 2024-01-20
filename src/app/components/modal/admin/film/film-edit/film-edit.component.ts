@@ -32,7 +32,7 @@ export class ModalFilmEditComponent {
     if (this.formFilmEdit.valid) console.log(this.formFilmEdit.value);
   }
 
-  closeModal(visible: boolean): void {
+  protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
     this.initializeForm();

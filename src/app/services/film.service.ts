@@ -14,11 +14,11 @@ export class FilmService {
 
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public getListenerFilmsModified(): Observable<void> {
+  public getListenerOfFilmsData(): Observable<void> {
     return this.filmsModifiedSubject.asObservable();
   }
 
-  public notifyFilmsModified(): void {
+  public notifyChangesToFilmsData(): void {
     this.filmsModifiedSubject.next();
   }
 

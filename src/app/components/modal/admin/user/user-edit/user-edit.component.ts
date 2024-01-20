@@ -54,8 +54,8 @@ export class ModalUserEditComponent implements OnChanges {
       const uuid: string = user.uuid || '';
       this.userService.update(uuid, user).subscribe({
         next: () => {
-          this.handleVisibleChange(false);
-          this.userService.notifyUsersModified();
+          this.changeVisibilityModal(false);
+          this.userService.notifyChangesToUsersData();
         },
         error: () => {
           this.messageService.add({
@@ -68,7 +68,7 @@ export class ModalUserEditComponent implements OnChanges {
     }
   }
 
-  protected handleVisibleChange(visible: boolean): void {
+  protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
     if (!visible) this.user = null;

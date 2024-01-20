@@ -1,5 +1,10 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 
@@ -18,14 +23,14 @@ export class ModalFilmCreateComponent {
   visibleChange = new EventEmitter<boolean>();
 
   formFilmCreateSubmitted: boolean = false;
-  formFilmCreate = this.fb.group(this.getFilmFormGroup());
+  formFilmCreate: FormGroup = this.fb.group(this.getFilmFormGroup());
 
   onSubmit(): void {
     this.formFilmCreateSubmitted = true;
     if (this.formFilmCreate.valid) console.log(this.formFilmCreate.value);
   }
 
-  closeModal(visible: boolean): void {
+  protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
     this.initializeForm();
