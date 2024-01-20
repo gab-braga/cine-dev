@@ -75,6 +75,17 @@ export class FilmService {
       );
   }
 
+  public convertImageToBase64(image: File, callback: Function): void {
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const base36File = e.target.result;
+        callback(base36File);
+      };
+      reader.readAsDataURL(image);
+    }
+  }
+
   private generateParamsToFindFilms(filter: FilmFilter) {
     const params = new HttpParams()
       .set('title', filter?.title || '')
