@@ -16,12 +16,11 @@ import {
 import { MessageService } from 'primeng/api';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
-import { FileUploadModule } from 'primeng/fileupload';
 
 @Component({
   selector: 'modal-film-create',
   standalone: true,
-  imports: [ReactiveFormsModule, ButtonModule, FileUploadModule, DialogModule],
+  imports: [ReactiveFormsModule, ButtonModule, DialogModule],
   templateUrl: './film-create.component.html',
   styleUrl: './film-create.component.css',
 })
@@ -52,6 +51,7 @@ export class ModalFilmCreateComponent implements OnChanges {
       this.filmService.create(film).subscribe({
         next: () => {
           this.changeVisibilityModal(false);
+          this.filmService.notifyChangesToFilmsData();
         },
         error: () => {
           this.messageService.add({
@@ -64,9 +64,9 @@ export class ModalFilmCreateComponent implements OnChanges {
     }
   }
 
-  public selectCoverImage(files: any): void {
+  public selectCoverImage(event: any): void {
     this.buttonDisabled = true;
-    const image = files.files[0];
+    const image = event.currentTarget.files[0];
     this.filmService.convertImageToBase64(image, (base64: string) => {
       this.formFilmCreate.get('coverImage')?.setValue(base64);
       this.buttonDisabled = false;
@@ -92,6 +92,7 @@ export class ModalFilmCreateComponent implements OnChanges {
       duration: ['', [Validators.required, Validators.max(3000)]],
       publishedIn: ['', [Validators.required]],
       coverImage: ['', [Validators.required]],
+      coverImageFile: ['', [Validators.required]],
     };
   }
 }

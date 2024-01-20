@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -7,6 +14,8 @@ import {
 } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
+import { FilmService } from '../../../../../services/film.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'modal-film-edit',
@@ -15,8 +24,7 @@ import { DialogModule } from 'primeng/dialog';
   templateUrl: './film-edit.component.html',
   styleUrl: './film-edit.component.css',
 })
-export class ModalFilmEditComponent {
-  constructor(private fb: FormBuilder) {}
+export class ModalFilmEditComponent implements OnChanges {
   @Input()
   visible: boolean = false;
   @Output()
@@ -26,17 +34,51 @@ export class ModalFilmEditComponent {
 
   formFilmEditSubmitted: boolean = false;
   formFilmEdit: FormGroup = this.fb.group(this.getFilmFormGroup());
+  buttonDisabled: boolean = false;
+
+  constructor(
+    private fb: FormBuilder,
+    private filmService: FilmService,
+    private messageService: MessageService
+  ) {}
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    this.initializeForm();
+  }
 
   onSubmit(): void {
     this.formFilmEditSubmitted = true;
-    if (this.formFilmEdit.valid) console.log(this.formFilmEdit.value);
+    if (this.formFilmEdit.valid) {
+      const film = this.formFilmEdit.value;
+      const uuid: string = film.uuid || '';
+      this.filmService.update(uuid, film).subscribe({
+        next: () => {
+          this.changeVisibilityModal(false);
+          this.filmService.notifyChangesToFilmsData();
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Algo deu errado. Confira o formato dos dados.',
+          });
+        },
+      });
+    }
+  }
+
+  protected selectCoverImage(event: any): void {
+    this.buttonDisabled = true;
+    const image = event.currentTarget.files[0];
+    this.filmService.convertImageToBase64(image, (base64: string) => {
+      this.formFilmEdit.get('coverImage')?.setValue(base64);
+      this.buttonDisabled = false;
+    });
   }
 
   protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
-    this.initializeForm();
-    if (!visible) this.film = null;
   }
 
   private initializeForm(): void {
@@ -46,11 +88,26 @@ export class ModalFilmEditComponent {
 
   private getFilmFormGroup() {
     return {
-      title: ['', [Validators.required, Validators.maxLength(120)]],
-      resume: ['', [Validators.required], Validators.maxLength(500)],
-      genres: ['', [Validators.required], Validators.maxLength(255)],
-      duration: ['', [Validators.required, Validators.max(3000)]],
-      publishedIn: ['', [Validators.required]],
+      uuid: [this.film?.uuid || '', [Validators.required]],
+      title: [
+        this.film?.title || '',
+        [Validators.required, Validators.maxLength(120)],
+      ],
+      resume: [
+        this.film?.resume || '',
+        [Validators.required, Validators.maxLength(500)],
+      ],
+      genres: [
+        this.film?.genres || '',
+        [Validators.required, Validators.maxLength(255)],
+      ],
+      duration: [
+        this.film?.duration || '',
+        [Validators.required, Validators.max(3000)],
+      ],
+      publishedIn: [this.film?.publishedIn || '', [Validators.required]],
+      coverImage: [this.film?.coverImage || '', [Validators.required]],
+      coverImageFile: [''],
     };
   }
 }
