@@ -65,6 +65,19 @@ export class RoomService {
       );
   }
 
+  public findSeatsByRoomId(uuid: string): Observable<any> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<void>(`${environment.apiBaseUrl}/seats/room/${uuid}`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   private generateParamsToFindRooms(filter: RoomFilter) {
     const params = new HttpParams().set('number', filter?.number || '');
     return params;

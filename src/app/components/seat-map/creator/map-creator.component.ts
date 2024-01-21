@@ -2,6 +2,8 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Subscription, debounceTime, merge } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { RoomService } from '../../../services/room.service';
 
 @Component({
   selector: 'c-seat-map-creator',
@@ -17,46 +19,58 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   protected seats: any = [];
   protected styleGrid: string = '';
 
+  constructor(
+    private route: ActivatedRoute,
+    private roomService: RoomService
+  ) {}
+
   public ngOnInit(): void {
+    this.loadData();
     this.synchronizeFormAndRoomSize();
-    this.handleChangeDimension();
   }
 
   public ngOnDestroy(): void {
     this.clearSubscriptions();
   }
 
-  protected toggleSeatDisabledStatus(seat: any): void {
-    const { number } = seat;
-    const targetSeat = this.seats.find((elem: any) => elem.number == number);
-    if (targetSeat) targetSeat.empty = !targetSeat.empty;
-    this.recalculateCapacityValue();
-    this.rearrangeSeatsMap();
+  private loadData(): void {
+    this.subscriptions.push(
+      this.route.params.subscribe((params) => {
+        const uuid = params['uuid'];
+        if (uuid) {
+          this.roomService.findSeatsByRoomId(uuid).subscribe((seats) => {
+            this.seats = seats;
+            this.updateGridStyle();
+          });
+        } else {
+          this.drawSeatMap();
+        }
+      })
+    );
   }
 
-  protected getCountSeat(): number {
-    return this.seats.filter((elem: any) => !elem.empty).length;
+  private drawSeatMap(): void {
+    const { width, height } = this.getRoomDimension();
+    this.initializeSeatList(width, height);
+    this.updateSeatMap();
   }
 
-  private handleChangeDimension(): void {
-    const widthControl = this.form.get('width');
-    const heightControl = this.form.get('height');
-    if (widthControl && heightControl) {
-      const width = widthControl.value || 0;
-      const height = heightControl.value || 0;
-      this.styleGrid = `display: grid; grid-template-columns: repeat(${width}, 1fr); gap: 2rem`;
-      this.initializeListSeats(width, height);
-      this.recalculateCapacityValue();
-      this.rearrangeSeatsMap();
-    }
+  private updateSeatNumbers(): void {
+    let seatCount = 1;
+    let emptyCount = -1;
+    this.seats.forEach((seat: any) => {
+      if (seat.empty) seat.number = emptyCount--;
+      else seat.number = seatCount++;
+    });
   }
 
-  private initializeListSeats(width: number, height: number): void {
+  private initializeSeatList(width: number, height: number): void {
     this.seats = [];
-    for (let x: number = 1, num: number = 1; x <= width; x++) {
-      for (let y: number = 1; y <= height; y++, num++) {
+    for (let x: number = 1, count: number = 1; x <= width; x++) {
+      for (let y: number = 1; y <= height; y++, count++) {
         this.seats.push({
-          number: num,
+          number: count,
+          position: count,
           positionInX: x,
           positionInY: y,
           empty: false,
@@ -65,37 +79,64 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
     }
   }
 
-  private recalculateCapacityValue(): void {
-    const capacityControl = this.form.get('capacity');
-    if (capacityControl) capacityControl.setValue(this.getCountSeat());
-  }
-
-  private rearrangeSeatsMap(): void {
-    let seatCount = 1;
-    let emptyCount = -1;
-    this.seats.forEach((seat: any) => {
-      if (seat.empty) seat.number = emptyCount--;
-      else seat.number = seatCount++;
-    });
-    const seatsControl = this.form.get('seats');
-    if (seatsControl) seatsControl.setValue(this.seats);
-  }
-
   private synchronizeFormAndRoomSize(): void {
     const widthControl = this.form.get('width');
     const heightControl = this.form.get('height');
-
     if (widthControl && heightControl)
       this.subscriptions.push(
         merge(widthControl.valueChanges, heightControl.valueChanges)
           .pipe(debounceTime(300))
           .subscribe(() => {
-            this.handleChangeDimension();
+            this.drawSeatMap();
           })
       );
   }
 
+  private updateSeatMap(): void {
+    this.updateSeatNumbers();
+    this.updateSeatListValues();
+    this.updateCapacityValue();
+    this.updateGridStyle();
+  }
+
+  private updateGridStyle(): void {
+    const { width } = this.getRoomDimension();
+    this.styleGrid = `display: grid; grid-template-columns: repeat(${width}, 1fr); gap: 2rem`;
+  }
+
+  private updateCapacityValue(): void {
+    const capacityControl = this.form.get('capacity');
+    if (capacityControl) capacityControl.setValue(this.getCountSeat());
+  }
+
+  private updateSeatListValues(): void {
+    const seatsControl = this.form.get('seats');
+    if (seatsControl) seatsControl.setValue(this.seats);
+  }
+
+  private getRoomDimension(): { width: number; height: number } {
+    const widthControl = this.form.get('width');
+    const heightControl = this.form.get('height');
+    if (widthControl && heightControl) {
+      const width: number = widthControl.value || 0;
+      const height: number = heightControl.value || 0;
+      return { width, height };
+    }
+    throw new Error('Undefined width and height');
+  }
+
   private clearSubscriptions(): void {
     this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  protected toggleSeatStatusAndSpaceEmpty(seat: any): void {
+    const { number } = seat;
+    const targetSeat = this.seats.find((elem: any) => elem.number == number);
+    if (targetSeat) targetSeat.empty = !targetSeat.empty;
+    this.updateSeatMap();
+  }
+
+  protected getCountSeat(): number {
+    return this.seats.filter((elem: any) => !elem.empty).length;
   }
 }

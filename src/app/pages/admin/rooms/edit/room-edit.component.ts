@@ -29,8 +29,7 @@ import { Room } from '../../../../interfaces/room';
   styleUrl: './room-edit.component.css',
 })
 export class RoomEditComponent implements OnInit {
-  protected uuid: string = '';
-
+  private uuid: string = '';
   formSubmitted: boolean = false;
   form: FormGroup = this.fb.group({
     number: ['', [Validators.required]],
@@ -43,34 +42,53 @@ export class RoomEditComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
+    private route: ActivatedRoute,
     private roomService: RoomService,
     private router: Router,
-    private route: ActivatedRoute,
     private messageService: MessageService
   ) {}
 
   public ngOnInit(): void {
-    this.route.params.subscribe((params) => {
-      this.uuid = params['uuid'];
-    });
+    this.loadData();
   }
 
   protected onSubmit(): void {
     this.formSubmitted = true;
     if (this.form.valid) {
       const room = this.form.value;
-      this.roomService.update(this.uuid, room).subscribe({
-        next: () => {
-          this.router.navigate(['/admin/rooms']);
-        },
-        error: () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'ERRO',
-            detail: 'Algo deu errado. Confira os valores.',
-          });
-        },
-      });
+      console.log(room);
+      // this.roomService.update(this.uuid, room).subscribe({
+      //   next: () => {
+      //     this.router.navigate(['/admin/rooms']);
+      //   },
+      //   error: () => {
+      //     this.messageService.add({
+      //       severity: 'error',
+      //       summary: 'ERRO',
+      //       detail: 'Algo deu errado. Confira os valores.',
+      //     });
+      //   },
+      // });
     }
+  }
+
+  private loadData(): void {
+    this.route.params.subscribe((params) => {
+      this.uuid = params['uuid'];
+      this.roomService.findByUUID(this.uuid).subscribe((room) => {
+        this.initializeForm(room);
+      });
+    });
+  }
+
+  private initializeForm(room: any): void {
+    this.form.patchValue({
+      number: room.number,
+      projectionType: room.projectionType,
+      width: room.width,
+      height: room.height,
+      capacity: room.capacity,
+      seats: null,
+    });
   }
 }
