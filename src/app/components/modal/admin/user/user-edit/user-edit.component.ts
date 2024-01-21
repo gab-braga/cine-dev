@@ -33,9 +33,14 @@ export class ModalUserEditComponent implements OnChanges {
   user: any = null;
 
   protected formUserEditSubmitted: boolean = false;
-  protected formUserEdit: FormGroup = this.fb.group(
-    this.getUserFormGroup(this.user)
-  );
+  protected formUserEdit: FormGroup = this.fb.group({
+    name: ['', [Validators.required, Validators.maxLength(120)]],
+    email: ['', [Validators.required, Validators.email]],
+    cpf: ['', [Validators.required]],
+    role: ['', [Validators.required]],
+    phoneNumber: [''],
+    uuid: [''],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -44,7 +49,8 @@ export class ModalUserEditComponent implements OnChanges {
   ) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.initializeForm();
+    const user = changes['user']?.currentValue;
+    if (user) this.initializeForm(user);
   }
 
   protected onSubmit(): void {
@@ -73,22 +79,15 @@ export class ModalUserEditComponent implements OnChanges {
     this.visibleChange.emit(visible);
   }
 
-  private initializeForm(): void {
+  private initializeForm(user: any): void {
     this.formUserEditSubmitted = false;
-    this.formUserEdit = this.fb.group(this.getUserFormGroup(this.user));
-  }
-
-  private getUserFormGroup(user: any) {
-    return {
-      uuid: [user?.uuid || ''],
-      name: [
-        user?.name || '',
-        [Validators.required, Validators.maxLength(120)],
-      ],
-      email: [user?.email || '', [Validators.required, Validators.email]],
-      cpf: [user?.cpf || '', [Validators.required]],
-      role: [user?.role || '', [Validators.required]],
-      phoneNumber: [user?.phoneNumber || ''],
-    };
+    this.formUserEdit.patchValue({
+      name: user.name,
+      email: user.email,
+      cpf: user.cpf,
+      role: user.role,
+      phoneNumber: user.phoneNumber,
+      uuid: user.uuid,
+    });
   }
 }

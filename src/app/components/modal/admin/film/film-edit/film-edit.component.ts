@@ -32,9 +32,18 @@ export class ModalFilmEditComponent implements OnChanges {
   @Input({ required: true })
   film: any = null;
 
-  formFilmEditSubmitted: boolean = false;
-  formFilmEdit: FormGroup = this.fb.group(this.getFilmFormGroup());
   buttonDisabled: boolean = false;
+  formFilmEditSubmitted: boolean = false;
+  formFilmEdit: FormGroup = this.fb.group({
+    title: ['', [Validators.required, Validators.maxLength(120)]],
+    resume: ['', [Validators.required, Validators.maxLength(500)]],
+    genres: ['', [Validators.required, Validators.maxLength(255)]],
+    duration: ['', [Validators.required, Validators.max(3000)]],
+    publishedIn: ['', [Validators.required]],
+    coverImage: ['', [Validators.required]],
+    coverImageFile: [''],
+    uuid: [''],
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -43,7 +52,8 @@ export class ModalFilmEditComponent implements OnChanges {
   ) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
-    this.initializeForm();
+    const film = changes['film']?.currentValue;
+    if (film) this.initializeForm(film);
   }
 
   onSubmit(): void {
@@ -81,33 +91,17 @@ export class ModalFilmEditComponent implements OnChanges {
     this.visibleChange.emit(visible);
   }
 
-  private initializeForm(): void {
+  private initializeForm(film: any): void {
     this.formFilmEditSubmitted = false;
-    this.formFilmEdit = this.fb.group(this.getFilmFormGroup());
-  }
-
-  private getFilmFormGroup() {
-    return {
-      uuid: [this.film?.uuid || '', [Validators.required]],
-      title: [
-        this.film?.title || '',
-        [Validators.required, Validators.maxLength(120)],
-      ],
-      resume: [
-        this.film?.resume || '',
-        [Validators.required, Validators.maxLength(500)],
-      ],
-      genres: [
-        this.film?.genres || '',
-        [Validators.required, Validators.maxLength(255)],
-      ],
-      duration: [
-        this.film?.duration || '',
-        [Validators.required, Validators.max(3000)],
-      ],
-      publishedIn: [this.film?.publishedIn || '', [Validators.required]],
-      coverImage: [this.film?.coverImage || '', [Validators.required]],
-      coverImageFile: [''],
-    };
+    this.formFilmEdit.patchValue({
+      title: film.title,
+      resume: film.resume,
+      genres: film.genres,
+      duration: film.duration,
+      publishedIn: film.publishedIn,
+      coverImage: film.coverImage,
+      uuid: film.uuid,
+      coverImageFile: '',
+    });
   }
 }
