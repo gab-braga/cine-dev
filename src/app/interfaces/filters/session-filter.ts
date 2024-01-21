@@ -1,5 +1,5 @@
-export interface UserFilter {
-  date?: Date;
-  titleFilm?: string;
-  numberRomm?: number;
+export interface SessionFilter {
+  date?: string;
+  title?: string;
+  number?: number;
 }
