@@ -5,6 +5,10 @@ import { ModalSessionInfoComponent } from '../../../components/modal/admin/sessi
 import { ModalSessionCreateComponent } from '../../../components/modal/admin/session/session-create/session-create.component';
 import { LayoutComponent } from '../../../components/layout/layout.component';
 import { DatePipe } from '@angular/common';
+import { Subscription } from 'rxjs';
+import { SessionService } from '../../../services/session.service';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { Session } from '../../../interfaces/session';
 
 @Component({
   selector: 'page-sessions',
@@ -13,6 +17,7 @@ import { DatePipe } from '@angular/common';
     LayoutComponent,
     TableModule,
     ButtonModule,
+    ReactiveFormsModule,
     ModalSessionInfoComponent,
     ModalSessionCreateComponent,
     DatePipe,
@@ -21,92 +26,70 @@ import { DatePipe } from '@angular/common';
   styleUrl: './sessions.component.css',
 })
 export class SessionsControlComponent {
-  session: any = null;
-  visibleModalSessionInfo: boolean = false;
-  visibleModalSessionCreate: boolean = false;
+  visibilityInfoModal: boolean = false;
+  visibilityCreateModal: boolean = false;
 
-  openModalSessionInfo(session: any): void {
-    this.visibleModalSessionInfo = true;
+  protected session: Session | null = null;
+  protected sessions: Session[] = [];
+  private subscriptions: Subscription[] = [];
+
+  protected formFilter: FormGroup = this.fb.group({
+    date: [''],
+    title: [''],
+    number: [''],
+  });
+
+  constructor(
+    private fb: FormBuilder,
+    private sessionService: SessionService
+  ) {}
+
+  public ngOnInit(): void {
+    this.subscriptions.push(
+      this.sessionService.getListenerOfSessionsData().subscribe(() => {
+        this.loadData();
+      })
+    );
+    this.sessionService.notifyChangesToSessionsData();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  protected submitFilter(): void {
+    const filter = this.formFilter.value;
+    this.sessionService.findAll(filter).subscribe((sessions) => {
+      this.sessions = sessions;
+    });
+  }
+
+  protected clearFilter(): void {
+    this.formFilter.reset();
+    this.loadData();
+  }
+
+  protected showInfoModal(session: any): void {
+    this.visibilityInfoModal = true;
     this.session = session;
   }
 
-  closeModalSessionInfo(value: boolean) {
-    this.visibleModalSessionInfo = value;
+  protected changeVisibilityOfInfoModal(value: boolean) {
+    this.visibilityInfoModal = value;
     if (!value) this.session = null;
   }
 
-  openModalSessionCreate(): void {
-    this.visibleModalSessionCreate = true;
+  protected showCreateModal(): void {
+    this.visibilityCreateModal = true;
   }
 
-  closeModalSessionCreate(value: boolean) {
-    this.visibleModalSessionCreate = value;
+  protected changeVisibilityOfCreateModal(value: boolean) {
+    this.visibilityCreateModal = value;
   }
 
-  // Importante: Esta é apenas uma simulação para ilustração. Em um ambiente real, esses dados seriam provenientes de um banco de dados ou de outra fonte de dados.
-  sessions = [
-    {
-      uuid: '1',
-      date: '2024-01-13',
-      hour: '20:30:00',
-      ticketPrice: 16.8,
-      open: false,
-      numberFreeSeats: 89,
-      film: {
-        uuid: 'ee8a775e-9cd8-4e2f-97ad-46b79452c9f1',
-        title: 'Session 1',
-        resume: 'This is the summary for Session 1',
-        genres: 'Genre 1',
-        duration: 120.0,
-        coverImage:
-          'https://i.pinimg.com/736x/c2/f9/e1/c2f9e1e37712d6195b34b19caa7d8de5.jpg',
-        publishedIn: '2024-01-13',
-      },
-      room: {
-        number: 123,
-      },
-    },
-    {
-      uuid: '3',
-      date: '2024-01-13',
-      hour: '20:30:00',
-      ticketPrice: 16.8,
-      open: true,
-      numberFreeSeats: 89,
-      film: {
-        uuid: 'ee8a775e-9cd8-4e2f-97ad-46b79452c9f1',
-        title: 'Session 1',
-        resume: 'This is the summary for Session 1',
-        genres: 'Genre 1',
-        duration: 120.0,
-        coverImage:
-          'https://i.pinimg.com/736x/c2/f9/e1/c2f9e1e37712d6195b34b19caa7d8de5.jpg',
-        publishedIn: '2024-01-13',
-      },
-      room: {
-        number: 123,
-      },
-    },
-    {
-      uuid: '3',
-      date: '2024-01-13',
-      hour: '20:30:00',
-      ticketPrice: 16.8,
-      open: false,
-      numberFreeSeats: 89,
-      film: {
-        uuid: 'ee8a775e-9cd8-4e2f-97ad-46b79452c9f1',
-        title: 'Session 1',
-        resume: 'This is the summary for Session 1',
-        genres: 'Genre 1',
-        duration: 120.0,
-        coverImage:
-          'https://i.pinimg.com/736x/c2/f9/e1/c2f9e1e37712d6195b34b19caa7d8de5.jpg',
-        publishedIn: '2024-01-13',
-      },
-      room: {
-        number: 123,
-      },
-    },
-  ];
+  private loadData(): void {
+    this.sessionService.findAll().subscribe((sessions) => {
+      this.sessions = sessions;
+    });
+  }
 }
