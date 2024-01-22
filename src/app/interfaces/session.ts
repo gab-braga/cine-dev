@@ -12,4 +12,6 @@ export interface Session {
   film: Film;
   room: Room;
   tickets: Ticket[];
+  filmId: string;
+  roomId: string;
 }

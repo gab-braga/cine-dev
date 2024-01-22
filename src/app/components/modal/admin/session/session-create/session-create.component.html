@@ -1,4 +1,4 @@
-<p-dialog header="Nova Sessão" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+<p-dialog header="Nova Sessão" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <form class="flex flex-column align-items-stretch" [formGroup]="formSessionCreate" (ngSubmit)="onSubmit()">
 
@@ -33,25 +33,31 @@
       </div>
 
       <div class="mt-2">
-        <label for="film" class="inline-block text-gray-700 mb-2">Filme<span class="text-red-600">*</span></label>
-        <select formControlName="film" id="film" name="film" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para filme">
+        <label for="filmId" class="inline-block text-gray-700 mb-2">Filme<span class="text-red-600">*</span></label>
+        <select formControlName="filmId" id="filmId" name="filmId" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para filme">
           <option value="" selected disabled>Selecione o filme</option>
+          @for(film of films; track film.uuid) {
+          <option [value]="film?.uuid">{{film?.title}}</option>
+          }
         </select>
-        @if (formSessionCreateSubmitted && formSessionCreate.get('film')?.errors) {
+        @if (formSessionCreateSubmitted && formSessionCreate.get('filmId')?.errors) {
         <small class="inline-block mt-2 text-red-500">Selecione o filme da sessão.</small>
-        } @else if (formSessionCreate.get('film')?.touched && formSessionCreate.get('film')?.hasError('required')) {
+        } @else if (formSessionCreate.get('filmId')?.touched && formSessionCreate.get('filmId')?.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
 
       <div class="mt-2">
-        <label for="room" class="inline-block text-gray-700 mb-2">Sala de Cinema<span class="text-red-600">*</span></label>
-        <select formControlName="room" id="room" name="room" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para sala de cinema">
+        <label for="roomId" class="inline-block text-gray-700 mb-2">Sala de Cinema<span class="text-red-600">*</span></label>
+        <select formControlName="roomId" id="roomId" name="roomId" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para sala de cinema">
           <option value="" selected disabled>Selecione a sala de cinema</option>
+          @for(room of rooms; track room.uuid) {
+          <option [value]="room?.uuid">{{room?.number}}</option>
+          }
         </select>
-        @if (formSessionCreateSubmitted && formSessionCreate.get('room')?.errors) {
+        @if (formSessionCreateSubmitted && formSessionCreate.get('roomId')?.errors) {
         <small class="inline-block mt-2 text-red-500">Selecione a sala de cinema.</small>
-        } @else if (formSessionCreate.get('room')?.touched && formSessionCreate.get('room')?.hasError('required')) {
+        } @else if (formSessionCreate.get('roomId')?.touched && formSessionCreate.get('roomId')?.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
