@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 import { SessionService } from '../../../services/session.service';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Session } from '../../../interfaces/session';
+import { TagSessionComponent } from '../../../components/tag-session/tag-session.component';
 
 @Component({
   selector: 'page-sessions',
@@ -17,6 +18,7 @@ import { Session } from '../../../interfaces/session';
     LayoutComponent,
     TableModule,
     ButtonModule,
+    TagSessionComponent,
     ReactiveFormsModule,
     ModalSessionInfoComponent,
     ModalSessionCreateComponent,

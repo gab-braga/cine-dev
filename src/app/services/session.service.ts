@@ -77,6 +77,40 @@ export class SessionService {
       );
   }
 
+  public close(uuid: string): Observable<void> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .post<void>(
+        `${environment.apiBaseUrl}/sessions/${uuid}/close`,
+        {},
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public open(uuid: string): Observable<void> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .post<void>(
+        `${environment.apiBaseUrl}/sessions/${uuid}/open`,
+        {},
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   private generateParamsToFindSessions(filter: SessionFilter) {
     const params = new HttpParams()
       .set('date', filter?.date || '')

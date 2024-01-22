@@ -1,15 +1,15 @@
-<p-dialog header="Informação da Sessão" [visible]="visible" (visibleChange)="closeModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+<p-dialog header="Informação da Sessão" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
       <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
         <h2 class="text-lg text-gray-500">{{session?.film?.title}}</h2>
         <div class="flex gap-3">
-          <p-button (onClick)="openModalSessionEdit()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm" />
+          <p-button (onClick)="showEditModal()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm" />
           @if(session?.open) {
-          <p-button label="Fechar" icon="pi pi-ban" severity="danger" styleClass="p-2 text-sm" />
+          <p-button (onClick)="closeSession(session)" label="Fechar" icon="pi pi-ban" severity="danger" styleClass="p-2 text-sm" />
           } @else {
-          <p-button label="Abrir" icon="pi pi-check-circle" severity="success" styleClass="p-2 text-sm" />
+          <p-button (onClick)="openSession(session)" label="Abrir" icon="pi pi-check-circle" severity="success" styleClass="p-2 text-sm" />
           }
         </div>
       </div>
@@ -22,7 +22,7 @@
     <h4 class="my-2 text-gray-400"><span class="pi pi-dollar pr-2"></span>Preço Reserva:</h4>
     <p class="ml-4 my-0">{{session?.ticketPrice}}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-info-circle pr-2"></span>Status:</h4>
-    <p class="ml-4 my-0">{{session?.open ? 'Aberta' : 'Fechada'}}</p>
+    <p class="ml-4 my-0"><tag-session [open]="session?.open" /></p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-video pr-2"></span>Filme:</h4>
     <p class="ml-4 my-0">{{session?.film?.title}}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-circle pr-2"></span>Sala de Cinema:</h4>
@@ -30,4 +30,4 @@
   </div>
 </p-dialog>
 
-<modal-session-edit [session]="session" [visible]="visibleModalSessionEdit" (visibleChange)="closeModalSessionEdit($event)" />
+<modal-session-edit [session]="session" [visible]="visibilityEditModal" (visibleChange)="changeVisibilityEditModal($event)" />

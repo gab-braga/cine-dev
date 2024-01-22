@@ -49,8 +49,8 @@
           </td>
           <td>{{ session?.date | date: 'dd/MM/yyyy' }}</td>
           <td>{{ session?.hour }}</td>
-          <td>{{session?.open ? 'Aberta' : 'Fechada'}}</td>
-          <td>{{ session?.ticketPrice }}</td>
+          <td><tag-session [open]="session?.open" styleClass="w-full" /></td>
+          <td>R$ {{ session?.ticketPrice }}</td>
           <td>{{ session?.room?.number }}</td>
           <td>
             <button (click)="showInfoModal(session)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
