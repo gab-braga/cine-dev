@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from './auth.service';
-import { Observable, catchError, first, throwError } from 'rxjs';
+import { Observable, Subject, catchError, first, throwError } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Room } from '../interfaces/room';
 import { environment } from '../../environments/environment';
@@ -10,7 +10,17 @@ import { RoomFilter } from '../interfaces/filters/room-filter';
   providedIn: 'root',
 })
 export class RoomService {
+  private roomsModifiedSubject = new Subject<void>();
+
   constructor(private http: HttpClient, private authService: AuthService) {}
+
+  public getListenerOfRoomsData(): Observable<void> {
+    return this.roomsModifiedSubject.asObservable();
+  }
+
+  public notifyChangesToRoomsData(): void {
+    this.roomsModifiedSubject.next();
+  }
 
   public findAll(filter?: RoomFilter): Observable<Room[]> {
     const params = this.generateParamsToFindRooms(filter || {});
@@ -52,7 +62,7 @@ export class RoomService {
       );
   }
 
-  public update(uuid: string, room: Room): Observable<void> {
+  public updateDetails(uuid: string, room: Room): Observable<void> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .put<void>(`${environment.apiBaseUrl}/rooms/${uuid}`, room, { headers })

@@ -1,0 +1,38 @@
+<p-dialog header="Editar Sala de Cinema" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
+  <div class="flex flex-column justify-content-start align-items-stretch">
+    <a [routerLink]="['/admin/rooms/edit', room?.uuid]" class="mb-2">
+      <p-button label="Editar Mapa de Assentos" [outlined]="true" styleClass="w-full" />
+    </a>
+
+    <form class="flex flex-column align-items-stretch" [formGroup]="formRoomEdit" (ngSubmit)="onSubmit()">
+
+      <input formControlName="uuid" type="hidden" name="uuid">
+
+      <div class="mt-2">
+        <label for="number" class="inline-block text-gray-700 mb-2">Número da Sala<span class="text-red-600">*</span></label>
+        <input formControlName="number" type="text" id="number" name="number" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Preço da reserva" aria-label="Campo para número da sala">
+        @if (formRoomEditSubmitted && formRoomEdit.get('number')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com o número da sala de cinema.</small>
+        } @else if (formRoomEdit.get('number')?.touched && formRoomEdit.get('number')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <div class="mt-2">
+        <label for="projectionType" class="inline-block text-gray-700 mb-2">Tipo de Projeção<span class="text-red-600">*</span></label>
+        <select formControlName="projectionType" id="projectionType" name="projectionType" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para tipo de projeção">
+          <option value="" selected disabled>Selecione o filme</option>
+          <option value="2D">2D</option>
+          <option value="3D">3D</option>
+        </select>
+        @if (formRoomEditSubmitted && formRoomEdit.get('projectionType')?.errors) {
+        <small class="inline-block mt-2 text-red-500">Selecione o tipo de projeção.</small>
+        } @else if (formRoomEdit.get('projectionType')?.touched && formRoomEdit.get('projectionType')?.hasError('required')) {
+        <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+        }
+      </div>
+
+      <button pButton label="Editar" class="mt-3 uppercase"></button>
+    </form>
+  </div>
+</p-dialog>
