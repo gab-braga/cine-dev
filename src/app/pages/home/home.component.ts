@@ -4,6 +4,7 @@ import { HeaderComponent } from '../../components/header/header.component';
 import { FooterComponent } from '../../components/footer/footer.component';
 import { ButtonModule } from 'primeng/button';
 import { SessionDayComponent } from '../../components/session-day/session-day.component';
+import { SessionCardComponent } from '../../components/session-card/session-card.component';
 
 const NUMBER_OF_SESSIONS_SHORTCUTS = 14;
 
@@ -16,6 +17,7 @@ const NUMBER_OF_SESSIONS_SHORTCUTS = 14;
     FooterComponent,
     ButtonModule,
     SessionDayComponent,
+    SessionCardComponent,
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',

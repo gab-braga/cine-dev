@@ -8,14 +8,56 @@
       </a>
     </div>
   </div>
+
   <div class="w-full mx-auto px-5 sm:w-10 sm:px-0 my-5" style="max-width: 1200px">
     <div class="w-full overflow-x-auto">
-      <div class="flex gap-4 mb-2" style="width: min-content;">
+      <div class="flex gap-4 mb-3" style="width: min-content;">
         @for(day of sessionsDay; track day ) {
         <c-session-day [day]="day" />
         }
       </div>
     </div>
   </div>
+
+  <div class="w-full mx-auto px-5 sm:w-10 sm:px-0 my-5" style="max-width: 1200px">
+    <h2 class="uppercase text-xl text-gray-600 my-2">Aberto esta semana</h2>
+    <hr class="border-1 border-gray-600 mb-4">
+
+    <div class="w-full overflow-x-auto pb-2" style="white-space: nowrap;">
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+    </div>
+  </div>
+
+  <div class="w-full mx-auto px-5 sm:w-10 sm:px-0 my-5" style="max-width: 1200px">
+    <h2 class="uppercase text-xl text-gray-600 my-2">Sessões Abertas</h2>
+    <hr class="border-1 border-gray-600 mb-4">
+
+    <div class="w-full overflow-x-auto pb-2 mb-4" style="white-space: nowrap;">
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+    </div>
+
+    <div class="w-full overflow-x-auto pb-2" style="white-space: nowrap;">
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+      <c-session-card class="inline-block mr-5 w-10rem md:w-13rem" />
+    </div>
+  </div>
+
   <c-footer />
 </div>
