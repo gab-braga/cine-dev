@@ -1,0 +1,20 @@
+.image-overlay {
+  width: 100%;
+  min-height: 100vh;
+  background: url("../../../assets/cover-image.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  position: relative;
+  z-index: 0;
+}
+
+.image-overlay::after {
+  content: "";
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  z-index: 1;
+}
