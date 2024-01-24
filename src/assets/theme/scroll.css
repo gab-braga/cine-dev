@@ -1,0 +1,19 @@
+::-webkit-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--surface-600);
+  border-radius: var(--border-radius);
+}
+
+::-moz-scrollbar {
+  width: 0.5rem;
+  height: 0.5rem;
+}
+
+::-moz-scrollbar-thumb {
+  background-color: var(--surface-600);
+  border-radius: var(--border-radius);
+}

@@ -74,6 +74,7 @@
 @import "skeleton.css";
 @import "tag.css";
 @import "terminal.css";
+@import "scroll.css";
 @import "transitions.css";
 
 :root {
