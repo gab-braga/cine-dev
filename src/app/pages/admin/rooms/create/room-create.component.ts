@@ -30,6 +30,7 @@ import { MessageService } from 'primeng/api';
 export class RoomCreateComponent {
   formSubmitted: boolean = false;
   form: FormGroup = this.fb.group({
+    uuid: [''],
     number: ['', [Validators.required]],
     projectionType: ['', [Validators.required]],
     width: [12, [Validators.required, Validators.min(1)]],

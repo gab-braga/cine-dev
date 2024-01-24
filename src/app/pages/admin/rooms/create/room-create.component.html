@@ -33,26 +33,6 @@
       }
     </div>
 
-    <div class="mt-3 col-12 md:col-6">
-      <label for="width" class="inline-block text-white mb-2">Assentos na Horizontal</label>
-      <input pInputText formControlName="width" type="number" id="width" name="width" autocomplete="off" class="w-full" placeholder="Preencha com o número de assentos na horizontal." aria-label="Campo para assentos na horizontal">
-      @if (formSubmitted && form.get('width')?.errors) {
-      <small class="inline-block mt-2 text-red-500">Preencha com o números de assentos na horizontal</small>
-      } @else if (form.get('width')?.touched && form.get('width')?.hasError('required')) {
-      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
-      }
-    </div>
-
-    <div class="mt-3 col-12 md:col-6">
-      <label for="height" class="inline-block text-white mb-2">Assentos na Vertical</label>
-      <input pInputText formControlName="height" type="number" id="height" name="height" autocomplete="off" class="w-full" placeholder="Preencha com o números de assentos na vertical." aria-label="Campo para assentos na vertical">
-      @if (formSubmitted && form.get('height')?.errors) {
-      <small class="inline-block mt-2 text-red-500">Preencha com o números de assentos na vertical.</small>
-      } @else if (form.get('height')?.touched && form.get('height')?.hasError('required')) {
-      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
-      }
-    </div>
-
     <div class="w-full mt-4">
       <c-seat-map-creator [form]="form" />
     </div>

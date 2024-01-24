@@ -1,14 +1,15 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Subscription, debounceTime, merge } from 'rxjs';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { RoomService } from '../../../services/room.service';
+import { InputTextModule } from 'primeng/inputtext';
 
 @Component({
   selector: 'c-seat-map-creator',
   standalone: true,
-  imports: [NgClass],
+  imports: [InputTextModule, NgClass, ReactiveFormsModule],
   templateUrl: './map-creator.component.html',
   styleUrl: './map-creator.component.css',
 })
@@ -25,28 +26,40 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   ) {}
 
   public ngOnInit(): void {
-    this.loadData();
-    this.synchronizeFormAndRoomSize();
+    this.initializeMap();
   }
 
   public ngOnDestroy(): void {
     this.clearSubscriptions();
   }
 
-  private loadData(): void {
+  private initializeMap(): void {
     this.subscriptions.push(
       this.route.params.subscribe((params) => {
         const uuid = params['uuid'];
         if (uuid) {
-          this.roomService.findSeatsByRoomId(uuid).subscribe((seats) => {
-            this.seats = seats;
-            this.updateGridStyle();
-          });
+          this.loadData(uuid);
         } else {
-          this.drawSeatMap();
+          this.loadSeatMap();
         }
       })
     );
+  }
+
+  private loadData(uuid: string): void {
+    this.roomService.findByUUID(uuid).subscribe((room) => {
+      this.roomService.findSeatsByRoomId(uuid).subscribe((seats) => {
+        this.seats = seats;
+        this.initializeForm(room, seats);
+        this.updateGridStyle();
+        this.synchronizeFormAndRoomSize();
+      });
+    });
+  }
+
+  private loadSeatMap(): void {
+    this.drawSeatMap();
+    this.synchronizeFormAndRoomSize();
   }
 
   private drawSeatMap(): void {
@@ -138,5 +151,16 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
 
   protected getCountSeat(): number {
     return this.seats.filter((elem: any) => !elem.empty).length;
+  }
+
+  private initializeForm(room: any, seats: any): void {
+    this.form.patchValue({
+      uuid: room.uuid,
+      width: room.width,
+      height: room.height,
+      capacity: room.capacity,
+      seats: seats,
+    });
+    this.synchronizeFormAndRoomSize();
   }
 }

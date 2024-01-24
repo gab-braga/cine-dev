@@ -1,4 +1,25 @@
 <div class="w-full p-5 surface-700 border-round">
+
+  <form [formGroup]="form" class="grid mb-4">
+    <input formControlName="uuid" type="hidden" name="uuid">
+
+    <div class="col-12 md:col-6">
+      <label for="width" class="inline-block text-white mb-2">Número de assentos na Horizontal</label>
+      <input pInputText formControlName="width" type="number" id="width" name="width" autocomplete="off" class="w-full" placeholder="Preencha com o número de assentos na horizontal." aria-label="Campo para assentos na horizontal">
+      @if (form.get('width')?.touched && form.get('width')?.hasError('required')) {
+      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+      }
+    </div>
+
+    <div class="col-12 md:col-6">
+      <label for="height" class="inline-block text-white mb-2">Número de assentos na Vertical</label>
+      <input pInputText formControlName="height" type="number" id="height" name="height" autocomplete="off" class="w-full" placeholder="Preencha com o números de assentos na vertical." aria-label="Campo para assentos na vertical">
+      @if (form.get('height')?.touched && form.get('height')?.hasError('required')) {
+      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
+      }
+    </div>
+  </form>
+
   <div class="flex gap-2 align-content-center justify-content-between mb-4">
     <p class="inline-block text-white m-0">
       Selecione os assentos para remover

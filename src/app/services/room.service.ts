@@ -75,6 +75,21 @@ export class RoomService {
       );
   }
 
+  public updateSeatMap(uuid: string, room: any) {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .put<void>(`${environment.apiBaseUrl}/rooms/${uuid}/map`, room, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public findSeatsByRoomId(uuid: string): Observable<any> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
