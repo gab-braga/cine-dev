@@ -24,6 +24,7 @@
 }
 
 @media (max-width: 991px) {
+  /* lg: */
   .container-carousel {
     box-shadow: none;
   }
