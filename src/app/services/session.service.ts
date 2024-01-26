@@ -36,6 +36,30 @@ export class SessionService {
       );
   }
 
+  public findNearby(): Observable<Session[]> {
+    return this.http
+      .get<Session[]>(`${environment.apiBaseUrl}/public/sessions`)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public findThisWeek(): Observable<Session[]> {
+    return this.http
+      .get<Session[]>(`${environment.apiBaseUrl}/public/sessions/week`)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public findByUUID(uuid: string): Observable<Session> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
