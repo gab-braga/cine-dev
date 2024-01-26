@@ -2,7 +2,7 @@
   <div class="absolute text-white text-xs border-round surface-900 px-2 py-1 sm:text-base sm:px-3 sm:py-2 z-1" style="top: 0.5rem; right: -0.7rem; box-shadow: 3px 3px 0 white;">
     <span class="text-primary">R$</span> {{ session?.ticketPrice }}
   </div>
-  <a [routerLink]="['/sessions', session?.uuid]" class="inline-block no-underline">
+  <a [routerLink]="['/sessions', session?.uuid]" class="block no-underline">
     <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" draggable="false" class="w-full h-12rem sm:h-16rem md:h-20rem border-round" style="object-fit: cover;">
   </a>
   <div>

@@ -1,0 +1,35 @@
+<c-layout>
+  <div class="mb-5">
+    <h1 class="text-3xl text-gray-300 uppercase m-0">
+      Sessões
+    </h1>
+    <span class="inline-block text-gray-600 mt-1">
+      Encontre uma sessão para você
+    </span>
+  </div>
+
+  <div class="flex flex-column lg:flex-row gap-5 align-items-stretch">
+    <div class="overflow-x-auto pb-3">
+      <div class="flex flex-row lg:flex-column gap-3">
+        @for(day of sessionsDay; track day) {
+        <c-session-day [day]="day" />
+        }
+      </div>
+    </div>
+    <div class="lg:flex-1">
+      <form [formGroup]="formFilter" (ngSubmit)="submitFilter()" class="flex flex-column sm:flex-row gap-3 mb-4">
+        <input formControlName="title" pInputText type="text" placeholder="Digite o título do filme" class="flex-1 p-inputtext-sm">
+        <div class="flex-1 flex gap-2">
+          <input formControlName="date" pInputText type="date" placeholder="Digite a data que deseja" class="flex-1 p-inputtext-sm">
+          <p-button type="submit" label="Buscar" />
+        </div>
+      </form>
+
+      <div class="grid">
+        @for(session of sessions; track session?.uuid) {
+        <c-session-card [session]="session" class="col-6 sm:col-4 md:col-3" />
+        }
+      </div>
+    </div>
+  </div>
+</c-layout>

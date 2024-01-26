@@ -71,19 +71,19 @@
 }
 
 ::-webkit-input-placeholder {
-  color: var(--text-color-secondary);
+  color: var(--gray-200);
 }
 
 :-moz-placeholder {
-  color: var(--text-color-secondary);
+  color: var(--gray-200);
 }
 
 ::-moz-placeholder {
-  color: var(--text-color-secondary);
+  color: var(--gray-200);
 }
 
 :-ms-input-placeholder {
-  color: var(--text-color-secondary);
+  color: var(--gray-200);
 }
 
 .p-input-filled .p-inputtext {

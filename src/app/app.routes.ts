@@ -11,6 +11,7 @@ import { RoomCreateComponent } from './pages/admin/rooms/create/room-create.comp
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { RoomEditComponent } from './pages/admin/rooms/edit/room-edit.component';
+import { SessionsComponent } from './pages/sessions/sessions.component';
 
 export const routes: Routes = [
   {
@@ -18,6 +19,11 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
     title: 'CineDev.com',
+  },
+  {
+    path: 'sessions',
+    component: SessionsComponent,
+    title: 'Sessões Abertas',
   },
   {
     path: 'auth',
