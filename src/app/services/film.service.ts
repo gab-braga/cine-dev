@@ -36,6 +36,16 @@ export class FilmService {
       );
   }
 
+  public findForClient(): Observable<Film[]> {
+    return this.http.get<Film[]>(`${environment.apiBaseUrl}/public/films`).pipe(
+      catchError((error) => {
+        console.error(error);
+        return throwError(() => error);
+      }),
+      first()
+    );
+  }
+
   public findByUUID(uuid: string): Observable<Film> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http

@@ -1,0 +1,14 @@
+<div class="relative w-full">
+  <a [routerLink]="['/films',film?.uuid]" class="block no-underline">
+    <img [src]="film?.coverImage" [alt]="film?.title" draggable="false" class="w-full h-12rem sm:h-16rem md:h-20rem border-round" style="object-fit: cover;">
+  </a>
+  <div>
+    <p class="text-sm text-gray-50 font-semibold sm:text-base md:text-lg my-2 overflow-hidden" style="white-space:nowrap; text-overflow: ellipsis;">
+      {{ film?.title }}
+    </p>
+    <p class="text-xs sm:text-sm flex justify-content-between mx-0 my-1">
+      <span class="text-gray-500">{{ film?.duration }}m</span>
+      <span class="text-gray-500">{{ film?.publishedIn | date: 'yyyy' }}</span>
+    </p>
+  </div>
+</div>

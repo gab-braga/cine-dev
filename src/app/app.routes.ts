@@ -12,6 +12,7 @@ import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { RoomEditComponent } from './pages/admin/rooms/edit/room-edit.component';
 import { SessionsComponent } from './pages/sessions/sessions.component';
+import { FilmsComponent } from './pages/films/films.component';
 
 export const routes: Routes = [
   {
@@ -24,6 +25,11 @@ export const routes: Routes = [
     path: 'sessions',
     component: SessionsComponent,
     title: 'Sessões Abertas',
+  },
+  {
+    path: 'films',
+    component: FilmsComponent,
+    title: 'Melhores Filmes',
   },
   {
     path: 'auth',

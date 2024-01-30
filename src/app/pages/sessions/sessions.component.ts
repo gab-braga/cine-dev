@@ -1,18 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
 import { LayoutComponent } from '../../components/layout/layout.component';
 import { Session } from '../../interfaces/session';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-} from '@angular/forms';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { SessionService } from '../../services/session.service';
 import { SessionDayComponent } from '../../components/session-day/session-day.component';
 import { SessionCardComponent } from '../../components/session-card/session-card.component';
 import { InputTextModule } from 'primeng/inputtext';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';
 
 const NUMBER_OF_SESSIONS_SHORTCUTS = 14;
@@ -31,7 +26,7 @@ const NUMBER_OF_SESSIONS_SHORTCUTS = 14;
   templateUrl: './sessions.component.html',
   styleUrl: './sessions.component.css',
 })
-export class SessionsComponent implements OnInit {
+export class SessionsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   private sessions: Session[] = [];
   protected sessionsFiltered: Session[] = [];
@@ -50,6 +45,10 @@ export class SessionsComponent implements OnInit {
     this.loadData();
   }
 
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
   private initilizeSessionDays(): void {
     for (let i = 0; i < NUMBER_OF_SESSIONS_SHORTCUTS; i++) {
       this.sessionsDay[i] = new Date(Date.now() + i * 86400000);
@@ -57,11 +56,13 @@ export class SessionsComponent implements OnInit {
   }
 
   private synchronizeFormWithAutomaticQuery(): void {
-    this.formControlForTitle.valueChanges
-      .pipe(debounceTime(200))
-      .subscribe((title) => {
-        this.findByTitle(title || '');
-      });
+    this.subscriptions.push(
+      this.formControlForTitle.valueChanges
+        .pipe(debounceTime(200))
+        .subscribe((title) => {
+          this.findByTitle(title || '');
+        })
+    );
   }
 
   private findByTitle(title: string): void {
