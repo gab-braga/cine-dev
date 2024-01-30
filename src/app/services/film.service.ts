@@ -36,16 +36,6 @@ export class FilmService {
       );
   }
 
-  public findForClient(): Observable<Film[]> {
-    return this.http.get<Film[]>(`${environment.apiBaseUrl}/public/films`).pipe(
-      catchError((error) => {
-        console.error(error);
-        return throwError(() => error);
-      }),
-      first()
-    );
-  }
-
   public findById(uuid: string): Observable<Film> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
@@ -57,6 +47,30 @@ export class FilmService {
         }),
         first()
       );
+  }
+
+  public findByGenresForClient(genres: string): Observable<Film[]> {
+    return this.http
+      .get<Film[]>(`${environment.apiBaseUrl}/public/films/genres`, {
+        params: { genres },
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public findForClient(): Observable<Film[]> {
+    return this.http.get<Film[]>(`${environment.apiBaseUrl}/public/films`).pipe(
+      catchError((error) => {
+        console.error(error);
+        return throwError(() => error);
+      }),
+      first()
+    );
   }
 
   public findByIdForClient(uuid: string): Observable<Film> {
