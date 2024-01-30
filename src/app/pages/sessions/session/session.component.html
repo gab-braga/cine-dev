@@ -1,0 +1,49 @@
+<c-layout>
+  <div class="mb-5">
+    <h1 class="text-3xl text-gray-300 uppercase m-0 mb-4">
+      {{ "Detalhes da Sessão" }}
+    </h1>
+
+    <div class="grid surface-900 border-round">
+      <div class="col-12 sm:col-6 md:col-4 lg:col-3">
+        <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" class="w-full h-25rem border-round" style="object-fit: cover">
+      </div>
+      <div class="col-12 sm:col-6 md:col-8 lg:col-9">
+        <div class="h-full flex flex-column justify-content-center p-3 md:p-5">
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Título:</span> {{ session?.film?.title }}
+          </p>
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Gêneros:</span> {{ session?.film?.genres }}
+          </p>
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Duração:</span> {{ session?.film?.duration }}m
+          </p>
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Data:</span> {{ session?.date | date: 'dd/MM' }}
+          </p>
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Horário:</span> {{ session?.hour }}m
+          </p>
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Ingresos:</span> R$ {{ session?.ticketPrice }}m
+          </p>
+          <a [routerLink]="['/sessions', session?.uuid, 'tickets']" class="mt-2">
+            <p-button label="Buscar Reservas" styleClass="uppercase" />
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="my-5">
+    <h2 class="text-sm text-gray-600 uppercase sm:text-base md:text-xl my-2">Veja Também</h2>
+    <hr class="w-full border-1 border-gray-600 mb-4">
+
+    <div class="w-full overflow-x-auto pb-2 mb-4" style="white-space: nowrap;">
+      @for(session of sessions; track session?.uuid) {
+      <c-session-card [session]="session" class="inline-block  w-8rem sm:w-10rem md:w-13rem mr-4" />
+      }
+    </div>
+  </div>
+</c-layout>

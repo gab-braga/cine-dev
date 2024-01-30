@@ -61,6 +61,32 @@ export class SessionService {
       );
   }
 
+  public findByIdForClient(uuid: string): Observable<Session> {
+    return this.http
+      .get<Session>(`${environment.apiBaseUrl}/public/sessions/${uuid}`)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public findByGenresForClient(genres: string): Observable<Session[]> {
+    return this.http
+      .get<Session[]>(`${environment.apiBaseUrl}/public/sessions/genres`, {
+        params: { genres },
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public findByUUID(uuid: string): Observable<Session> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http

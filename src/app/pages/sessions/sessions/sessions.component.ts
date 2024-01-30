@@ -1,11 +1,11 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { LayoutComponent } from '../../components/layout/layout.component';
-import { Session } from '../../interfaces/session';
+import { LayoutComponent } from '../../../components/layout/layout.component';
+import { Session } from '../../../interfaces/session';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { SessionService } from '../../services/session.service';
-import { SessionDayComponent } from '../../components/session-day/session-day.component';
-import { SessionCardComponent } from '../../components/session-card/session-card.component';
+import { SessionService } from '../../../services/session.service';
+import { SessionDayComponent } from '../../../components/session-day/session-day.component';
+import { SessionCardComponent } from '../../../components/session-card/session-card.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription, debounceTime } from 'rxjs';

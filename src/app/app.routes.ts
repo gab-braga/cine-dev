@@ -11,9 +11,10 @@ import { RoomCreateComponent } from './pages/admin/rooms/create/room-create.comp
 import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { RoomEditComponent } from './pages/admin/rooms/edit/room-edit.component';
-import { SessionsComponent } from './pages/sessions/sessions.component';
+import { SessionsComponent } from './pages/sessions/sessions/sessions.component';
 import { FilmComponent } from './pages/films/film/film.component';
 import { FilmsComponent } from './pages/films/films/films.component';
+import { SessionComponent } from './pages/sessions/session/session.component';
 
 export const routes: Routes = [
   {
@@ -24,8 +25,18 @@ export const routes: Routes = [
   },
   {
     path: 'sessions',
-    component: SessionsComponent,
-    title: 'Sessões Abertas',
+    children: [
+      {
+        path: '',
+        component: SessionsComponent,
+        title: 'Sessões Abertas',
+      },
+      {
+        path: ':uuid',
+        component: SessionComponent,
+        title: 'Detalhes da Sessão',
+      },
+    ],
   },
   {
     path: 'films',
