@@ -46,10 +46,22 @@ export class FilmService {
     );
   }
 
-  public findByUUID(uuid: string): Observable<Film> {
+  public findById(uuid: string): Observable<Film> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .get<Film>(`${environment.apiBaseUrl}/films/${uuid}`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public findByIdForClient(uuid: string): Observable<Film> {
+    return this.http
+      .get<Film>(`${environment.apiBaseUrl}/public/films/${uuid}`)
       .pipe(
         catchError((error) => {
           console.error(error);

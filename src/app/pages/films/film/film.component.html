@@ -1,0 +1,33 @@
+<c-layout>
+  <div class="mb-5">
+    <h1 class="text-3xl text-gray-300 uppercase m-0">
+      {{ film?.title || "Filme" }}
+    </h1>
+  </div>
+
+  <div class="grid surface-900 border-round">
+    <div class="col-12 sm:col-6 md:col-4 lg:col-3">
+      <img [src]="film?.coverImage" [alt]="film?.title" class="w-full h-25rem border-round" style="object-fit: cover">
+    </div>
+    <div class="col-12 sm:col-6 md:col-8 lg:col-9">
+      <div class="h-full flex flex-column justify-content-center p-3 md:p-5">
+        <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+          <span class="text-gray-500">Título:</span> {{ film?.title }}
+        </p>
+        <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+          <span class="text-gray-500">Gêneros:</span> {{ film?.genres }}
+        </p>
+        <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+          <span class="text-gray-500">Duração:</span> {{ film?.duration }}m
+        </p>
+        <p class="text-white my-2 sm:max-h-6rem sm:overflow-hidden">
+          <span class="text-gray-500">Sinopse:</span>
+          {{ film?.resume }}
+        </p>
+        <a [routerLink]="['/sessions']" class="mt-2">
+          <p-button label="Quero Assistir" styleClass="uppercase" />
+        </a>
+      </div>
+    </div>
+  </div>
+</c-layout>

@@ -12,7 +12,8 @@ import { authGuard } from './guards/auth.guard';
 import { adminGuard } from './guards/admin.guard';
 import { RoomEditComponent } from './pages/admin/rooms/edit/room-edit.component';
 import { SessionsComponent } from './pages/sessions/sessions.component';
-import { FilmsComponent } from './pages/films/films.component';
+import { FilmComponent } from './pages/films/film/film.component';
+import { FilmsComponent } from './pages/films/films/films.component';
 
 export const routes: Routes = [
   {
@@ -28,8 +29,18 @@ export const routes: Routes = [
   },
   {
     path: 'films',
-    component: FilmsComponent,
-    title: 'Melhores Filmes',
+    children: [
+      {
+        path: '',
+        component: FilmsComponent,
+        title: 'Melhores Filmes',
+      },
+      {
+        path: ':uuid',
+        component: FilmComponent,
+        title: 'Detalhes do Filme',
+      },
+    ],
   },
   {
     path: 'auth',

@@ -1,12 +1,12 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ButtonModule } from 'primeng/button';
-import { LayoutComponent } from '../../components/layout/layout.component';
-import { Film } from '../../interfaces/film';
+import { LayoutComponent } from '../../../components/layout/layout.component';
+import { Film } from '../../../interfaces/film';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
-import { FilmService } from '../../services/film.service';
+import { FilmService } from '../../../services/film.service';
 import { InputTextModule } from 'primeng/inputtext';
 import { Subscription, debounceTime } from 'rxjs';
-import { FilmCardComponent } from '../../components/film-card/film-card.component';
+import { FilmCardComponent } from '../../../components/film-card/film-card.component';
 
 @Component({
   selector: 'page-films',
