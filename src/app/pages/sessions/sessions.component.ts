@@ -7,6 +7,7 @@ import { SessionService } from '../../services/session.service';
 import { SessionDayComponent } from '../../components/session-day/session-day.component';
 import { SessionCardComponent } from '../../components/session-card/session-card.component';
 import { InputTextModule } from 'primeng/inputtext';
+import { ActivatedRoute, Router } from '@angular/router';
 
 const NUMBER_OF_SESSIONS_SHORTCUTS = 14;
 
@@ -28,14 +29,16 @@ export class SessionsComponent implements OnInit {
   protected sessionsDay: Date[] = [];
   sessions: Session[] = [];
 
-  protected formFilter: FormGroup = this.fb.group({
+  protected formSearch: FormGroup = this.fb.group({
     title: [''],
     date: [''],
   });
 
   constructor(
     private fb: FormBuilder,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   public ngOnInit(): void {
@@ -43,15 +46,13 @@ export class SessionsComponent implements OnInit {
     this.loadData();
   }
 
-  protected submitFilter(): void {
-    const filter = this.formFilter.value;
-    this.sessionService.findAll(filter).subscribe((sessions) => {
-      this.sessions = sessions;
-    });
+  protected submitSearch(): void {
+    const params = this.formSearch.value;
+    this.router.navigate(['/sessions', params]);
   }
 
   protected clearFilter(): void {
-    this.formFilter.reset();
+    this.formSearch.reset();
     this.loadData();
   }
 
@@ -62,8 +63,11 @@ export class SessionsComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.sessionService.findNearby().subscribe((sessions) => {
-      this.sessions = sessions;
+    this.route.params.subscribe((params) => {
+      const filter = params;
+      this.sessionService.findNearby(filter).subscribe((sessions) => {
+        this.sessions = sessions;
+      });
     });
   }
 }

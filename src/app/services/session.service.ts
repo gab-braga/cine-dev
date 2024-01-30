@@ -36,9 +36,10 @@ export class SessionService {
       );
   }
 
-  public findNearby(): Observable<Session[]> {
+  public findNearby(filter?: SessionFilter): Observable<Session[]> {
+    const params = this.generateParamsToFindSessions(filter || {});
     return this.http
-      .get<Session[]>(`${environment.apiBaseUrl}/public/sessions`)
+      .get<Session[]>(`${environment.apiBaseUrl}/public/sessions`, { params })
       .pipe(
         catchError((error) => {
           console.error(error);
