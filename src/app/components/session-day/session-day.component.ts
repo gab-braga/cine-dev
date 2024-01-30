@@ -26,7 +26,8 @@ export class SessionDayComponent implements OnInit {
   }
 
   protected redirectSession(): void {
-    const params = { date: this.formatDate(this.day) };
+    let params = {};
+    if (!this.active) params = { date: this.formatDate(this.day) };
     this.router.navigate(['/sessions'], { queryParams: params });
   }
 

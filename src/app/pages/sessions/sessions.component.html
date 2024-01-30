@@ -17,16 +17,12 @@
       </div>
     </div>
     <div class="lg:flex-1">
-      <form [formGroup]="formSearch" (ngSubmit)="submitSearch()" class="flex flex-column sm:flex-row gap-3 mb-4">
-        <input formControlName="title" pInputText type="text" placeholder="Digite o título do filme" class="flex-1 p-inputtext-sm">
-        <div class="flex-1 flex gap-3">
-          <input formControlName="date" pInputText type="date" placeholder="Digite a data que deseja" class="flex-1 p-inputtext-sm">
-          <p-button type="submit" label="Buscar" />
-        </div>
+      <form class="mb-4">
+        <input [formControl]="formControlForTitle" pInputText type="text" placeholder="Digite o título do filme" class="w-full p-inputtext-sm">
       </form>
 
       <div class="grid">
-        @for(session of sessions; track session?.uuid) {
+        @for(session of sessionsFiltered; track session?.uuid) {
         <c-session-card [session]="session" class="col-6 sm:col-4 md:col-3" />
         } @empty {
         <h3 class="text-white">Nenhum resultado encontrado.</h3>

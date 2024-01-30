@@ -45,7 +45,7 @@ export class HomeComponent implements OnInit {
   }
 
   private loadData(): void {
-    this.sessionService.findNearby().subscribe((sessions) => {
+    this.sessionService.findRecent().subscribe((sessions) => {
       this.sessions = sessions;
     });
     this.sessionService.findThisWeek().subscribe((sessions) => {

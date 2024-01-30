@@ -36,7 +36,7 @@ export class SessionService {
       );
   }
 
-  public findNearby(filter?: SessionFilter): Observable<Session[]> {
+  public findRecent(filter?: SessionFilter): Observable<Session[]> {
     const params = this.generateParamsToFindSessions(filter || {});
     return this.http
       .get<Session[]>(`${environment.apiBaseUrl}/public/sessions`, { params })
