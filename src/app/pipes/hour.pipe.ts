@@ -6,13 +6,13 @@ import { min } from 'rxjs';
   standalone: true,
 })
 export class HourPipe implements PipeTransform {
-  transform(value: string | undefined, ...args: string[]): string {
+  transform(value: string | undefined, ...args: string[]): string | undefined {
     if (value) {
       const parts = value.split(':');
       const hours = parts[0];
       const minutes = parts[1];
       return `${hours}:${minutes}`;
     }
-    return '00:00';
+    return undefined;
   }
 }

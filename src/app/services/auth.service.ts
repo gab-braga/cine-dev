@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, first, map, throwError } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { jwtDecode } from 'jwt-decode';
+import { UserAuth } from '../interfaces/user-auth';
 
 @Injectable({
   providedIn: 'root',
@@ -60,6 +61,19 @@ export class AuthService {
       Authorization: `Bearer ${token}`,
     });
     return headers;
+  }
+
+  public getAuthUser(): UserAuth {
+    const token = this.getStoredToken();
+    if (token) {
+      const payload = <any>jwtDecode(token);
+      return {
+        email: payload.sub,
+        uuid: payload.uuid,
+        role: payload.role,
+      };
+    }
+    throw new Error('User not authenticated');
   }
 
   private storeToken(accessToken: string): void {

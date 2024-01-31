@@ -1,0 +1,43 @@
+<c-layout>
+  <div>
+    <h1 class="text-3xl text-gray-300 uppercase m-0">
+      Reservar Poltronas
+    </h1>
+    <span class="inline-block text-gray-600 mt-1">
+      Poltronas disponíveis para reserva
+    </span>
+  </div>
+
+  <div class="mt-5 flex column-gap-4 flex-wrap">
+    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+      <span class="text-gray-500">Data:</span> {{ (session?.date | date: 'dd/MM') || '...' }}
+    </p>
+    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+      <span class="text-gray-500">Horário:</span> {{ (session?.hour | hour) || '...' }}
+    </p>
+    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+      <span class="text-gray-500">Ingresso:</span> R$ {{ session?.ticketPrice || '...' }}
+    </p>
+    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+      <span class="text-gray-500">Vagas:</span> {{ session?.numberFreeSeats || '...' }}
+    </p>
+    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+      <span class="text-gray-500">Título:</span> {{ session?.film?.title || '...' }}
+    </p>
+  </div>
+
+  <form class="mt-2 grid" [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="w-full mt-4">
+      <c-seat-map-selector [form]="form" />
+    </div>
+
+    <div class="w-full mt-4 flex justify-content-between align-content-center">
+      <a routerLink="/sessions">
+        <p-button label="Voltar" [outlined]="true" styleClass="uppercase" />
+      </a>
+
+      <button pButton label="Reservar" type="submit" class="uppercase"></button>
+    </div>
+  </form>
+
+</c-layout>

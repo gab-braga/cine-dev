@@ -15,6 +15,7 @@ import { SessionsComponent } from './pages/sessions/sessions/sessions.component'
 import { FilmComponent } from './pages/films/film/film.component';
 import { FilmsComponent } from './pages/films/films/films.component';
 import { SessionComponent } from './pages/sessions/session/session.component';
+import { TicketsComponent } from './pages/sessions/tickets/tickets.component';
 
 export const routes: Routes = [
   {
@@ -33,8 +34,19 @@ export const routes: Routes = [
       },
       {
         path: ':uuid',
-        component: SessionComponent,
-        title: 'Detalhes da Sessão',
+        children: [
+          {
+            path: '',
+            component: SessionComponent,
+            title: 'Detalhes da Sessão',
+          },
+          {
+            path: 'tickets',
+            component: TicketsComponent,
+            title: 'Reservas Disponíveis',
+            canActivate: [authGuard],
+          },
+        ],
       },
     ],
   },

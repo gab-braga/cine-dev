@@ -2,6 +2,10 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Subscription, debounceTime, merge } from 'rxjs';
 import { FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { TicketService } from '../../../services/ticket.service';
+import { Ticket } from '../../../interfaces/ticket';
+import { Room } from '../../../interfaces/room';
 
 @Component({
   selector: 'c-seat-map-selector',
@@ -12,79 +16,65 @@ import { FormGroup } from '@angular/forms';
 })
 export class SeatMapSelectorComponent implements OnInit, OnDestroy {
   @Input()
-  form: FormGroup = new FormGroup({});
+  public form: FormGroup = new FormGroup({});
   private subscriptions: Subscription[] = [];
-  protected seats: any = [];
+  protected tickets: any = [];
   protected styleGrid: string = '';
 
+  constructor(
+    private route: ActivatedRoute,
+    private ticketService: TicketService
+  ) {}
+
   ngOnInit(): void {
-    this.handleChangeDimension();
-    this.synchronizeFormAndRoomSize();
+    this.loadData();
   }
 
   ngOnDestroy(): void {
-    this.clearSubscriptions();
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  private handleChangeDimension(): void {
-    const widthControl = this.form.get('width');
-    const heightControl = this.form.get('height');
-    if (widthControl && heightControl) {
-      const width = widthControl.value || 0;
-      const height = heightControl.value || 0;
-      this.styleGrid = `display: grid; grid-template-columns: repeat(${width}, 1fr); gap: 2rem`;
-      this.initializeListSeats(width, height);
-      this.updateCapacityAndSeatsFormValues();
-    }
+  private loadData(): void {
+    this.subscriptions.push(
+      this.route.params.subscribe((params) => {
+        const sessionId = params['uuid'];
+        if (sessionId) {
+          this.ticketService
+            .findBySessionId(sessionId)
+            .subscribe(([tickets, room]) => {
+              this.mapinitnow(tickets, room);
+            });
+        }
+      })
+    );
   }
 
-  private initializeListSeats(width: number, height: number): void {
-    this.seats = [];
-    for (let x: number = 1, num: number = 1; x <= width; x++) {
-      for (let y: number = 1; y <= height; y++, num++) {
-        this.seats.push({
-          number: num,
-          positionInX: x,
-          positionInY: y,
-          disabled: false,
-        });
-      }
-    }
+  private mapinitnow(tickets: Ticket[], room: Room): void {
+    this.tickets = tickets;
+    const { width } = room;
+    this.setGridStyle(width);
+  }
+
+  private setGridStyle(width: number): void {
+    this.styleGrid = `display: grid; grid-template-columns: repeat(${width}, 1fr); gap: 2rem`;
   }
 
   private updateCapacityAndSeatsFormValues(): void {
-    const capacityControl = this.form.get('capacity');
-    const seatsControl = this.form.get('seats');
-    if (capacityControl) capacityControl.setValue(this.getCountSeat());
-    if (seatsControl) seatsControl.setValue(this.seats);
+    // const capacityControl = this.form.get('capacity');
+    // const seatsControl = this.form.get('seats');
+    // if (capacityControl) capacityControl.setValue(this.getCountSeat());
+    // if (seatsControl) seatsControl.setValue(this.seats);
   }
 
-  private synchronizeFormAndRoomSize(): void {
-    const widthControl = this.form.get('width');
-    const heightControl = this.form.get('height');
-
-    if (widthControl && heightControl)
-      this.subscriptions.push(
-        merge(widthControl.valueChanges, heightControl.valueChanges)
-          .pipe(debounceTime(300))
-          .subscribe(() => {
-            this.handleChangeDimension();
-          })
-      );
+  protected toggleSeatDisabledStatus(seat: any): void {
+    // const { number } = seat;
+    // const targetSeat = this.seats.find((elem: any) => elem.number == number);
+    // if (targetSeat) targetSeat.disabled = !targetSeat.disabled;
+    // this.updateCapacityAndSeatsFormValues();
   }
 
-  toggleSeatDisabledStatus(seat: any): void {
-    const { number } = seat;
-    const targetSeat = this.seats.find((elem: any) => elem.number == number);
-    if (targetSeat) targetSeat.disabled = !targetSeat.disabled;
-    this.updateCapacityAndSeatsFormValues();
-  }
-
-  getCountSeat(): number {
-    return this.seats.filter((elem: any) => !elem.disabled).length;
-  }
-
-  private clearSubscriptions(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  protected getCountSeat(): number {
+    return 0;
+    // return this.seats.filter((elem: any) => !elem.disabled).length;
   }
 }
