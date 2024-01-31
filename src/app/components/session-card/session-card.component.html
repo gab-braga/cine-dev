@@ -14,7 +14,7 @@
       <span class="text-yellow-500">{{ session?.room?.projectionType }}</span>
     </p>
     <p class="text-xs sm:text-sm flex justify-content-between m-0">
-      <span class="text-primary">{{ session?.date | date: 'dd/MM' }} - {{ session?.hour }}</span>
+      <span class="text-primary">{{ session?.date | date: 'dd/MM' }} - {{ session?.hour | hour }}</span>
       <span class="text-yellow-500">{{ session?.numberFreeSeats }} vagas</span>
     </p>
   </div>

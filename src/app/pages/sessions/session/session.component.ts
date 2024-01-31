@@ -7,6 +7,7 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { SessionCardComponent } from '../../../components/session-card/session-card.component';
 import { DatePipe } from '@angular/common';
+import { HourPipe } from '../../../pipes/hour.pipe';
 
 @Component({
   selector: 'app-session',
@@ -17,6 +18,7 @@ import { DatePipe } from '@angular/common';
     RouterLink,
     SessionCardComponent,
     DatePipe,
+    HourPipe,
   ],
   templateUrl: './session.component.html',
   styleUrl: './session.component.css',

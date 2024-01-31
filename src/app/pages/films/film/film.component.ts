@@ -6,11 +6,18 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FilmCardComponent } from '../../../components/film-card/film-card.component';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-film',
   standalone: true,
-  imports: [LayoutComponent, ButtonModule, RouterLink, FilmCardComponent],
+  imports: [
+    LayoutComponent,
+    ButtonModule,
+    RouterLink,
+    FilmCardComponent,
+    DatePipe,
+  ],
   templateUrl: './film.component.html',
   styleUrl: './film.component.css',
 })

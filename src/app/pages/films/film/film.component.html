@@ -19,6 +19,9 @@
           <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
             <span class="text-gray-500">Duração:</span> {{ film?.duration }}m
           </p>
+          <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+            <span class="text-gray-500">Lançado em:</span> {{ film?.publishedIn | date: 'dd/MM/yyyy' }}
+          </p>
           <p class="text-white my-2 sm:max-h-6rem sm:overflow-hidden">
             <span class="text-gray-500">Sinopse:</span>
             {{ film?.resume }}
