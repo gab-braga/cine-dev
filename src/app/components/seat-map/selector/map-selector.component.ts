@@ -66,7 +66,7 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
     // if (seatsControl) seatsControl.setValue(this.seats);
   }
 
-  protected toggleSeatDisabledStatus(seat: any): void {
+  protected toggleOccupiedSeat(seat: any): void {
     // const { number } = seat;
     // const targetSeat = this.seats.find((elem: any) => elem.number == number);
     // if (targetSeat) targetSeat.disabled = !targetSeat.disabled;

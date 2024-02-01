@@ -32,7 +32,7 @@
 }
 
 .cine-seat-item:not(:disabled).cine-seat-empty {
-  opacity: 0.1;
+  opacity: 0;
 }
 
 .cine-screen {

@@ -1,7 +1,7 @@
 <div class="w-full p-5 surface-700 border-round">
   <div class="flex gap-2 align-content-center justify-content-between mb-4">
     <p class="inline-block text-white m-0">
-      Selecione os assentos para remover
+      Selecione os assentos para reservar
     </p>
     <span class="text-yellow-500">{{getCountSeat()}} assentos</span>
   </div>
@@ -9,13 +9,15 @@
   <div class="overflow-x-auto overflow-y-hidden">
     <div class="list-none p-0 mb-2" [style]="styleGrid" style="min-width: 1000px;">
       @for(ticket of tickets; track ticket.number) {
-      <button type="button" (click)="toggleSeatDisabledStatus(ticket)" class="cine-room-create cine-seat-item border-none relative flex align-items-center justify-content-center">
+      @if(!ticket?.gap) {
+      <button type="button" (click)="toggleOccupiedSeat(ticket)" class="cine-room-create cine-seat-item border-none relative flex align-items-center justify-content-center">
         <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0">
           <path d="M0 12C0 5.37258 5.37258 0 12 0H48C54.6274 0 60 5.37258 60 12V48C60 54.6274 54.6274 60 48 60H12C5.37258 60 0 54.6274 0 48V12Z" fill="#898989" />
           <path d="M7.2 10.2C7.2 8.54315 8.54314 7.2 10.2 7.2H49.8C51.4568 7.2 52.8 8.54315 52.8 10.2V13.2C52.8 14.8569 51.4568 16.2 49.8 16.2H10.2C8.54314 16.2 7.2 14.8569 7.2 13.2V10.2Z" fill="#9F9E9E" />
         </svg>
         <span class="z-1 mt-3">{{ticket?.seat?.number}}</span>
       </button>
+      } @else { <div></div> }
       }
     </div>
   </div>

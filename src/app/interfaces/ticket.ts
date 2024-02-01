@@ -4,7 +4,7 @@ import { Session } from './session';
 
 export interface Ticket {
   uuid: string;
-  status: string;
+  gap: boolean;
   seat: Seat;
   session: Session;
   reservation: Reservation;
