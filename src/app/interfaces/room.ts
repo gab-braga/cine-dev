@@ -1,4 +1,4 @@
-import { Seat } from './seat';
+import { MapCell } from './cell';
 
 export interface Room {
   uuid: string;
@@ -7,5 +7,5 @@ export interface Room {
   height: number;
   capacity: number;
   projectionType: string;
-  seats: Seat[];
+  seats: MapCell[];
 }

@@ -1,4 +1,3 @@
-import { Seat } from './seat';
 import { Session } from './session';
 import { Ticket } from './ticket';
 import { User } from './user';

@@ -1,0 +1,15 @@
+.map-cell {
+  border: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.map-cell:hover path {
+  fill: red;
+}

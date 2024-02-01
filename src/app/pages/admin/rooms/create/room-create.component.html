@@ -33,9 +33,63 @@
       }
     </div>
 
-    <div class="w-full mt-4">
-      <c-seat-map-creator [form]="form" />
+    <div class="w-full mt-4 p-4 surface-700">
+      <div class="overflow-x-auto">
+        <div class="mx-auto" style="width: fit-content;">
+          <div class="w-full h-2rem surface-500 mb-4 sm:h-3rem sm:mb-5" style="clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)">
+          </div>
+
+          @for(line of mapCells; track $index) {
+          <div class="flex">
+            @for(item of line; track item.number) {
+            <button type="button" class="map-cell">
+              @switch (item.type) {
+              @case (CELL_TYPE_SEAT) {
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem">
+                <path d="M3 23C3 10.8497 12.8497 1 25 1V1C37.1503 1 47 10.8497 47 23V41C47 43.2091 45.2091 45 43 45H7C4.79086 45 3 43.2091 3 41V23Z" fill="#898989" />
+                <rect x="8.1333" y="33.5333" width="33.7333" height="7.33333" rx="2.66667" fill="#B3B1B1" />
+              </svg>
+              <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{item.number}}</span>
+              }
+              @case (CELL_TYPE_HALLH) {
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem">
+                <g clip-path="url(#clip0_210_3890)">
+                  <path d="M2 45C0.89543 45 -3.91405e-08 44.1046 -8.74228e-08 43L-1.66103e-06 7C-1.70932e-06 5.89543 0.895429 5 2 5L3 5C4.10457 5 5 5.89543 5 7L5 43C5 44.1046 4.10457 45 3 45L2 45Z" fill="#303030" />
+                  <path d="M12 45C10.8954 45 10 44.1046 10 43L10 7C10 5.89543 10.8954 5 12 5L13 5C14.1046 5 15 5.89543 15 7L15 43C15 44.1046 14.1046 45 13 45L12 45Z" fill="#303030" />
+                  <path d="M22 45C20.8954 45 20 44.1046 20 43L20 7C20 5.89543 20.8954 5 22 5L23 5C24.1046 5 25 5.89543 25 7L25 43C25 44.1046 24.1046 45 23 45L22 45Z" fill="#303030" />
+                  <path d="M32 45C30.8954 45 30 44.1046 30 43L30 7C30 5.89543 30.8954 5 32 5L33 5C34.1046 5 35 5.89543 35 7L35 43C35 44.1046 34.1046 45 33 45L32 45Z" fill="#303030" />
+                  <path d="M42 45C40.8954 45 40 44.1046 40 43L40 7C40 5.89543 40.8954 5 42 5L43 5C44.1046 5 45 5.89543 45 7L45 43C45 44.1046 44.1046 45 43 45L42 45Z" fill="#303030" />
+                </g>
+                <defs>
+                  <clipPath id="clip0_210_3890">
+                    <rect width="50" height="50" fill="white" />
+                  </clipPath>
+                </defs>
+              </svg>
+              }
+              @case (CELL_TYPE_HALLV) {
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem">
+                <path d="M4 2C4 0.89543 4.89543 0 6 0H42C43.1046 0 44 0.895431 44 2V3C44 4.10457 43.1046 5 42 5H6C4.89543 5 4 4.10457 4 3V2Z" fill="#303030" />
+                <path d="M4 12C4 10.8954 4.89543 10 6 10H42C43.1046 10 44 10.8954 44 12V13C44 14.1046 43.1046 15 42 15H6C4.89543 15 4 14.1046 4 13V12Z" fill="#303030" />
+                <path d="M4 22C4 20.8954 4.89543 20 6 20H42C43.1046 20 44 20.8954 44 22V23C44 24.1046 43.1046 25 42 25H6C4.89543 25 4 24.1046 4 23V22Z" fill="#303030" />
+                <path d="M4 32C4 30.8954 4.89543 30 6 30H42C43.1046 30 44 30.8954 44 32V33C44 34.1046 43.1046 35 42 35H6C4.89543 35 4 34.1046 4 33V32Z" fill="#303030" />
+                <path d="M4 42C4 40.8954 4.89543 40 6 40H42C43.1046 40 44 40.8954 44 42V43C44 44.1046 43.1046 45 42 45H6C4.89543 45 4 44.1046 4 43V42Z" fill="#303030" />
+              </svg>
+
+              }
+              @default { <span class="text-white p-3">EMPTY</span> }
+              }
+            </button>
+            }
+          </div>
+          }
+        </div>
+      </div>
     </div>
+
+    <!-- <div class="w-full mt-4">
+      <c-seat-map-creator [form]="form" />
+    </div> -->
 
     <div class="w-full mt-4 flex justify-content-between align-content-center">
       <a routerLink="/admin/rooms">
