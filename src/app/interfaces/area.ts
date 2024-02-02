@@ -1,4 +1,4 @@
-export interface MapCell {
+export interface Area {
   uuid: string;
   number: number;
   indexInX: number;

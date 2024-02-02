@@ -51,7 +51,7 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
 
   private mapinitnow(tickets: Ticket[], room: Room): void {
     this.tickets = tickets;
-    const { width } = room;
+    const { width } = room.map;
     this.setGridStyle(width);
   }
 

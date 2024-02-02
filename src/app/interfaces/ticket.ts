@@ -1,11 +1,11 @@
 import { Reservation } from './reservartion';
-import { MapCell } from './cell';
+import { Area } from './area';
 import { Session } from './session';
 
 export interface Ticket {
   uuid: string;
   status: string;
-  seat: MapCell;
+  seat: Area;
   session: Session;
   reservation: Reservation;
 }

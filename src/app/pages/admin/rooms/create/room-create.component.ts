@@ -12,7 +12,8 @@ import { ButtonModule } from 'primeng/button';
 import { Router, RouterLink } from '@angular/router';
 import { RoomService } from '../../../../services/room.service';
 import { MessageService } from 'primeng/api';
-import { MapCell } from '../../../../interfaces/cell';
+import { Area } from '../../../../interfaces/area';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-room-create',
@@ -24,15 +25,16 @@ import { MapCell } from '../../../../interfaces/cell';
     InputTextModule,
     SeatMapCreatorComponent,
     ButtonModule,
+    NgClass,
   ],
   templateUrl: './room-create.component.html',
   styleUrl: './room-create.component.css',
 })
 export class RoomCreateComponent implements OnInit {
-  CELL_TYPE_SEAT: string = 'SEAT';
-  CELL_TYPE_HALLH: string = 'HALLH';
-  CELL_TYPE_HALLV: string = 'HALLV';
-  CELL_TYPE_EMPTY: string = 'EMPTY';
+  AREA_TYPE_SEAT: string = 'SEAT';
+  AREA_TYPE_HALL_H: string = 'HALL_H';
+  AREA_TYPE_HALL_V: string = 'HALL_V';
+  AREA_TYPE_EMPTY: string = 'EMPTY';
   INITIAL_WIDTH_OF_MAP: number = 12;
   INITIAL_HEIGHT_OF_MAP: number = 8;
 
@@ -41,16 +43,17 @@ export class RoomCreateComponent implements OnInit {
     uuid: [''],
     number: ['', [Validators.required]],
     projectionType: ['', [Validators.required]],
-    width: [12, [Validators.required, Validators.min(1)]],
-    height: [8, [Validators.required, Validators.min(1)]],
-    capacity: [24, [Validators.required, Validators.min(1)]],
-    seats: [null, [Validators.required]],
+    width: ['', [Validators.required, Validators.min(1)]],
+    height: ['', [Validators.required, Validators.min(1)]],
+    capacity: ['', [Validators.required, Validators.min(1)]],
+    seats: ['', [Validators.required]],
   });
 
-  mapCells: MapCell[][] = [];
+  map: Area[][] = [];
   heightMap: number = 0;
   widthMap: number = 0;
-  capacityRoom: number = 0;
+  roomCapacity: number = 0;
+  preview: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -64,28 +67,19 @@ export class RoomCreateComponent implements OnInit {
   }
 
   private initializeNewMap(): void {
-    const mapCells: any[][] = [];
-    let countSeat: number = 1;
-    for (let line = 0; line < this.INITIAL_HEIGHT_OF_MAP; line++) {
-      mapCells[line] = [];
-      for (let column = 0; column < this.INITIAL_WIDTH_OF_MAP; column++) {
-        const cell = {
-          number: countSeat++,
-          indexInX: line,
-          indexInY: column,
-          type: this.CELL_TYPE_SEAT,
-        };
-        mapCells[line][column] = cell;
-      }
-    }
-    this.mapCells = mapCells;
+    this.widthMap = this.INITIAL_WIDTH_OF_MAP;
+    this.heightMap = this.INITIAL_HEIGHT_OF_MAP;
+    this.map = this.generateNewMap();
+    this.recalculateSeatNumbersAndRoomCapacity();
   }
 
-  protected toggle(cell: MapCell, type: string): void {
-    cell.type = type;
+  protected changeAreaType(event: any, item: any) {
+    const areaType = event.target.value;
+    item.type = areaType;
+    this.recalculateSeatNumbersAndRoomCapacity();
   }
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     this.formSubmitted = true;
     if (this.form.valid) {
       const room = this.form.value;
@@ -102,5 +96,89 @@ export class RoomCreateComponent implements OnInit {
         },
       });
     }
+  }
+
+  protected addNewRow(): void {
+    this.heightMap++;
+    this.map.push(this.createRow());
+    this.recalculateSeatNumbersAndRoomCapacity();
+  }
+
+  protected addNewColumn(): void {
+    this.widthMap++;
+    let index = 0;
+    this.map.forEach((row) => {
+      row.push(<Area>{
+        indexInX: index++,
+        indexInY: this.widthMap - 1,
+        type: this.AREA_TYPE_SEAT,
+      });
+    });
+    this.recalculateSeatNumbersAndRoomCapacity();
+  }
+
+  protected removeRow(): void {
+    if (this.heightMap > 1) {
+      this.heightMap--;
+      this.map.pop();
+      this.recalculateSeatNumbersAndRoomCapacity();
+    }
+  }
+
+  protected removeColumn(): void {
+    if (this.widthMap > 1) {
+      this.widthMap--;
+      this.map.forEach((row) => {
+        row.pop();
+      });
+      this.recalculateSeatNumbersAndRoomCapacity();
+    }
+  }
+
+  private recalculateSeatNumbersAndRoomCapacity(): void {
+    let capacity = 0;
+    let countSeats = 1;
+    this.map.forEach((row) => {
+      row.forEach((area) => {
+        if (area.type === this.AREA_TYPE_SEAT) {
+          area.number = countSeats++;
+          capacity++;
+        }
+      });
+    });
+    this.roomCapacity = capacity;
+  }
+
+  protected togglePreviewMode(): void {
+    this.preview = !this.preview;
+  }
+
+  private generateNewMap(): any {
+    const map: any[][] = [];
+    for (let line = 0; line < this.heightMap; line++) {
+      map[line] = [];
+      for (let column = 0; column < this.widthMap; column++) {
+        const cell = {
+          indexInX: line,
+          indexInY: column,
+          type: this.AREA_TYPE_SEAT,
+        };
+        map[line][column] = cell;
+      }
+    }
+    return map;
+  }
+
+  private createRow(): Area[] {
+    const row: Area[] = [];
+    for (let index = 0; index < this.widthMap; index++) {
+      const cell = {
+        indexInX: this.heightMap - 1,
+        indexInY: index,
+        type: this.AREA_TYPE_SEAT,
+      };
+      row.push(<Area>cell);
+    }
+    return row;
   }
 }
