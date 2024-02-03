@@ -1,166 +1,153 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
-import { Subscription, debounceTime, merge } from 'rxjs';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
-import { RoomService } from '../../../services/room.service';
+import { Subscription } from 'rxjs';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
+import { Area } from '../../../interfaces/area';
 
 @Component({
   selector: 'c-seat-map-creator',
   standalone: true,
-  imports: [InputTextModule, NgClass, ReactiveFormsModule],
+  imports: [ReactiveFormsModule, InputTextModule, NgClass, ReactiveFormsModule],
   templateUrl: './map-creator.component.html',
   styleUrl: './map-creator.component.css',
 })
 export class SeatMapCreatorComponent implements OnInit, OnDestroy {
-  @Input()
-  form: FormGroup = new FormGroup({});
-  private subscriptions: Subscription[] = [];
-  protected seats: any = [];
-  protected styleGrid: string = '';
+  AREA_TYPE_SEAT: string = 'SEAT';
+  AREA_TYPE_HALL_H: string = 'HALL_H';
+  AREA_TYPE_HALL_V: string = 'HALL_V';
+  AREA_TYPE_EMPTY: string = 'EMPTY';
+  INITIAL_WIDTH_OF_MAP: number = 12;
+  INITIAL_HEIGHT_OF_MAP: number = 8;
 
-  constructor(
-    private route: ActivatedRoute,
-    private roomService: RoomService
-  ) {}
+  @Input()
+  public formMap!: FormGroup;
+
+  private subscriptions: Subscription[] = [];
+  protected preview: boolean = false;
+
+  protected roomCapacity: number = 0;
+  protected mapWidth: number = 0;
+  protected mapHeight: number = 0;
+  protected map: Area[][] = [];
+
+  constructor(private fb: FormBuilder) {}
 
   public ngOnInit(): void {
-    this.initializeMap();
+    this.initializeNewMap();
   }
 
-  public ngOnDestroy(): void {
-    this.clearSubscriptions();
+  public ngOnDestroy(): void {}
+
+  private initializeNewMap(): void {
+    this.mapWidth = this.INITIAL_WIDTH_OF_MAP;
+    this.mapHeight = this.INITIAL_HEIGHT_OF_MAP;
+    this.map = this.generateNewMap();
+    this.recalculateSeatNumbersAndRoomCapacity();
   }
 
-  private initializeMap(): void {
-    this.subscriptions.push(
-      this.route.params.subscribe((params) => {
-        const uuid = params['uuid'];
-        if (uuid) {
-          this.loadData(uuid);
-        } else {
-          this.loadSeatMap();
-        }
-      })
-    );
+  protected changeAreaType(event: any, item: any) {
+    const areaType = event.target.value;
+    item.type = areaType;
+    this.recalculateSeatNumbersAndRoomCapacity();
   }
 
-  private loadData(uuid: string): void {
-    this.roomService.findByUUID(uuid).subscribe((room) => {
-      this.roomService.findSeatsByRoomId(uuid).subscribe((seats) => {
-        this.seats = seats;
-        this.initializeForm(room, seats);
-        this.updateGridStyle();
-        this.synchronizeFormAndRoomSize();
+  protected addNewRow(): void {
+    this.mapHeight++;
+    this.map.push(this.createRow());
+    this.recalculateSeatNumbersAndRoomCapacity();
+  }
+
+  protected addNewColumn(): void {
+    this.mapWidth++;
+    let index = 0;
+    this.map.forEach((row) => {
+      row.push(<Area>{
+        indexInX: index++,
+        indexInY: this.mapWidth - 1,
+        type: this.AREA_TYPE_SEAT,
       });
     });
+    this.recalculateSeatNumbersAndRoomCapacity();
   }
 
-  private loadSeatMap(): void {
-    this.drawSeatMap();
-    this.synchronizeFormAndRoomSize();
+  protected removeRow(): void {
+    if (this.mapHeight > 1) {
+      this.mapHeight--;
+      this.map.pop();
+      this.recalculateSeatNumbersAndRoomCapacity();
+    }
   }
 
-  private drawSeatMap(): void {
-    const { width, height } = this.getRoomDimension();
-    this.initializeSeatList(width, height);
-    this.updateSeatMap();
+  protected removeColumn(): void {
+    if (this.mapWidth > 1) {
+      this.mapWidth--;
+      this.map.forEach((row) => {
+        row.pop();
+      });
+      this.recalculateSeatNumbersAndRoomCapacity();
+    }
   }
 
-  private updateSeatNumbers(): void {
-    let seatCount = 1;
-    let emptyCount = -1;
-    this.seats.forEach((seat: any) => {
-      if (seat.empty) seat.number = emptyCount--;
-      else seat.number = seatCount++;
+  private recalculateSeatNumbersAndRoomCapacity(): void {
+    let capacity = 0;
+    let countSeats = 1;
+    this.map.forEach((row) => {
+      row.forEach((area) => {
+        if (area.type === this.AREA_TYPE_SEAT) {
+          area.number = countSeats++;
+          capacity++;
+        }
+      });
     });
+    this.roomCapacity = capacity;
   }
 
-  private initializeSeatList(width: number, height: number): void {
-    this.seats = [];
-    for (let x: number = 1, count: number = 1; x <= width; x++) {
-      for (let y: number = 1; y <= height; y++, count++) {
-        this.seats.push({
-          number: count,
-          position: count,
-          positionInX: x,
-          positionInY: y,
-          empty: false,
-        });
+  protected togglePreviewMode(): void {
+    this.preview = !this.preview;
+  }
+
+  private generateNewMap(): Area[][] {
+    const map: Area[][] = [];
+    for (let line = 0; line < this.mapHeight; line++) {
+      map[line] = [];
+      for (let column = 0; column < this.mapWidth; column++) {
+        const area = <Area>{
+          indexInX: line,
+          indexInY: column,
+          type: this.AREA_TYPE_SEAT,
+        };
+        map[line][column] = area;
       }
     }
+    return map;
   }
 
-  private synchronizeFormAndRoomSize(): void {
-    const widthControl = this.form.get('width');
-    const heightControl = this.form.get('height');
-    if (widthControl && heightControl)
-      this.subscriptions.push(
-        merge(widthControl.valueChanges, heightControl.valueChanges)
-          .pipe(debounceTime(300))
-          .subscribe(() => {
-            this.drawSeatMap();
-          })
-      );
-  }
-
-  private updateSeatMap(): void {
-    this.updateSeatNumbers();
-    this.updateSeatListValues();
-    this.updateCapacityValue();
-    this.updateGridStyle();
-  }
-
-  private updateGridStyle(): void {
-    const { width } = this.getRoomDimension();
-    this.styleGrid = `display: grid; grid-template-columns: repeat(${width}, 1fr); gap: 2rem`;
-  }
-
-  private updateCapacityValue(): void {
-    const capacityControl = this.form.get('capacity');
-    if (capacityControl) capacityControl.setValue(this.getCountSeat());
-  }
-
-  private updateSeatListValues(): void {
-    const seatsControl = this.form.get('seats');
-    if (seatsControl) seatsControl.setValue(this.seats);
-  }
-
-  private getRoomDimension(): { width: number; height: number } {
-    const widthControl = this.form.get('width');
-    const heightControl = this.form.get('height');
-    if (widthControl && heightControl) {
-      const width: number = widthControl.value || 0;
-      const height: number = heightControl.value || 0;
-      return { width, height };
+  private createRow(): Area[] {
+    const row: Area[] = [];
+    for (let index = 0; index < this.mapWidth; index++) {
+      const cell = {
+        indexInX: this.mapHeight - 1,
+        indexInY: index,
+        type: this.AREA_TYPE_SEAT,
+      };
+      row.push(<Area>cell);
     }
-    throw new Error('Undefined width and height');
+    return row;
   }
 
-  private clearSubscriptions(): void {
-    this.subscriptions.forEach((sub) => sub.unsubscribe());
-  }
-
-  protected toggleSeatStatusAndSpaceEmpty(seat: any): void {
-    const { number } = seat;
-    const targetSeat = this.seats.find((elem: any) => elem.number == number);
-    if (targetSeat) targetSeat.empty = !targetSeat.empty;
-    this.updateSeatMap();
-  }
-
-  protected getCountSeat(): number {
-    return this.seats.filter((elem: any) => !elem.empty).length;
-  }
-
-  private initializeForm(room: any, seats: any): void {
-    this.form.patchValue({
-      uuid: room.uuid,
-      width: room.width,
-      height: room.height,
-      capacity: room.capacity,
-      seats: seats,
+  private createNewAreaFormGroup() {
+    return this.fb.group({
+      uuid: [''],
+      number: ['', [Validators.required]],
+      indexInX: ['', [Validators.required]],
+      indexInY: ['', [Validators.required]],
+      type: ['', [Validators.required]],
     });
-    this.synchronizeFormAndRoomSize();
   }
 }

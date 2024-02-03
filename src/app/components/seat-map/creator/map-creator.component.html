@@ -1,58 +1,69 @@
-<div class="w-full p-5 surface-700 border-round">
-
-  <form [formGroup]="form" class="grid mb-4">
-    <input formControlName="uuid" type="hidden" name="uuid">
-
-    <div class="col-12 md:col-6">
-      <label for="width" class="inline-block text-white mb-2">Número de assentos na Horizontal</label>
-      <input pInputText formControlName="width" type="number" id="width" name="width" autocomplete="off" class="w-full" placeholder="Preencha com o número de assentos na horizontal." aria-label="Campo para assentos na horizontal">
-      @if (form.get('width')?.touched && form.get('width')?.hasError('required')) {
-      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
-      }
-    </div>
-
-    <div class="col-12 md:col-6">
-      <label for="height" class="inline-block text-white mb-2">Número de assentos na Vertical</label>
-      <input pInputText formControlName="height" type="number" id="height" name="height" autocomplete="off" class="w-full" placeholder="Preencha com o números de assentos na vertical." aria-label="Campo para assentos na vertical">
-      @if (form.get('height')?.touched && form.get('height')?.hasError('required')) {
-      <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
-      }
-    </div>
-  </form>
-
-  <div class="flex gap-2 align-content-center justify-content-between mb-4">
-    <p class="inline-block text-white m-0">
-      Selecione os assentos para remover
-    </p>
-    <span class="text-yellow-500">{{getCountSeat()}} assentos</span>
-  </div>
-
-  <div class="overflow-x-auto overflow-y-hidden">
-    <div class="list-none p-0 mb-2" [style]="styleGrid" style="min-width: 1000px;">
-      @for(seat of seats; track seat.number) {
-      <button type="button" (click)="toggleSeatStatusAndSpaceEmpty(seat)" [ngClass]="{'cine-seat-empty': seat?.empty}" class="cine-room-create cine-seat-item border-none relative flex align-items-center justify-content-center">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0">
-          <path d="M0 12C0 5.37258 5.37258 0 12 0H48C54.6274 0 60 5.37258 60 12V48C60 54.6274 54.6274 60 48 60H12C5.37258 60 0 54.6274 0 48V12Z" fill="#898989" />
-          <path d="M7.2 10.2C7.2 8.54315 8.54314 7.2 10.2 7.2H49.8C51.4568 7.2 52.8 8.54315 52.8 10.2V13.2C52.8 14.8569 51.4568 16.2 49.8 16.2H10.2C8.54314 16.2 7.2 14.8569 7.2 13.2V10.2Z" fill="#9F9E9E" />
-        </svg>
-        <span class="z-1 mt-3">{{seat.empty ? '' : seat.number}}</span>
+<div [formGroup]="formMap" class="w-full p-5 surface-700 border-round">
+  <div class="mb-4 flex flex-wrap gap-3 justify-content-center align-items-center">
+    <p class="text-white m-0">
+      <span class="text-gray-400">Largura:</span>
+      {{ mapWidth }}
+      <button type="button" (click)="addNewColumn()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
+        <span class="pi pi-plus text-xs"></span>
       </button>
+      <button type="button" (click)="removeColumn()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
+        <span class="pi pi-minus text-xs"></span>
+      </button>
+    </p>
+    <p class="text-white m-0">
+      <span class="text-gray-400">Altura:</span>
+      {{ mapWidth }}
+      <button type="button" (click)="addNewRow()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
+        <span class="pi pi-plus text-xs"></span>
+      </button>
+      <button type="button" (click)="removeRow()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
+        <span class="pi pi-minus text-xs"></span>
+      </button>
+    </p>
+    <p class="text-white m-0">
+      <span class="text-gray-400">Capacidade:</span>
+      {{ roomCapacity }}
+    </p>
+    <p class="text-white m-0">
+      <label class="text-gray-400" for="preview">Preview:</label>
+      <input type="checkbox" [checked]="preview" (change)="togglePreviewMode()" id="preview" />
+    </p>
+  </div>
+  <div class="overflow-x-auto">
+    <div class="mx-auto" style="width: fit-content;">
+      <div class="w-full h-2rem surface-500 mb-4 sm:h-3rem sm:mb-5" style="clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)">
+      </div>
+
+      @for(row of map; track $index) {
+      <div class="flex">
+        @for(item of row; track item.number) {
+        <div class="flex flex-column w-2rem md:w-3rem lg:w-4rem">
+
+          <select class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary" [ngClass]="{'hidden': preview}" (change)="changeAreaType($event, item)">
+            <option [value]="AREA_TYPE_SEAT" selected>Seat</option>
+            <option [value]="AREA_TYPE_HALL_V">Hall V</option>
+            <option [value]="AREA_TYPE_HALL_H">Hall H</option>
+            <option [value]="AREA_TYPE_EMPTY">Empty</option>
+          </select>
+          <div class="border-none m-o p-0 relative flex justify-content-center align-items-center w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem">
+            @switch (item.type) {
+            @case (AREA_TYPE_SEAT) {
+            <img src="../../../../assets/images/seat.svg" width="50" height="50" alt="Poltrona" class="w-full h-full">
+            <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{item.number}}</span>
+            }
+            @case (AREA_TYPE_HALL_H) {
+            <img src="../../../../assets/images/ladder-h.svg" width="50" height="50" alt="Corredor H" class="w-full h-full">
+            }
+            @case (AREA_TYPE_HALL_V) {
+            <img src="../../../../assets/images/ladder-h.svg" width="50" height="50" alt="Corredor V" class="w-full h-full">
+            }
+            @default { <span class="text-white p-3">Empty</span> }
+            }
+          </div>
+        </div>
+        }
+      </div>
       }
-    </div>
-  </div>
-
-  <div class="cine-screen">
-    <span>TELA</span>
-  </div>
-
-  <div class="flex gap-4 flex-wrap">
-    <div class="flex gap-2 align-items-center text-gray-500">
-      <img src="../../../assets/seat-1.svg" width="40" height="40">
-      Disponível
-    </div>
-    <div class="flex gap-2 align-items-center text-gray-500">
-      <img src="../../../assets/seat-3.svg" width="40" height="40">
-      Vazio
     </div>
   </div>
 </div>
