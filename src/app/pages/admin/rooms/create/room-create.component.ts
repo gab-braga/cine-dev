@@ -45,8 +45,6 @@ export class RoomCreateComponent {
     }),
   });
 
-  protected data: any = null;
-
   constructor(
     private fb: FormBuilder,
     private roomService: RoomService,
@@ -56,8 +54,8 @@ export class RoomCreateComponent {
 
   protected onSubmit(): void {
     this.formSubmitted = true;
+    console.log(this.form.value);
     if (this.form.valid) {
-      console.log(this.data);
       // const room = this.form.value;
       // this.roomService.create(room).subscribe({
       //   next: () => {
@@ -74,7 +72,7 @@ export class RoomCreateComponent {
     }
   }
 
-  protected getMapFormGroup(): FormGroup {
+  protected get mapFormGroup(): FormGroup {
     return this.form.get('map') as FormGroup;
   }
 }

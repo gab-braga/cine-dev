@@ -2,7 +2,9 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { Subscription } from 'rxjs';
 import {
+  FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -24,9 +26,10 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   AREA_TYPE_EMPTY: string = 'EMPTY';
   INITIAL_WIDTH_OF_MAP: number = 12;
   INITIAL_HEIGHT_OF_MAP: number = 8;
-
+  LOWER_LIMIT_OF_AREAS: number = 1;
+  UPPER_LIMIT_OF_AREAS: number = 30;
   @Input()
-  public formMap!: FormGroup;
+  public formMap: FormGroup | undefined;
 
   private subscriptions: Subscription[] = [];
   protected preview: boolean = false;
@@ -40,6 +43,13 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.initializeNewMap();
+    this.recalculateSeatNumbers();
+  }
+
+  get areas() {
+    return (<FormGroup>this.formMap).get('areas') as FormArray<
+      FormArray<FormGroup>
+    >;
   }
 
   public ngOnDestroy(): void {}
@@ -47,107 +57,100 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   private initializeNewMap(): void {
     this.mapWidth = this.INITIAL_WIDTH_OF_MAP;
     this.mapHeight = this.INITIAL_HEIGHT_OF_MAP;
-    this.map = this.generateNewMap();
-    this.recalculateSeatNumbersAndRoomCapacity();
+    if (this.formMap) this.initializeNewFormMap();
   }
 
-  protected changeAreaType(event: any, item: any) {
-    const areaType = event.target.value;
-    item.type = areaType;
-    this.recalculateSeatNumbersAndRoomCapacity();
+  protected changeAreaType() {
+    this.recalculateSeatNumbers();
   }
 
   protected addNewRow(): void {
-    this.mapHeight++;
-    this.map.push(this.createRow());
-    this.recalculateSeatNumbersAndRoomCapacity();
+    if (this.mapHeight < this.UPPER_LIMIT_OF_AREAS) {
+      let indexInY = this.mapHeight++;
+      let indexInX = 0;
+      let line: FormArray = this.fb.array([]);
+      while (indexInX < this.mapWidth)
+        line.push(this.generateAreaFormGruop(indexInX++, indexInY));
+      this.areas.push(line);
+      this.recalculateSeatNumbers();
+    }
   }
 
   protected addNewColumn(): void {
-    this.mapWidth++;
-    let index = 0;
-    this.map.forEach((row) => {
-      row.push(<Area>{
-        indexInX: index++,
-        indexInY: this.mapWidth - 1,
-        type: this.AREA_TYPE_SEAT,
+    if (this.mapWidth < this.UPPER_LIMIT_OF_AREAS) {
+      let indexInX = this.mapWidth++;
+      let indexInY = 0;
+      this.areas.controls.forEach((area) => {
+        area.push(this.generateAreaFormGruop(indexInX, indexInY++));
       });
-    });
-    this.recalculateSeatNumbersAndRoomCapacity();
+      this.recalculateSeatNumbers();
+    }
   }
 
   protected removeRow(): void {
-    if (this.mapHeight > 1) {
-      this.mapHeight--;
-      this.map.pop();
-      this.recalculateSeatNumbersAndRoomCapacity();
+    if (this.mapHeight > this.LOWER_LIMIT_OF_AREAS) {
+      this.areas.removeAt(--this.mapHeight);
+      this.recalculateSeatNumbers();
     }
   }
 
   protected removeColumn(): void {
-    if (this.mapWidth > 1) {
-      this.mapWidth--;
-      this.map.forEach((row) => {
-        row.pop();
+    if (this.mapWidth > this.LOWER_LIMIT_OF_AREAS) {
+      const indexLast = --this.mapWidth;
+      this.areas.controls.forEach((area) => {
+        area.removeAt(indexLast);
       });
-      this.recalculateSeatNumbersAndRoomCapacity();
+      this.recalculateSeatNumbers();
     }
   }
 
-  private recalculateSeatNumbersAndRoomCapacity(): void {
-    let capacity = 0;
+  private recalculateSeatNumbers(): void {
     let countSeats = 1;
-    this.map.forEach((row) => {
-      row.forEach((area) => {
-        if (area.type === this.AREA_TYPE_SEAT) {
-          area.number = countSeats++;
-          capacity++;
+    let countEmpty = -1;
+    this.areas.controls.forEach((line) => {
+      line.controls.forEach((area) => {
+        const formControlType = area.get('type');
+        const formControlNumber = area.get('number');
+        if (formControlType && formControlNumber) {
+          if (formControlType.value === this.AREA_TYPE_SEAT) {
+            formControlNumber.setValue(countSeats++);
+          } else {
+            formControlNumber.setValue(countEmpty--);
+          }
         }
       });
     });
-    this.roomCapacity = capacity;
   }
 
   protected togglePreviewMode(): void {
     this.preview = !this.preview;
   }
 
-  private generateNewMap(): Area[][] {
-    const map: Area[][] = [];
-    for (let line = 0; line < this.mapHeight; line++) {
-      map[line] = [];
-      for (let column = 0; column < this.mapWidth; column++) {
-        const area = <Area>{
-          indexInX: line,
-          indexInY: column,
-          type: this.AREA_TYPE_SEAT,
-        };
-        map[line][column] = area;
+  private initializeNewFormMap() {
+    const map: FormArray = this.areas;
+    for (let y = 0; y < this.mapHeight; y++) {
+      map.push(this.fb.array([]));
+      const line = map.at(y) as FormArray;
+      for (let x = 0; x < this.mapWidth; x++) {
+        const column = this.generateAreaFormGruop(x, y);
+        line.push(column);
       }
     }
     return map;
   }
 
-  private createRow(): Area[] {
-    const row: Area[] = [];
-    for (let index = 0; index < this.mapWidth; index++) {
-      const cell = {
-        indexInX: this.mapHeight - 1,
-        indexInY: index,
-        type: this.AREA_TYPE_SEAT,
-      };
-      row.push(<Area>cell);
-    }
-    return row;
+  private generateAreaFormGruop(x: number, y: number): FormGroup {
+    return this.fb.group({
+      uuid: [null],
+      number: [null],
+      type: [this.AREA_TYPE_SEAT, [Validators.required]],
+      indexInX: [x, [Validators.required, Validators.min(1)]],
+      indexInY: [y, [Validators.required, Validators.min(1)]],
+    });
   }
 
-  private createNewAreaFormGroup() {
-    return this.fb.group({
-      uuid: [''],
-      number: ['', [Validators.required]],
-      indexInX: ['', [Validators.required]],
-      indexInY: ['', [Validators.required]],
-      type: ['', [Validators.required]],
-    });
+  protected getType(col: FormGroup) {
+    const colum = col.get('type') as FormControl<string>;
+    return colum.value;
   }
 }

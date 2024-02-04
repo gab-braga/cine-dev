@@ -1,8 +1,10 @@
+@if(formMap) {
 <div [formGroup]="formMap" class="w-full p-5 surface-700 border-round">
   <div class="mb-4 flex flex-wrap gap-3 justify-content-center align-items-center">
     <p class="text-white m-0">
       <span class="text-gray-400">Largura:</span>
       {{ mapWidth }}
+      <input formControlName="width" type="hidden">
       <button type="button" (click)="addNewColumn()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
         <span class="pi pi-plus text-xs"></span>
       </button>
@@ -12,7 +14,8 @@
     </p>
     <p class="text-white m-0">
       <span class="text-gray-400">Altura:</span>
-      {{ mapWidth }}
+      {{ mapHeight }}
+      <input formControlName="height" type="hidden">
       <button type="button" (click)="addNewRow()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
         <span class="pi pi-plus text-xs"></span>
       </button>
@@ -30,32 +33,34 @@
     </p>
   </div>
   <div class="overflow-x-auto">
-    <div class="mx-auto" style="width: fit-content;">
+    <div formArrayName="areas" class="mx-auto" style="width: fit-content;">
       <div class="w-full h-2rem surface-500 mb-4 sm:h-3rem sm:mb-5" style="clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)">
       </div>
 
-      @for(row of map; track $index) {
+      @for(row of areas.controls; track y; let y = $index) {
       <div class="flex">
-        @for(item of row; track item.number) {
-        <div class="flex flex-column w-2rem md:w-3rem lg:w-4rem">
-
-          <select class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary" [ngClass]="{'hidden': preview}" (change)="changeAreaType($event, item)">
-            <option [value]="AREA_TYPE_SEAT" selected>Seat</option>
+        @for(column of row.controls; track x; let x = $index) {
+        <div [formGroup]="column" class="flex flex-column w-2rem md:w-3rem lg:w-4rem">
+          <input formControlName="number" type="hidden">
+          <input formControlName="indexInX" type="hidden">
+          <input formControlName="indexInY" type="hidden">
+          <select formControlName="type" (change)="changeAreaType()" [ngClass]="{'hidden': preview}" class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary">
+            <option [value]="AREA_TYPE_SEAT">Seat</option>
             <option [value]="AREA_TYPE_HALL_V">Hall V</option>
             <option [value]="AREA_TYPE_HALL_H">Hall H</option>
             <option [value]="AREA_TYPE_EMPTY">Empty</option>
           </select>
           <div class="border-none m-o p-0 relative flex justify-content-center align-items-center w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem">
-            @switch (item.type) {
+            @switch (getType(column)) {
             @case (AREA_TYPE_SEAT) {
             <img src="../../../../assets/images/seat.svg" width="50" height="50" alt="Poltrona" class="w-full h-full">
-            <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{item.number}}</span>
+            <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{column.get('number')?.value}}</span>
             }
             @case (AREA_TYPE_HALL_H) {
             <img src="../../../../assets/images/ladder-h.svg" width="50" height="50" alt="Corredor H" class="w-full h-full">
             }
             @case (AREA_TYPE_HALL_V) {
-            <img src="../../../../assets/images/ladder-h.svg" width="50" height="50" alt="Corredor V" class="w-full h-full">
+            <img src="../../../../assets/images/ladder-v.svg" width="50" height="50" alt="Corredor V" class="w-full h-full">
             }
             @default { <span class="text-white p-3">Empty</span> }
             }
@@ -67,3 +72,4 @@
     </div>
   </div>
 </div>
+}
