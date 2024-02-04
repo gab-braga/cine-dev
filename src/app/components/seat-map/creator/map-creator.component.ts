@@ -72,6 +72,10 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
     return (<FormControl>group.get(controlName)).value;
   }
 
+  protected calcPosition(x: number, y: number) {
+    return y * this.mapWidth + x + 1;
+  }
+
   protected addNewRow(): void {
     if (this.mapHeight < this.UPPER_LIMIT_OF_AREAS) {
       let indexInY = this.mapHeight;

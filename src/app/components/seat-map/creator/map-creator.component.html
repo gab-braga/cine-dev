@@ -4,7 +4,7 @@
     <p class="text-white m-0">
       <span class="text-gray-400">Largura:</span>
       {{ mapWidth }}
-      <input formControlName="width" type="hidden">
+      <input formControlName="width" type="hidden" id="width" name="width">
       <button type="button" (click)="addNewColumn()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
         <span class="pi pi-plus text-xs"></span>
       </button>
@@ -15,7 +15,7 @@
     <p class="text-white m-0">
       <span class="text-gray-400">Altura:</span>
       {{ mapHeight }}
-      <input formControlName="height" type="hidden">
+      <input formControlName="height" type="hidden" id="width" name="width">
       <button type="button" (click)="addNewRow()" class="surface-300 border-none border-round cursor-pointer ml-1 py-1 px-2 hover:surface-200">
         <span class="pi pi-plus text-xs"></span>
       </button>
@@ -41,10 +41,10 @@
       <div class="flex">
         @for(area of row.controls; track x; let x = $index) {
         <div [formGroup]="area" class="flex flex-column w-2rem md:w-3rem lg:w-4rem">
-          <input formControlName="number" type="hidden">
-          <input formControlName="indexInX" type="hidden">
-          <input formControlName="indexInY" type="hidden">
-          <select formControlName="type" (change)="changeAreaType()" [ngClass]="{'hidden': previewMode}" class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary">
+          <input formControlName="number" type="hidden" [id]="'number' + calcPosition(x, y)">
+          <input formControlName="indexInX" type="hidden" [id]="'indexInX' + calcPosition(x, y)">
+          <input formControlName="indexInY" type="hidden" [id]="'indexInY' + calcPosition(x, y)">
+          <select formControlName="type" [id]="'type' + calcPosition(x, y)" (change)="changeAreaType()" [ngClass]="{'hidden': previewMode}" class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary">
             <option [value]="AREA_TYPE_SEAT">Seat</option>
             <option [value]="AREA_TYPE_HALL_V">Hall V</option>
             <option [value]="AREA_TYPE_HALL_H">Hall H</option>
