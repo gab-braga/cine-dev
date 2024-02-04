@@ -10,7 +10,6 @@ import {
   Validators,
 } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
-import { Area } from '../../../interfaces/area';
 
 @Component({
   selector: 'c-seat-map-creator',
@@ -28,129 +27,155 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
   INITIAL_HEIGHT_OF_MAP: number = 8;
   LOWER_LIMIT_OF_AREAS: number = 1;
   UPPER_LIMIT_OF_AREAS: number = 30;
+
   @Input()
   public formMap: FormGroup | undefined;
 
   private subscriptions: Subscription[] = [];
-  protected preview: boolean = false;
+  protected previewMode: boolean = false;
 
   protected roomCapacity: number = 0;
   protected mapWidth: number = 0;
   protected mapHeight: number = 0;
-  protected map: Area[][] = [];
 
   constructor(private fb: FormBuilder) {}
 
   public ngOnInit(): void {
-    this.initializeNewMap();
-    this.recalculateSeatNumbers();
+    this.initializeMap();
   }
 
-  get areas() {
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
+  private initializeMap(): void {
+    this.setMapWidth(this.INITIAL_WIDTH_OF_MAP);
+    this.setMapHeight(this.INITIAL_HEIGHT_OF_MAP);
+    if (this.formMap) this.initializeNewMapForm();
+  }
+
+  public get map() {
     return (<FormGroup>this.formMap).get('areas') as FormArray<
       FormArray<FormGroup>
     >;
   }
 
-  public ngOnDestroy(): void {}
-
-  private initializeNewMap(): void {
-    this.mapWidth = this.INITIAL_WIDTH_OF_MAP;
-    this.mapHeight = this.INITIAL_HEIGHT_OF_MAP;
-    if (this.formMap) this.initializeNewFormMap();
+  protected changeAreaType() {
+    this.updateMapValues();
   }
 
-  protected changeAreaType() {
-    this.recalculateSeatNumbers();
+  protected togglePreviewMode(): void {
+    this.previewMode = !this.previewMode;
+  }
+
+  protected getControlValue(group: FormGroup, controlName: string) {
+    return (<FormControl>group.get(controlName)).value;
   }
 
   protected addNewRow(): void {
     if (this.mapHeight < this.UPPER_LIMIT_OF_AREAS) {
-      let indexInY = this.mapHeight++;
+      let indexInY = this.mapHeight;
       let indexInX = 0;
+      this.setMapHeight(this.mapHeight + 1);
       let line: FormArray = this.fb.array([]);
       while (indexInX < this.mapWidth)
-        line.push(this.generateAreaFormGruop(indexInX++, indexInY));
-      this.areas.push(line);
-      this.recalculateSeatNumbers();
+        line.push(this.createNewAreaForm(indexInX++, indexInY));
+      this.map.push(line);
+      this.updateMapValues();
     }
   }
 
   protected addNewColumn(): void {
     if (this.mapWidth < this.UPPER_LIMIT_OF_AREAS) {
-      let indexInX = this.mapWidth++;
+      let indexInX = this.mapWidth;
       let indexInY = 0;
-      this.areas.controls.forEach((area) => {
-        area.push(this.generateAreaFormGruop(indexInX, indexInY++));
+      this.setMapWidth(this.mapWidth + 1);
+      this.map.controls.forEach((line) => {
+        line.push(this.createNewAreaForm(indexInX, indexInY++));
       });
-      this.recalculateSeatNumbers();
+      this.updateMapValues();
     }
   }
 
   protected removeRow(): void {
     if (this.mapHeight > this.LOWER_LIMIT_OF_AREAS) {
-      this.areas.removeAt(--this.mapHeight);
-      this.recalculateSeatNumbers();
+      this.setMapHeight(this.mapHeight - 1);
+      const indexInY = this.mapHeight;
+      this.map.removeAt(indexInY);
+      this.updateMapValues();
     }
   }
 
   protected removeColumn(): void {
     if (this.mapWidth > this.LOWER_LIMIT_OF_AREAS) {
-      const indexLast = --this.mapWidth;
-      this.areas.controls.forEach((area) => {
-        area.removeAt(indexLast);
+      this.setMapWidth(this.mapWidth - 1);
+      const indexInX = this.mapWidth;
+      this.map.controls.forEach((line) => {
+        line.removeAt(indexInX);
       });
-      this.recalculateSeatNumbers();
+      this.updateMapValues();
     }
   }
 
-  private recalculateSeatNumbers(): void {
-    let countSeats = 1;
-    let countEmpty = -1;
-    this.areas.controls.forEach((line) => {
+  public setMapWidth(width: number): void {
+    if (this.formMap) {
+      const widthControl = this.formMap.get('width') as FormControl;
+      if (widthControl) {
+        this.mapWidth = width;
+        widthControl.setValue(width);
+      }
+    }
+  }
+
+  public setMapHeight(height: number): void {
+    if (this.formMap) {
+      const heightControl = this.formMap.get('height') as FormControl;
+      if (heightControl) {
+        this.mapHeight = height;
+        heightControl.setValue(height);
+      }
+    }
+  }
+
+  private initializeNewMapForm() {
+    for (let y = 0; y < this.mapHeight; y++) {
+      let line: FormArray = this.fb.array([]);
+      for (let x = 0; x < this.mapWidth; x++) {
+        const area = this.createNewAreaForm(x, y);
+        line.push(area);
+      }
+      this.map.push(line);
+    }
+    this.updateMapValues();
+  }
+
+  private updateMapValues(): void {
+    let seatsCount = 1,
+      emptyCount = -1;
+    this.roomCapacity = 0;
+    this.map.controls.forEach((line) => {
       line.controls.forEach((area) => {
-        const formControlType = area.get('type');
-        const formControlNumber = area.get('number');
-        if (formControlType && formControlNumber) {
-          if (formControlType.value === this.AREA_TYPE_SEAT) {
-            formControlNumber.setValue(countSeats++);
+        const typeControl = area.get('type');
+        const numberControl = area.get('number');
+        if (typeControl && numberControl) {
+          if (typeControl.value === this.AREA_TYPE_SEAT) {
+            numberControl.setValue(seatsCount++);
+            this.roomCapacity++;
           } else {
-            formControlNumber.setValue(countEmpty--);
+            numberControl.setValue(emptyCount--);
           }
         }
       });
     });
   }
 
-  protected togglePreviewMode(): void {
-    this.preview = !this.preview;
-  }
-
-  private initializeNewFormMap() {
-    const map: FormArray = this.areas;
-    for (let y = 0; y < this.mapHeight; y++) {
-      map.push(this.fb.array([]));
-      const line = map.at(y) as FormArray;
-      for (let x = 0; x < this.mapWidth; x++) {
-        const column = this.generateAreaFormGruop(x, y);
-        line.push(column);
-      }
-    }
-    return map;
-  }
-
-  private generateAreaFormGruop(x: number, y: number): FormGroup {
+  private createNewAreaForm(indexInX: number, indexInY: number): FormGroup {
     return this.fb.group({
       uuid: [null],
-      number: [null],
+      number: [null, [Validators.required]],
       type: [this.AREA_TYPE_SEAT, [Validators.required]],
-      indexInX: [x, [Validators.required, Validators.min(1)]],
-      indexInY: [y, [Validators.required, Validators.min(1)]],
+      indexInX: [indexInX, [Validators.required, Validators.min(1)]],
+      indexInY: [indexInY, [Validators.required, Validators.min(1)]],
     });
-  }
-
-  protected getType(col: FormGroup) {
-    const colum = col.get('type') as FormControl<string>;
-    return colum.value;
   }
 }
