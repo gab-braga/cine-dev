@@ -175,11 +175,11 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
 
   private createNewAreaForm(indexInX: number, indexInY: number): FormGroup {
     return this.fb.group({
-      uuid: [null],
+      uuid: [''],
       number: [null, [Validators.required]],
       type: [this.AREA_TYPE_SEAT, [Validators.required]],
-      indexInX: [indexInX, [Validators.required, Validators.min(1)]],
-      indexInY: [indexInY, [Validators.required, Validators.min(1)]],
+      indexInX: [indexInX, [Validators.required, Validators.min(0)]],
+      indexInY: [indexInY, [Validators.required, Validators.min(0)]],
     });
   }
 }

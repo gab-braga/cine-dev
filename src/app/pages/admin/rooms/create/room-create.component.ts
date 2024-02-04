@@ -36,7 +36,6 @@ export class RoomCreateComponent {
     uuid: [''],
     number: ['', [Validators.required]],
     projectionType: ['', [Validators.required]],
-    capacity: ['', [Validators.required, Validators.min(1)]],
     map: this.fb.group({
       uuid: [''],
       width: ['', [Validators.required, Validators.min(1)]],
@@ -52,27 +51,27 @@ export class RoomCreateComponent {
     private messageService: MessageService
   ) {}
 
-  protected onSubmit(): void {
-    this.formSubmitted = true;
-    console.log(this.form.value);
-    if (this.form.valid) {
-      // const room = this.form.value;
-      // this.roomService.create(room).subscribe({
-      //   next: () => {
-      //     this.router.navigate(['/admin/rooms']);
-      //   },
-      //   error: () => {
-      //     this.messageService.add({
-      //       severity: 'error',
-      //       summary: 'ERRO',
-      //       detail: 'Algo deu errado. Confira os valores.',
-      //     });
-      //   },
-      // });
-    }
-  }
-
   protected get mapFormGroup(): FormGroup {
     return this.form.get('map') as FormGroup;
+  }
+
+  protected onSubmit(): void {
+    this.formSubmitted = true;
+    if (this.form.valid) {
+      const room = this.form.value;
+      room.map.areas = room.map.areas.flat();
+      this.roomService.create(room).subscribe({
+        next: () => {
+          this.router.navigate(['/admin/rooms']);
+        },
+        error: () => {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'ERRO',
+            detail: 'Algo deu errado. Tente mais tarde.',
+          });
+        },
+      });
+    }
   }
 }
