@@ -5,6 +5,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Room } from '../interfaces/room';
 import { environment } from '../../environments/environment';
 import { RoomFilter } from '../interfaces/filters/room-filter';
+import { Map } from '../interfaces/map';
 
 @Injectable({
   providedIn: 'root',
@@ -40,6 +41,19 @@ export class RoomService {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .get<Room>(`${environment.apiBaseUrl}/rooms/${uuid}`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public findMapByRoomId(uuid: any): Observable<Map> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<Map>(`${environment.apiBaseUrl}/maps/rooms/${uuid}`, { headers })
       .pipe(
         catchError((error) => {
           console.error(error);

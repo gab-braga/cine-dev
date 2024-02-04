@@ -1,5 +1,5 @@
-@if(formMap) {
-<div [formGroup]="formMap" class="w-full p-5 surface-700 border-round">
+@if(mapForm) {
+<div [formGroup]="mapForm" class="w-full p-5 surface-700 border-round">
   <div class="mb-4 flex flex-wrap gap-3 justify-content-center align-items-center">
     <p class="text-white m-0">
       <span class="text-gray-400">Largura:</span>
@@ -44,14 +44,14 @@
           <input formControlName="number" type="hidden" [id]="'number' + calcPosition(x, y)">
           <input formControlName="indexInX" type="hidden" [id]="'indexInX' + calcPosition(x, y)">
           <input formControlName="indexInY" type="hidden" [id]="'indexInY' + calcPosition(x, y)">
-          <select formControlName="type" [id]="'type' + calcPosition(x, y)" (change)="changeAreaType()" [ngClass]="{'hidden': previewMode}" class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary">
+          <select formControlName="areaType" [id]="'areaType' + calcPosition(x, y)" (change)="changeAreaType()" [ngClass]="{'hidden': previewMode}" class="w-full text-xs surface-200 outline-none cursor-pointer border-200 hover:border-primary">
             <option [value]="AREA_TYPE_SEAT">Seat</option>
             <option [value]="AREA_TYPE_HALL_V">Hall V</option>
             <option [value]="AREA_TYPE_HALL_H">Hall H</option>
             <option [value]="AREA_TYPE_EMPTY">Empty</option>
           </select>
           <div class="border-none m-o p-0 relative flex justify-content-center align-items-center w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem">
-            @switch (getControlValue(area, 'type')) {
+            @switch (getControlValue(area, 'areaType')) {
             @case (AREA_TYPE_SEAT) {
             <img src="../../../../assets/images/seat.svg" width="50" height="50" alt="Poltrona" class="w-full h-full">
             <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{ getControlValue(area, 'number') }}</span>

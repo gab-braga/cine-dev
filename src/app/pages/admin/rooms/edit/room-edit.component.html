@@ -11,7 +11,7 @@
   <span class="inline-block mt-4 text-red-300"><span class="pi pi-info-circle"></span> É possivel editar somente salas que não possuem sessões.</span>
 
   <form class="mt-4" [formGroup]="form" (ngSubmit)="onSubmit()">
-    <!-- <c-seat-map-creator [form]="form" /> -->
+    <c-seat-map-creator [mapForm]="mapForm" />
 
     <div class="w-full mt-4 flex justify-content-between align-content-center">
       <a routerLink="/admin/rooms">

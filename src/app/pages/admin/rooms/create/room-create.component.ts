@@ -51,7 +51,7 @@ export class RoomCreateComponent {
     private messageService: MessageService
   ) {}
 
-  protected get mapFormGroup(): FormGroup {
+  protected get mapForm(): FormGroup {
     return this.form.get('map') as FormGroup;
   }
 
