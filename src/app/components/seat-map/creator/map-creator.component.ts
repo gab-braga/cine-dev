@@ -13,6 +13,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ActivatedRoute } from '@angular/router';
 import { RoomService } from '../../../services/room.service';
 import { Map } from '../../../interfaces/map';
+import { Room } from '../../../interfaces/room';
 
 @Component({
   selector: 'c-seat-map-creator',
@@ -126,18 +127,15 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.route.params.subscribe((params) => {
         const uuid = params['uuid'];
-        if (uuid) this.initializeMapToEdit(uuid);
+        if (uuid) this.loadMapToEdit(uuid);
         else this.initializeNewMap();
       })
     );
   }
 
-  private initializeMapToEdit(uuid: string): void {
-    this.roomService.findMapByRoomId(uuid).subscribe((map) => {
-      this.initializeMapFormArray(map.width, map.height);
-      this.setMapIdInForm(uuid);
-      this.setMapDataInForm(map);
-      this.updateRoomCapacity();
+  private loadMapToEdit(uuid: string): void {
+    this.roomService.findById(uuid).subscribe((room) => {
+      this.initializeMapToEdit(room);
     });
   }
 
@@ -151,8 +149,12 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setMapIdInForm(uuid: string) {
-    this.mapForm?.get('uuid')?.setValue(uuid);
+  private initializeMapToEdit(room: Room): void {
+    this.roomCapacity = room.capacity;
+    const { map } = room;
+    this.initializeMapFormArray(map.width, map.height);
+    this.setMapDataInForm(map);
+    this.setMapId(map.uuid);
   }
 
   private setMapDataInForm(dataMap: Map) {
@@ -161,23 +163,23 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
     });
   }
 
+  private setMapId(uuid: string): void {
+    if (this.mapForm) {
+      this.mapForm.get('uuid')?.setValue(uuid);
+    }
+  }
+
   private setMapWidth(width: number): void {
     if (this.mapForm) {
-      const widthControl = this.mapForm.get('width') as FormControl;
-      if (widthControl) {
-        this.mapWidth = width;
-        widthControl.setValue(width);
-      }
+      this.mapForm.get('width')?.setValue(width);
+      this.mapWidth = width;
     }
   }
 
   private setMapHeight(height: number): void {
     if (this.mapForm) {
-      const heightControl = this.mapForm.get('height') as FormControl;
-      if (heightControl) {
-        this.mapHeight = height;
-        heightControl.setValue(height);
-      }
+      this.mapForm.get('height')?.setValue(height);
+      this.mapHeight = height;
     }
   }
 

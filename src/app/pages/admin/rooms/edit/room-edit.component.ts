@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
-import { Router, RouterLink } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { LayoutComponent } from '../../../../components/layout/layout.component';
 import { SeatMapCreatorComponent } from '../../../../components/seat-map/creator/map-creator.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -27,9 +28,11 @@ import {
   templateUrl: './room-edit.component.html',
   styleUrl: './room-edit.component.css',
 })
-export class RoomEditComponent {
+export class RoomEditComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
   formSubmitted: boolean = false;
   form: FormGroup = this.fb.group({
+    uuid: ['', [Validators.required]],
     map: this.fb.group({
       uuid: ['', [Validators.required]],
       width: ['', [Validators.required, Validators.min(1)]],
@@ -41,12 +44,30 @@ export class RoomEditComponent {
   constructor(
     private fb: FormBuilder,
     private roomService: RoomService,
+    private route: ActivatedRoute,
     private router: Router,
     private messageService: MessageService
   ) {}
 
+  public ngOnInit(): void {
+    this.initializeRoomId();
+  }
+
+  public ngOnDestroy(): void {
+    this.subscriptions.forEach((sub) => sub.unsubscribe());
+  }
+
   protected get mapForm(): FormGroup {
     return this.form.get('map') as FormGroup;
+  }
+
+  private initializeRoomId(): void {
+    this.subscriptions.push(
+      this.route.params.subscribe((params) => {
+        const uuid = params['uuid'];
+        this.form.get('uuid')?.setValue(uuid);
+      })
+    );
   }
 
   protected onSubmit(): void {
