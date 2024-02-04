@@ -87,7 +87,7 @@ export class SessionService {
       );
   }
 
-  public findByUUID(uuid: string): Observable<Session> {
+  public findById(uuid: string): Observable<Session> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .get<Session>(`${environment.apiBaseUrl}/sessions/${uuid}`, { headers })

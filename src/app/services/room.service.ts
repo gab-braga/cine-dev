@@ -37,7 +37,7 @@ export class RoomService {
       );
   }
 
-  public findByUUID(uuid: string): Observable<Room> {
+  public findById(uuid: string): Observable<Room> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .get<Room>(`${environment.apiBaseUrl}/rooms/${uuid}`, { headers })

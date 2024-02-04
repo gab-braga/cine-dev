@@ -36,7 +36,7 @@ export class UserService {
       );
   }
 
-  public findByUUID(uuid: string): Observable<User> {
+  public findById(uuid: string): Observable<User> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .get<User>(`${environment.apiBaseUrl}/users/${uuid}`, { headers })
