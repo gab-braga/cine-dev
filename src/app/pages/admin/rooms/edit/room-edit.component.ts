@@ -34,7 +34,6 @@ export class RoomEditComponent implements OnInit, OnDestroy {
   form: FormGroup = this.fb.group({
     uuid: ['', [Validators.required]],
     map: this.fb.group({
-      uuid: ['', [Validators.required]],
       width: ['', [Validators.required, Validators.min(1)]],
       height: ['', [Validators.required, Validators.min(1)]],
       areas: this.fb.array([]),

@@ -92,7 +92,7 @@ export class RoomService {
   public updateSeatMap(uuid: string, room: any) {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
-      .put<void>(`${environment.apiBaseUrl}/rooms/${uuid}/map`, room, {
+      .put<void>(`${environment.apiBaseUrl}/rooms/${uuid}/maps`, room, {
         headers,
       })
       .pipe(

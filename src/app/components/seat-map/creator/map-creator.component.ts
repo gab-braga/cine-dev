@@ -154,19 +154,12 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
     const { map } = room;
     this.initializeMapFormArray(map.width, map.height);
     this.setMapDataInForm(map);
-    this.setMapId(map.uuid);
   }
 
   private setMapDataInForm(dataMap: Map) {
     dataMap.areas.forEach((area) => {
       this.map.at(area.indexInY).at(area.indexInX).patchValue(area);
     });
-  }
-
-  private setMapId(uuid: string): void {
-    if (this.mapForm) {
-      this.mapForm.get('uuid')?.setValue(uuid);
-    }
   }
 
   private setMapWidth(width: number): void {
@@ -231,7 +224,6 @@ export class SeatMapCreatorComponent implements OnInit, OnDestroy {
 
   private createNewAreaForm(indexInX: number, indexInY: number): FormGroup {
     return this.fb.group({
-      uuid: [''],
       number: [null, [Validators.required]],
       areaType: [this.AREA_TYPE_SEAT, [Validators.required]],
       indexInX: [indexInX, [Validators.required, Validators.min(0)]],
