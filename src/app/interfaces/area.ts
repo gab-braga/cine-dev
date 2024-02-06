@@ -3,5 +3,5 @@ export interface Area {
   number: number;
   indexInX: number;
   indexInY: number;
-  type: string;
+  areaType: string;
 }

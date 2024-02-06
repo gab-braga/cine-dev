@@ -1,43 +1,49 @@
-<div class="w-full p-5 surface-700 border-round">
-  <div class="flex gap-2 align-content-center justify-content-between mb-4">
-    <p class="inline-block text-white m-0">
-      Selecione os assentos para reservar
-    </p>
-    <span class="text-yellow-500">{{getCountSeat()}} assentos</span>
-  </div>
+@if(form && map) {
+<div [formGroup]="form" class="w-full p-5 surface-700 border-round">
+  <div class="overflow-x-auto">
+    <div class="mx-auto" style="width: fit-content;">
+      <div class="w-full h-2rem surface-500 mb-4 sm:h-3rem sm:mb-5" style="clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)">
+      </div>
 
-  <div class="overflow-x-auto overflow-y-hidden">
-    <div class="list-none p-0 mb-2" [style]="styleGrid" style="min-width: 1000px;">
-      @for(ticket of tickets; track ticket.number) {
-      @if(!ticket?.gap) {
-      <button type="button" (click)="toggleOccupiedSeat(ticket)" class="cine-room-create cine-seat-item border-none relative flex align-items-center justify-content-center">
-        <svg width="60" height="60" viewBox="0 0 60 60" fill="none" xmlns="http://www.w3.org/2000/svg" class="absolute z-0">
-          <path d="M0 12C0 5.37258 5.37258 0 12 0H48C54.6274 0 60 5.37258 60 12V48C60 54.6274 54.6274 60 48 60H12C5.37258 60 0 54.6274 0 48V12Z" fill="#898989" />
-          <path d="M7.2 10.2C7.2 8.54315 8.54314 7.2 10.2 7.2H49.8C51.4568 7.2 52.8 8.54315 52.8 10.2V13.2C52.8 14.8569 51.4568 16.2 49.8 16.2H10.2C8.54314 16.2 7.2 14.8569 7.2 13.2V10.2Z" fill="#9F9E9E" />
-        </svg>
-        <span class="z-1 mt-3">{{ticket?.seat?.number}}</span>
-      </button>
-      } @else { <div></div> }
+      @for(row of map; track y; let y = $index) {
+      <div class="flex">
+        @for(areaForm of row; track x; let x = $index) {
+        <div class="flex flex-column w-2rem md:w-3rem lg:w-4rem">
+          <!-- <input formControlName="number" type="hidden" [id]="'number' + calcPosition(x, y)">
+          <input formControlName="indexInX" type="hidden" [id]="'indexInX' + calcPosition(x, y)">
+          <input formControlName="indexInY" type="hidden" [id]="'indexInY' + calcPosition(x, y)"> -->
+          <div class="w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem m-0 p-0">
+            @switch (areaForm.area.areaType) {
+            @case (AREA_TYPE_SEAT) {
+            <button (click)="toggleReservation(areaForm)" [ngClass]="{'selected': areaForm.selected}" class="border-none w-full h-full cursor-pointer relative flex justify-content-center align-items-center p-0" style="background: none;">
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="seat w-full h-full">
+                <path d="M3 23C3 10.8497 12.8497 1 25 1V1C37.1503 1 47 10.8497 47 23V41C47 43.2091 45.2091 45 43 45H7C4.79086 45 3 43.2091 3 41V23Z" fill="#898989" />
+                <rect x="8.1333" y="33.5333" width="33.7333" height="7.33333" rx="2.66667" fill="#B3B1B1" />
+              </svg>
+              <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{ areaForm.area.number }}</span>
+            </button>
+            }
+            @case (AREA_TYPE_HALL_H) {
+            <img src="../../../../assets/images/ladder-h.svg" width="50" height="50" draggable="false" alt="Corredor H" class="w-full h-full">
+            }
+            @case (AREA_TYPE_HALL_V) {
+            <img src="../../../../assets/images/ladder-v.svg" width="50" height="50" draggable="false" alt="Corredor V" class="w-full h-full">
+            }
+            @case (AREA_TYPE_OCUPIED) {
+            <img src="../../../../assets/images/occupied.svg" width="50" height="50" draggable="false" alt="Corredor V" class="w-full h-full">
+            }
+            @default {
+            <div class="w-full h-full"></div>
+            }
+            }
+          </div>
+        </div>
+        }
+      </div>
       }
     </div>
   </div>
-
-  <div class="cine-screen">
-    <span>TELA</span>
-  </div>
-
-  <div class="flex gap-4 flex-wrap">
-    <div class="flex gap-2 align-items-center text-gray-500">
-      <img src="../../../assets/seat-1.svg" width="40" height="40">
-      Disponível
-    </div>
-    <div class="flex gap-2 align-items-center text-gray-500">
-      <img src="../../../assets/seat-2.svg" width="40" height="40">
-      Selecionado
-    </div>
-    <div class="flex gap-2 align-items-center text-gray-500">
-      <img src="../../../assets/seat-3.svg" width="40" height="40">
-      Ocupado
-    </div>
-  </div>
 </div>
+} @else {
+Loading...
+}

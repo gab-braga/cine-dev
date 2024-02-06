@@ -40,9 +40,13 @@ export class TicketsComponent implements OnInit, OnDestroy {
   protected session: Session | null = null;
   formSubmitted: boolean = false;
   form: FormGroup = this.fb.group({
-    userId: [null, [Validators.required]],
-    sessionId: [null, [Validators.required]],
-    tickets: [null, [Validators.required]],
+    user: this.fb.group({
+      uuid: [null, [Validators.required]],
+    }),
+    session: this.fb.group({
+      uuid: [null, [Validators.required]],
+    }),
+    tickets: this.fb.array([]),
   });
 
   constructor(
@@ -80,7 +84,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
       this.route.params.subscribe((parms) => {
         const sessionId = parms['uuid'];
         const userId = this.authService.getAuthUser().uuid;
-        this.form.patchValue({ sessionId, userId });
+        this.form.patchValue({ session: { sessionId }, user: { userId } });
       })
     );
   }

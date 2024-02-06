@@ -1,23 +1,20 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from './auth.service';
-import { Observable, catchError, first, forkJoin, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { Ticket } from '../interfaces/ticket';
-import { Room } from '../interfaces/room';
+import { HttpClient } from '@angular/common/http';
+import { AuthService } from './auth.service';
+import { Observable, catchError, first, throwError } from 'rxjs';
+import { Map } from '../interfaces/map';
 
 @Injectable({
   providedIn: 'root',
 })
-export class TicketService {
+export class MapService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
-  public findBySessionId(uuid: string): Observable<Ticket[]> {
+  public findBySessionId(uuid: string): Observable<Map> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
-      .get<Ticket[]>(`${environment.apiBaseUrl}/tickets/sessions/${uuid}`, {
-        headers,
-      })
+      .get<Map>(`${environment.apiBaseUrl}/maps/sessions/${uuid}`, { headers })
       .pipe(
         catchError((error) => {
           console.error(error);

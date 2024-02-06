@@ -50,19 +50,6 @@ export class RoomService {
       );
   }
 
-  public findMapByRoomId(uuid: any): Observable<Map> {
-    const headers = this.authService.generateAuthorizationHeader();
-    return this.http
-      .get<Map>(`${environment.apiBaseUrl}/maps/rooms/${uuid}`, { headers })
-      .pipe(
-        catchError((error) => {
-          console.error(error);
-          return throwError(() => error);
-        }),
-        first()
-      );
-  }
-
   public create(room: Room): Observable<void> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
