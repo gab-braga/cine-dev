@@ -84,7 +84,10 @@ export class TicketsComponent implements OnInit, OnDestroy {
       this.route.params.subscribe((parms) => {
         const sessionId = parms['uuid'];
         const userId = this.authService.getAuthUser().uuid;
-        this.form.patchValue({ session: { sessionId }, user: { userId } });
+        this.form.patchValue({
+          session: { uuid: sessionId },
+          user: { uuid: userId },
+        });
       })
     );
   }
@@ -101,7 +104,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Selecione poltronas disponíveis.',
+            detail: 'Algo deu errado. Selecione poltronas.',
           });
         },
       });

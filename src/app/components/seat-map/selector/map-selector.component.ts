@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import {
   FormArray,
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -60,11 +61,28 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
   }
 
   public get tickets() {
-    return (<FormGroup>this.form).get('tickets') as FormArray<FormArray>;
+    return (<FormGroup>this.form).get('tickets') as FormArray<FormGroup>;
   }
 
   protected toggleReservation(area: AreaForm): void {
-    area.selected = !area.selected;
+    if (area.selected) {
+      this.removeTicket(area.ticket);
+      area.selected = false;
+    } else {
+      this.addTicket(area.ticket);
+      area.selected = true;
+    }
+  }
+
+  private addTicket(ticket: Ticket): void {
+    this.tickets.push(this.createNewTicketForm(ticket));
+  }
+
+  private removeTicket(ticket: Ticket): void {
+    const index = this.tickets.controls.findIndex((control) => {
+      return (<FormControl>control.get('uuid')).value == ticket.uuid;
+    });
+    if (index != -1) this.tickets.removeAt(index);
   }
 
   private initializeMap(): void {
@@ -112,20 +130,17 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
 
   private setTickets(tickets: Ticket[]): void {
     tickets.forEach((ticket) => {
+      const areForm = this.map[ticket.area.indexInY][ticket.area.indexInX];
+      areForm.ticket = ticket;
       if (ticket.reservation) {
-        const areForm = this.map[ticket.area.indexInY][ticket.area.indexInX];
         areForm.area.areaType = this.AREA_TYPE_OCUPIED;
-        areForm.ticket = ticket;
       }
     });
   }
 
-  private createNewTicketForm(indexInX: number, indexInY: number): FormGroup {
+  private createNewTicketForm(ticket: Ticket): FormGroup {
     return this.fb.group({
-      number: [null, [Validators.required]],
-      areaType: [this.AREA_TYPE_SEAT, [Validators.required]],
-      indexInX: [indexInX, [Validators.required, Validators.min(0)]],
-      indexInY: [indexInY, [Validators.required, Validators.min(0)]],
+      uuid: [ticket.uuid, [Validators.required]],
     });
   }
 }
