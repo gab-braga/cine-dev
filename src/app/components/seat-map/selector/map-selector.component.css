@@ -1,9 +1,9 @@
-button:hover .seat path,
-button.selected .seat path {
+button:hover .selection-seat path,
+button.selected .selection-seat path {
   fill: #aebd00;
 }
 
-button:hover .seat rect,
-button.selected .seat rect {
+button:hover .selection-seat rect,
+button.selected .selection-seat rect {
   fill: #d6e807;
 }

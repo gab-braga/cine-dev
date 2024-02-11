@@ -1,26 +1,23 @@
-@if(form && map) {
+@if(form && selections) {
 <div [formGroup]="form" class="w-full p-5 surface-700 border-round">
   <div class="overflow-x-auto">
     <div class="mx-auto" style="width: fit-content;">
       <div class="w-full h-2rem surface-500 mb-4 sm:h-3rem sm:mb-5" style="clip-path: polygon(0% 0%, 100% 0%, 95% 100%, 5% 100%)">
       </div>
 
-      @for(row of map; track y; let y = $index) {
+      @for(row of selections; track y; let y = $index) {
       <div class="flex">
         @for(areaForm of row; track x; let x = $index) {
         <div class="flex flex-column w-2rem md:w-3rem lg:w-4rem">
-          <!-- <input formControlName="number" type="hidden" [id]="'number' + calcPosition(x, y)">
-          <input formControlName="indexInX" type="hidden" [id]="'indexInX' + calcPosition(x, y)">
-          <input formControlName="indexInY" type="hidden" [id]="'indexInY' + calcPosition(x, y)"> -->
           <div class="w-2rem h-2rem md:w-3rem md:h-3rem lg:w-4rem lg:h-4rem m-0 p-0">
             @switch (areaForm.area.areaType) {
             @case (AREA_TYPE_SEAT) {
             <button type="button" (click)="toggleReservation(areaForm)" [ngClass]="{'selected': areaForm.selected}" class="border-none w-full h-full cursor-pointer relative flex justify-content-center align-items-center p-0" style="background: none;">
-              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="seat w-full h-full">
+              <svg width="50" height="50" viewBox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg" class="selection-seat w-full h-full">
                 <path d="M3 23C3 10.8497 12.8497 1 25 1V1C37.1503 1 47 10.8497 47 23V41C47 43.2091 45.2091 45 43 45H7C4.79086 45 3 43.2091 3 41V23Z" fill="#898989" />
                 <rect x="8.1333" y="33.5333" width="33.7333" height="7.33333" rx="2.66667" fill="#B3B1B1" />
               </svg>
-              <span class="text-xs sm:text-base md:text-lg lg:text-xl z-1 absolute">{{ areaForm.area.number }}</span>
+              <span class="text-xs md:text-lg lg:text-xl z-1 absolute">{{ areaForm.area.number }}</span>
             </button>
             }
             @case (AREA_TYPE_HALL_H) {

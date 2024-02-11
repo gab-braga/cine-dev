@@ -46,7 +46,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
     session: this.fb.group({
       uuid: [null, [Validators.required]],
     }),
-    tickets: this.fb.array([]),
+    tickets: this.fb.array([], [Validators.required]),
   });
 
   constructor(
@@ -104,7 +104,8 @@ export class TicketsComponent implements OnInit, OnDestroy {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Selecione poltronas.',
+            detail:
+              'Algo deu errado. Por favor, tente novamente mais tarde. Se o problema persistir, entre em contato com o suporte.',
           });
         },
       });

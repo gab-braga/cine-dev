@@ -17,7 +17,7 @@ import { Area } from '../../../interfaces/area';
 import { TicketService } from '../../../services/ticket.service';
 import { Ticket } from '../../../interfaces/ticket';
 
-type AreaForm = {
+type SeatSelection = {
   selected: boolean;
   area: Area;
   ticket: Ticket;
@@ -50,7 +50,7 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
     private ticketService: TicketService
   ) {}
 
-  protected map: AreaForm[][] = [];
+  protected selections: SeatSelection[][] = [];
 
   public ngOnInit(): void {
     this.initializeMap();
@@ -64,13 +64,22 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
     return (<FormGroup>this.form).get('tickets') as FormArray<FormGroup>;
   }
 
-  protected toggleReservation(area: AreaForm): void {
-    if (area.selected) {
-      this.removeTicket(area.ticket);
-      area.selected = false;
+  private initializeMap(): void {
+    this.subscriptions.push(
+      this.route.params.subscribe((params) => {
+        const uuid = params['uuid'];
+        if (uuid) this.loadMap(uuid);
+      })
+    );
+  }
+
+  protected toggleReservation(selection: SeatSelection): void {
+    if (selection.selected) {
+      this.removeTicket(selection.ticket);
+      selection.selected = false;
     } else {
-      this.addTicket(area.ticket);
-      area.selected = true;
+      this.addTicket(selection.ticket);
+      selection.selected = true;
     }
   }
 
@@ -85,15 +94,6 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
     if (index != -1) this.tickets.removeAt(index);
   }
 
-  private initializeMap(): void {
-    this.subscriptions.push(
-      this.route.params.subscribe((params) => {
-        const uuid = params['uuid'];
-        if (uuid) this.loadMap(uuid);
-      })
-    );
-  }
-
   private loadMap(uuid: string): void {
     this.mapService.findBySessionId(uuid).subscribe((map) => {
       this.initializeMapToSelect(map.width, map.height);
@@ -105,16 +105,16 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
   }
 
   private initializeMapToSelect(width: number, height: number): void {
+    this.selections = [];
     for (let y = 0; y < height; y++) {
-      this.map.push([]);
+      this.selections.push([]);
       for (let x = 0; x < width; x++) {
-        const position = y * width + x + 1;
-        this.map[y].push(<AreaForm>{
+        this.selections[y].push(<SeatSelection>{
           selected: false,
           area: <Area>{
             indexInX: x,
             indexInY: y,
-            number: position,
+            number: 0,
             areaType: this.AREA_TYPE_SEAT,
           },
         });
@@ -124,16 +124,20 @@ export class SeatMapSelectorComponent implements OnInit, OnDestroy {
 
   private setMap(map: Map): void {
     map.areas.forEach((area) => {
-      this.map[area.indexInY][area.indexInX].area = area;
+      const y = area.indexInY,
+        x = area.indexInX;
+      this.selections[y][x].area = area;
     });
   }
 
   private setTickets(tickets: Ticket[]): void {
     tickets.forEach((ticket) => {
-      const areForm = this.map[ticket.area.indexInY][ticket.area.indexInX];
-      areForm.ticket = ticket;
+      const y = ticket.area.indexInY,
+        x = ticket.area.indexInX;
+      const selection = this.selections[y][x];
+      selection.ticket = ticket;
       if (ticket.reservation) {
-        areForm.area.areaType = this.AREA_TYPE_OCUPIED;
+        selection.area.areaType = this.AREA_TYPE_OCUPIED;
       }
     });
   }

@@ -10,6 +10,9 @@
 
   <div class="mt-5 flex column-gap-4 flex-wrap">
     <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
+      <span class="text-gray-500">Filme:</span> {{ session?.film?.title || '...' }}
+    </p>
+    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
       <span class="text-gray-500">Data:</span> {{ (session?.date | date: 'dd/MM') || '...' }}
     </p>
     <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
@@ -20,9 +23,6 @@
     </p>
     <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
       <span class="text-gray-500">Vagas:</span> {{ session?.numberFreeSeats || '...' }}
-    </p>
-    <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
-      <span class="text-gray-500">Título:</span> {{ session?.film?.title || '...' }}
     </p>
   </div>
 
