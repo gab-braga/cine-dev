@@ -16,6 +16,7 @@ import { FilmComponent } from './pages/films/film/film.component';
 import { FilmsComponent } from './pages/films/films/films.component';
 import { SessionComponent } from './pages/sessions/session/session.component';
 import { TicketsComponent } from './pages/sessions/tickets/tickets.component';
+import { AccountComponent } from './pages/account/account/account.component';
 
 export const routes: Routes = [
   {
@@ -23,6 +24,11 @@ export const routes: Routes = [
     pathMatch: 'full',
     component: HomeComponent,
     title: 'CineDev.com',
+  },
+  {
+    path: 'account',
+    component: AccountComponent,
+    title: 'Conta',
   },
   {
     path: 'sessions',

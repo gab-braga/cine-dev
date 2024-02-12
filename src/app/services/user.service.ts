@@ -49,6 +49,19 @@ export class UserService {
       );
   }
 
+  public findByIdForClient(uuid: string): Observable<User> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<User>(`${environment.apiBaseUrl}/users/${uuid}/client`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public create(user: User): Observable<void> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
@@ -107,6 +120,34 @@ export class UserService {
         }),
         first()
       );
+  }
+
+  public updateProfilePicture(uuid: string, image: string) {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .put<void>(
+        `${environment.apiBaseUrl}/users/${uuid}/picture`,
+        { profilePicture: image },
+        { headers }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public convertImageToBase64(image: File, callback: Function): void {
+    if (image) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const base36File = e.target.result;
+        callback(base36File);
+      };
+      reader.readAsDataURL(image);
+    }
   }
 
   private generateParamsToFindUsers(filter: UserFilter) {
