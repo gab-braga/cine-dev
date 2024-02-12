@@ -17,7 +17,7 @@
             <span class="text-gray-500">Gêneros:</span> {{ film?.genres }}
           </p>
           <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
-            <span class="text-gray-500">Duração:</span> {{ film?.duration }}m
+            <span class="text-gray-500">Duração:</span> {{ film?.duration | time }}
           </p>
           <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
             <span class="text-gray-500">Lançado em:</span> {{ film?.publishedIn | date: 'dd/MM/yyyy' }}

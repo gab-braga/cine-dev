@@ -10,7 +10,7 @@
       {{ session?.film?.title }}
     </p>
     <p class="text-xs sm:text-sm flex justify-content-between mx-0 my-1">
-      <span class="text-gray-500">{{ session?.film?.duration }}m</span>
+      <span class="text-gray-500">{{ session?.film?.duration | time }}</span>
       <span class="text-yellow-500">{{ session?.room?.projectionType }}</span>
     </p>
     <p class="text-xs sm:text-sm flex justify-content-between m-0">

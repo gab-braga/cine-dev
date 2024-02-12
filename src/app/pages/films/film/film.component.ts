@@ -10,6 +10,7 @@ import { DatePipe } from '@angular/common';
 import { Session } from '../../../interfaces/session';
 import { SessionCardComponent } from '../../../components/session-card/session-card.component';
 import { SessionService } from '../../../services/session.service';
+import { TimePipe } from '../../../pipes/time.pipe';
 
 @Component({
   selector: 'app-film',
@@ -21,6 +22,7 @@ import { SessionService } from '../../../services/session.service';
     FilmCardComponent,
     SessionCardComponent,
     DatePipe,
+    TimePipe,
   ],
   templateUrl: './film.component.html',
   styleUrl: './film.component.css',
