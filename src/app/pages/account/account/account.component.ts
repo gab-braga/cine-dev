@@ -6,11 +6,13 @@ import { User } from '../../../interfaces/user';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 import { MessageService } from 'primeng/api';
+import { FormProfileComponent } from '../form-profile/form-profile.component';
+import { FormAccessComponent } from '../form-access/form-access.component';
 
 @Component({
   selector: 'app-account',
   standalone: true,
-  imports: [LayoutComponent, InputTextModule, ButtonModule],
+  imports: [LayoutComponent, FormProfileComponent, FormAccessComponent],
   templateUrl: './account.component.html',
   styleUrl: './account.component.css',
 })

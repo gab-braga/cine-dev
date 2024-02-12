@@ -29,6 +29,7 @@ export const routes: Routes = [
     path: 'account',
     component: AccountComponent,
     title: 'Conta',
+    canActivate: [authGuard],
   },
   {
     path: 'sessions',

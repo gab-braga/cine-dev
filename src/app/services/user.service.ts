@@ -88,6 +88,36 @@ export class UserService {
       );
   }
 
+  public updateProfile(uuid: string, user: User): Observable<void> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .put<void>(`${environment.apiBaseUrl}/users/${uuid}/profile`, user, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
+  public updatePassword(uuid: string, password: any): Observable<void> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .put<void>(`${environment.apiBaseUrl}/users/${uuid}/password`, password, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public disable(uuid: string): Observable<void> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
@@ -122,7 +152,7 @@ export class UserService {
       );
   }
 
-  public updateProfilePicture(uuid: string, image: string) {
+  public updateProfilePicture(uuid: string, image: string): Observable<void> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
       .put<void>(
