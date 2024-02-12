@@ -37,11 +37,11 @@ export class ModalSessionEditComponent implements OnChanges, OnInit {
   @Input({ required: true })
   session: any = null;
 
-  films: Film[] = [];
-  rooms: Room[] = [];
+  protected films: Film[] = [];
+  protected rooms: Room[] = [];
 
-  formSessionEditSubmitted: boolean = false;
-  formSessionEdit: FormGroup = this.fb.group({
+  protected formSessionEditSubmitted: boolean = false;
+  protected formSessionEdit: FormGroup = this.fb.group({
     uuid: ['', [Validators.required]],
     date: ['', [Validators.required]],
     hour: ['', [Validators.required]],

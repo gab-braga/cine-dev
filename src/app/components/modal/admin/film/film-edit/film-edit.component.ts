@@ -32,9 +32,9 @@ export class ModalFilmEditComponent implements OnChanges {
   @Input({ required: true })
   film: any = null;
 
-  btnDisabled: boolean = false;
-  formFilmEditSubmitted: boolean = false;
-  formFilmEdit: FormGroup = this.fb.group({
+  protected btnDisabled: boolean = false;
+  protected formFilmEditSubmitted: boolean = false;
+  protected formFilmEdit: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(120)]],
     resume: ['', [Validators.required, Validators.maxLength(500)]],
     genres: ['', [Validators.required, Validators.maxLength(255)]],
@@ -56,7 +56,7 @@ export class ModalFilmEditComponent implements OnChanges {
     if (film) this.initializeForm(film);
   }
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     this.formFilmEditSubmitted = true;
     if (this.formFilmEdit.valid) {
       const film = this.formFilmEdit.value;

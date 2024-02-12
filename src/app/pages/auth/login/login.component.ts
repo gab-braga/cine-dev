@@ -21,8 +21,8 @@ import { Router, RouterLink } from '@angular/router';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  loginFormSubmitted: boolean = false;
-  loginForm = this.fb.group({
+  protected loginFormSubmitted: boolean = false;
+  protected loginForm = this.fb.group({
     email: ['', [Validators.required, Validators.email]],
     password: ['', [Validators.required]],
   });
@@ -34,7 +34,7 @@ export class LoginComponent {
     private router: Router
   ) {}
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     this.loginFormSubmitted = true;
     if (this.loginForm.valid) {
       const credentials = this.loginForm.value;

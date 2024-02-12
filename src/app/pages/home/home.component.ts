@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  carousel = [
+  protected carousel = [
     {
       uuid: '8d51e128-bbd4-11ee-9d24-acdf5a24a6d3',
       title: 'Homem de Ferro',

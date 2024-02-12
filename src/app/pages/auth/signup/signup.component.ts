@@ -30,9 +30,9 @@ import { ToastModule } from 'primeng/toast';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
-  fieldTermsAndPolicies = new FormControl(false);
-  signupFormSubmitted: boolean = false;
-  signupForm = this.fb.group({
+  protected fieldTermsAndPolicies = new FormControl(false);
+  protected signupFormSubmitted: boolean = false;
+  protected signupForm = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(120)]],
     cpf: ['', [Validators.required, Validators.maxLength(14)]],
     email: ['', [Validators.required, Validators.email]],
@@ -46,7 +46,7 @@ export class SignupComponent {
     private messageService: MessageService
   ) {}
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     this.signupFormSubmitted = true;
     if (this.acceptedTermsAndPolicies() && this.signupForm.valid) {
       const user = this.signupForm.value;

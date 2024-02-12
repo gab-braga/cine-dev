@@ -34,8 +34,8 @@ export class ModalRoomEditComponent implements OnChanges {
   @Input({ required: true })
   room: Room | null = null;
 
-  formRoomEditSubmitted: boolean = false;
-  formRoomEdit: FormGroup = this.fb.group({
+  protected formRoomEditSubmitted: boolean = false;
+  protected formRoomEdit: FormGroup = this.fb.group({
     uuid: ['', [Validators.required]],
     number: ['', [Validators.required]],
     projectionType: ['', [Validators.required]],

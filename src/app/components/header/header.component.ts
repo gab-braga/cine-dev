@@ -15,8 +15,8 @@ export class HeaderComponent implements OnInit {
   background: string = '#000000';
   @Input({ required: false })
   position: string = 'initial';
-  isAdmin: boolean = false;
-  isLogged: boolean = false;
+  protected isAdmin: boolean = false;
+  protected isLogged: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 

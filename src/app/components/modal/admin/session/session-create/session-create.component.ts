@@ -33,8 +33,8 @@ export class ModalSessionCreateComponent implements OnChanges, OnInit {
   protected films: Film[] = [];
   protected rooms: Room[] = [];
 
-  formSessionCreateSubmitted: boolean = false;
-  formSessionCreate = this.fb.group(this.getSessionFormGroup());
+  protected formSessionCreateSubmitted: boolean = false;
+  protected formSessionCreate = this.fb.group(this.getSessionFormGroup());
 
   constructor(
     private fb: FormBuilder,

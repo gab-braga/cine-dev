@@ -38,8 +38,8 @@ import { SessionService } from '../../../services/session.service';
 export class TicketsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   protected session: Session | null = null;
-  formSubmitted: boolean = false;
-  form: FormGroup = this.fb.group({
+  protected formSubmitted: boolean = false;
+  protected form: FormGroup = this.fb.group({
     user: this.fb.group({
       uuid: [null, [Validators.required]],
     }),

@@ -30,9 +30,9 @@ export class ModalFilmCreateComponent implements OnChanges {
   @Output()
   visibleChange = new EventEmitter<boolean>();
 
-  formFilmCreateSubmitted: boolean = false;
-  formFilmCreate: FormGroup = this.fb.group(this.getFilmFormGroup());
-  btnDisabled: boolean = false;
+  protected formFilmCreateSubmitted: boolean = false;
+  protected formFilmCreate: FormGroup = this.fb.group(this.getFilmFormGroup());
+  protected btnDisabled: boolean = false;
 
   constructor(
     private fb: FormBuilder,

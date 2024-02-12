@@ -29,7 +29,7 @@ export class ModalSessionInfoComponent {
   visible: boolean = false;
   @Output()
   visibleChange = new EventEmitter<boolean>();
-  visibilityEditModal: boolean = false;
+  protected visibilityEditModal: boolean = false;
 
   constructor(
     private sessionService: SessionService,
