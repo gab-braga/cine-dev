@@ -46,7 +46,7 @@
 
       <div class="mt-2">
         <label for="publishedIn" class="inline-block text-gray-700 mb-2">Lançamento</label>
-        <input formControlName="publishedIn" type="date" id="publishedIn" name="publishedIn" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data de laçamento">
+        <input formControlName="publishedIn" type="date" id="publishedIn" name="publishedIn" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data de lançamento">
         @if (formFilmEditSubmitted && formFilmEdit.get('publishedIn')?.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com a data de lançamento do filme.</small>
         } @else if (formFilmEdit.get('publishedIn')?.touched && formFilmEdit.get('publishedIn')?.hasError('required')) {
@@ -65,7 +65,7 @@
         }
       </div>
 
-      <button pButton label="Editar" class="mt-3 uppercase"></button>
+      <button pButton label="Editar" [disabled]="btnDisabled" class="mt-3 uppercase"></button>
     </form>
   </div>
 </p-dialog>

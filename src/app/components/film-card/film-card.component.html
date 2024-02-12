@@ -4,11 +4,11 @@
   </a>
   <div>
     <p class="text-sm text-gray-50 font-semibold sm:text-base md:text-lg my-2 overflow-hidden" style="white-space:nowrap; text-overflow: ellipsis;">
-      {{ film?.title }}
+      {{ film?.title || '...' }}
     </p>
     <p class="text-xs sm:text-sm flex justify-content-between mx-0 my-1">
-      <span class="text-gray-500">{{ film?.duration | time }}</span>
-      <span class="text-gray-500">{{ film?.publishedIn | date: 'yyyy' }}</span>
+      <span class="text-gray-500">{{ (film?.duration | time) || '...' }}</span>
+      <span class="text-gray-500">{{ (film?.publishedIn | date: 'yyyy') || '...' }}</span>
     </p>
   </div>
 </div>

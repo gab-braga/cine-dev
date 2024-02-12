@@ -6,6 +6,7 @@ import { DatePipe } from '@angular/common';
 import { TagSessionComponent } from '../../../../tag-session/tag-session.component';
 import { SessionService } from '../../../../../services/session.service';
 import { MessageService } from 'primeng/api';
+import { HourPipe } from '../../../../../pipes/hour.pipe';
 
 @Component({
   selector: 'modal-session-info',
@@ -16,6 +17,7 @@ import { MessageService } from 'primeng/api';
     TagSessionComponent,
     ModalSessionEditComponent,
     DatePipe,
+    HourPipe,
   ],
   templateUrl: './session-info.component.html',
   styleUrl: './session-info.component.css',

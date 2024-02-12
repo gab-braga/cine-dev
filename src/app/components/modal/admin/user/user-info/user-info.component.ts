@@ -29,6 +29,8 @@ export class ModalUserInfoComponent {
   visibleChange = new EventEmitter<boolean>();
   visibilityEditModal: boolean = false;
 
+  protected DEFAULT_PERSON: string = '../../../../../../assets/person.png';
+
   constructor(
     private userService: UserService,
     private messageService: MessageService

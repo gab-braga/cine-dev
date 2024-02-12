@@ -32,7 +32,7 @@ export class ModalFilmCreateComponent implements OnChanges {
 
   formFilmCreateSubmitted: boolean = false;
   formFilmCreate: FormGroup = this.fb.group(this.getFilmFormGroup());
-  buttonDisabled: boolean = false;
+  btnDisabled: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -65,11 +65,11 @@ export class ModalFilmCreateComponent implements OnChanges {
   }
 
   public selectCoverImage(event: any): void {
-    this.buttonDisabled = true;
+    this.btnDisabled = true;
     const image = event.currentTarget.files[0];
     this.filmService.convertImageToBase64(image, (base64: string) => {
       this.formFilmCreate.get('coverImage')?.setValue(base64);
-      this.buttonDisabled = false;
+      this.btnDisabled = false;
     });
   }
 

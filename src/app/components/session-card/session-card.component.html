@@ -1,21 +1,23 @@
 <div class="relative w-full">
   <div class="absolute text-white text-xs border-round surface-900 px-2 py-1 sm:text-base sm:px-3 sm:py-2 z-1" style="top: 0.5rem; right: -0.7rem; box-shadow: 3px 3px 0 white;">
-    <span class="text-primary">R$</span> {{ session?.ticketPrice }}
+    <span class="text-primary">R$</span> {{ session?.ticketPrice || '...' }}
   </div>
   <a [routerLink]="['/sessions', session?.uuid]" class="block no-underline">
     <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" draggable="false" class="w-full h-12rem sm:h-16rem md:h-20rem border-round" style="object-fit: cover;">
   </a>
   <div>
     <p class="text-sm text-gray-50 font-semibold sm:text-base md:text-lg my-2 overflow-hidden" style="white-space:nowrap; text-overflow: ellipsis;">
-      {{ session?.film?.title }}
+      {{ session?.film?.title || '...' }}
     </p>
     <p class="text-xs sm:text-sm flex justify-content-between mx-0 my-1">
-      <span class="text-gray-500">{{ session?.film?.duration | time }}</span>
-      <span class="text-yellow-500">{{ session?.room?.projectionType }}</span>
+      <span class="text-gray-500">{{ (session?.film?.duration | time) || '...' }}</span>
+      <span class="text-yellow-500">{{ session?.room?.projectionType || '...' }}</span>
     </p>
     <p class="text-xs sm:text-sm flex justify-content-between m-0">
-      <span class="text-primary">{{ session?.date | date: 'dd/MM' }} - {{ session?.hour | hour }}</span>
-      <span class="text-yellow-500">{{ session?.numberFreeSeats }} vagas</span>
+      <span class="text-primary">
+        {{ (session?.date | date: 'dd/MM') || '...' }} - {{ (session?.hour | hour) || '...' }}
+      </span>
+      <span class="text-yellow-500">{{ session?.numberFreeSeats || '...' }} vagas</span>
     </p>
   </div>
 </div>

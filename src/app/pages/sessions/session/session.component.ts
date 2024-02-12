@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { SessionCardComponent } from '../../../components/session-card/session-card.component';
 import { DatePipe } from '@angular/common';
 import { HourPipe } from '../../../pipes/hour.pipe';
+import { TimePipe } from '../../../pipes/time.pipe';
 
 @Component({
   selector: 'app-session',
@@ -19,6 +20,7 @@ import { HourPipe } from '../../../pipes/hour.pipe';
     SessionCardComponent,
     DatePipe,
     HourPipe,
+    TimePipe,
   ],
   templateUrl: './session.component.html',
   styleUrl: './session.component.css',

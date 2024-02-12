@@ -1,9 +1,9 @@
 <p-dialog header="Informação do Usuário" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
-      <img [src]="user?.profilePicture || '../../../../../../assets/person.png'" [alt]="user?.name" width="120" height="120" class="border-round" style="object-fit: cover;">
+      <img [src]="user?.profilePicture || DEFAULT_PERSON" [alt]="user?.name" width="120" height="120" class="border-round" style="object-fit: cover;">
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
-        <h2 class="text-lg text-gray-500">{{user?.name}}</h2>
+        <h2 class="text-lg text-gray-500">{{ user?.name || '...' }}</h2>
         <div class="flex gap-3">
           <p-button (onClick)="openModalUserEdit()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm" />
           @if(user?.active) {
@@ -16,17 +16,17 @@
     </div>
 
     <h4 class="my-2 text-gray-400"><span class="pi pi-envelope pr-2"></span>E-mail:</h4>
-    <p class="ml-4 my-0">{{user?.email}} </p>
+    <p class="ml-4 my-0">{{ user?.email || '...' }} </p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-phone pr-2"></span>Telefone:</h4>
-    <p class="ml-4 my-0">{{user?.phoneNumber}}</p>
+    <p class="ml-4 my-0">{{ user?.phoneNumber || '...' }}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-id-card pr-2"></span>CPF:</h4>
-    <p class="ml-4 my-0">{{user?.cpf}}</p>
+    <p class="ml-4 my-0">{{ user?.cpf || '...' }}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-ban pr-2"></span>Status:</h4>
     <p class="ml-4 my-0"><tag-user [active]="user?.active" /></p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-shield pr-2"></span>Acesso:</h4>
-    <p class="ml-4 my-0">{{user?.role}}</p>
+    <p class="ml-4 my-0">{{ user?.role || '...' }}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-calendar-plus pr-2"></span>Filiado em:</h4>
-    <p class="ml-4 my-0">{{user?.createdAt | date: 'dd/MM/yyyy HH:mm'}}</p>
+    <p class="ml-4 my-0">{{ (user?.createdAt | date: 'dd/MM/yyyy HH:mm') || '...' }}</p>
   </div>
 </p-dialog>
 

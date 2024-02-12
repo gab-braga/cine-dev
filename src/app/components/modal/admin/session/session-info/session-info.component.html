@@ -3,7 +3,7 @@
     <div class="flex gap-3 align-items-center mb-3">
       <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
-        <h2 class="text-lg text-gray-500">{{session?.film?.title}}</h2>
+        <h2 class="text-lg text-gray-500">{{ session?.film?.title }}</h2>
         <div class="flex gap-3">
           <p-button (onClick)="showEditModal()" label="Editar" icon="pi pi-pencil" severity="secondary" styleClass="p-2 text-sm" />
           @if(session?.open) {
@@ -16,17 +16,17 @@
     </div>
 
     <h4 class="my-2 text-gray-400"><span class="pi pi-calendar-plus pr-2"></span>Data:</h4>
-    <p class="ml-4 my-0">{{session?.date | date: 'dd/MM/yyyy'}} </p>
+    <p class="ml-4 my-0">{{ (session?.date | date: 'dd/MM/yyyy') || '...' }} </p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-clock pr-2"></span>Hora:</h4>
-    <p class="ml-4 my-0">{{session?.hour}}</p>
+    <p class="ml-4 my-0">{{ (session?.hour | hour) || '...' }}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-dollar pr-2"></span>Preço Reserva:</h4>
-    <p class="ml-4 my-0">{{session?.ticketPrice}}</p>
+    <p class="ml-4 my-0">R$ {{ session?.ticketPrice || '...' }}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-info-circle pr-2"></span>Status:</h4>
     <p class="ml-4 my-0"><tag-session [open]="session?.open" /></p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-video pr-2"></span>Filme:</h4>
-    <p class="ml-4 my-0">{{session?.film?.title}}</p>
+    <p class="ml-4 my-0">{{ session?.film?.title || '...' }}</p>
     <h4 class="my-2 text-gray-400"><span class="pi pi-circle pr-2"></span>Sala de Cinema:</h4>
-    <p class="ml-4 my-0">{{session?.room?.number}}</p>
+    <p class="ml-4 my-0">{{ session?.room?.number || '...' }}</p>
   </div>
 </p-dialog>
 

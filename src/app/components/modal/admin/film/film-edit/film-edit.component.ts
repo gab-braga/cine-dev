@@ -32,7 +32,7 @@ export class ModalFilmEditComponent implements OnChanges {
   @Input({ required: true })
   film: any = null;
 
-  buttonDisabled: boolean = false;
+  btnDisabled: boolean = false;
   formFilmEditSubmitted: boolean = false;
   formFilmEdit: FormGroup = this.fb.group({
     title: ['', [Validators.required, Validators.maxLength(120)]],
@@ -78,11 +78,11 @@ export class ModalFilmEditComponent implements OnChanges {
   }
 
   protected selectCoverImage(event: any): void {
-    this.buttonDisabled = true;
+    this.btnDisabled = true;
     const image = event.currentTarget.files[0];
     this.filmService.convertImageToBase64(image, (base64: string) => {
       this.formFilmEdit.get('coverImage')?.setValue(base64);
-      this.buttonDisabled = false;
+      this.btnDisabled = false;
     });
   }
 

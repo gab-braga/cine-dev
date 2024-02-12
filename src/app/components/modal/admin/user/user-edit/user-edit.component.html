@@ -1,6 +1,6 @@
 <p-dialog header="Editar Usuário" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
-    <form class="flex flex-column align-items-stretch" [formGroup]="formUserEdit" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formUserEdit" (ngSubmit)="onSubmit()" class="flex flex-column align-items-stretch">
 
       <input formControlName="uuid" type="hidden" name="uuid">
 

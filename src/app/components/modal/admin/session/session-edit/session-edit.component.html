@@ -1,7 +1,7 @@
 <p-dialog header="Editar Sessão" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <span class="mb-2 text-red-300"><span class="pi pi-info-circle"></span> É possivel editar somente sessões que não possuem reservas.</span>
-    <form class="flex flex-column align-items-stretch" [formGroup]="formSessionEdit" (ngSubmit)="onSubmit()">
+    <form [formGroup]="formSessionEdit" (ngSubmit)="onSubmit()" class="flex flex-column align-items-stretch">
 
       <input formControlName="uuid" type="hidden" name="uuid">
 
