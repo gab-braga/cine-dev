@@ -26,6 +26,8 @@
     <div class="w-full overflow-x-auto pb-2" style="white-space: nowrap;">
       @for(sessionWeek of sessionsWeek; track sessionWeek?.uuid) {
       <c-session-card [session]="sessionWeek" class="inline-block mr-5 w-8rem sm:w-10rem md:w-13rem" />
+      } @empty {
+      <p class="text-400 m-0">Nenhuma sessão para esta semana.</p>
       }
     </div>
   </div>
@@ -58,6 +60,8 @@
       @if(even) {
       <c-session-card [session]="session" class="inline-block mr-5 w-8rem sm:w-10rem md:w-13rem" />
       }
+      } @empty {
+      <p class="text-400 m-0">Nenhuma sessão encontrada.</p>
       }
     </div>
 
