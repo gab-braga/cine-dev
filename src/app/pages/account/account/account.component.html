@@ -11,7 +11,7 @@
   <div>
     <h2 class="text-white">{{ user?.name || 'Carregando...' }}</h2>
     <label for="profilePicture" class="cursor-pointer">
-      <img [src]="user?.profilePicture || DEFAULT_PERSON" [alt]="user?.name" width="100" height="100" class="border-round">
+      <img [src]="user?.profilePicture || DEFAULT_PERSON" [alt]="user?.name" width="100" height="100" class="border-round" style="object-fit: cover;">
     </label>
     <input (change)="changeProfilePicture($event)" type="file" id="profilePicture" accept="image/*" max="5000000" class="hidden">
   </div>
