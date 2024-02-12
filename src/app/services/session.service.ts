@@ -73,6 +73,18 @@ export class SessionService {
       );
   }
 
+  public findByFilmId(uuid: string): Observable<Session[]> {
+    return this.http
+      .get<Session[]>(`${environment.apiBaseUrl}/public/sessions/films/${uuid}`)
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public findByGenresForClient(genres: string): Observable<Session[]> {
     return this.http
       .get<Session[]>(`${environment.apiBaseUrl}/public/sessions/genres`, {

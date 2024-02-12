@@ -7,6 +7,9 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ButtonModule } from 'primeng/button';
 import { FilmCardComponent } from '../../../components/film-card/film-card.component';
 import { DatePipe } from '@angular/common';
+import { Session } from '../../../interfaces/session';
+import { SessionCardComponent } from '../../../components/session-card/session-card.component';
+import { SessionService } from '../../../services/session.service';
 
 @Component({
   selector: 'app-film',
@@ -16,6 +19,7 @@ import { DatePipe } from '@angular/common';
     ButtonModule,
     RouterLink,
     FilmCardComponent,
+    SessionCardComponent,
     DatePipe,
   ],
   templateUrl: './film.component.html',
@@ -24,11 +28,13 @@ import { DatePipe } from '@angular/common';
 export class FilmComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   protected film: Film | null = null;
+  protected sessions: Session[] = [];
   protected films: Film[] = [];
 
   constructor(
     private route: ActivatedRoute,
-    private filmService: FilmService
+    private filmService: FilmService,
+    private sessionService: SessionService
   ) {}
 
   public ngOnInit(): void {
@@ -47,6 +53,7 @@ export class FilmComponent implements OnInit, OnDestroy {
           this.film = film;
           const genres = this.extractFirstGenre(film?.genres);
           this.loadFilmsByGenres(genres);
+          this.loadSessionsByFilm(uuid);
         });
       })
     );
@@ -55,6 +62,12 @@ export class FilmComponent implements OnInit, OnDestroy {
   private loadFilmsByGenres(genres: string): void {
     this.filmService.findByGenresForClient(genres).subscribe((films) => {
       this.films = films;
+    });
+  }
+
+  private loadSessionsByFilm(uuid: string): void {
+    this.sessionService.findByFilmId(uuid).subscribe((sessions) => {
+      this.sessions = sessions;
     });
   }
 
