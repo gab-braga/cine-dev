@@ -3,34 +3,34 @@
     <div class="col-12 md:col-6">
       <label for="name" class="inline-block text-white mb-2">Nome</label>
       <input pInputText formControlName="name" type="text" id="name" name="name" autocomplete="off" class="w-full" placeholder="Digite seu nome" aria-label="Campo para nome">
-      @if (formSubmitted && form.get('name')?.errors) {
+      @if (formSubmitted && nameControl.errors) {
       <small class="inline-block mt-2 text-red-500">Preencha com seu nome.</small>
-      } @else if (form.get('name')?.touched && form.get('name')?.hasError('required')) {
+      } @else if (nameControl.touched && nameControl.hasError('required')) {
       <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
       }
     </div>
     <div class="col-12 md:col-6">
       <label for="cpf" class="inline-block text-white mb-2">CPF</label>
       <input pInputText formControlName="cpf" type="text" id="cpf" name="cpf" autocomplete="off" class="w-full" placeholder="000.000.000-00" aria-label="Campo para CPF">
-      @if (formSubmitted && form.get('cpf')?.errors) {
+      @if (formSubmitted && cpfControl.errors) {
       <small class="inline-block mt-2 text-red-500">Preencha com seu CPF.</small>
-      } @else if (form.get('cpf')?.touched && form.get('cpf')?.hasError('required')) {
+      } @else if (cpfControl.touched && cpfControl.hasError('required')) {
       <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
       }
     </div>
     <div class="col-12 md:col-6">
       <label for="email" class="inline-block text-white mb-2">E-mail</label>
       <input pInputText formControlName="email" type="email" id="email" name="email" autocomplete="off" class="w-full" placeholder="example@cinedev.com" aria-label="Campo para e-mail">
-      @if (formSubmitted && form.get('email')?.errors) {
+      @if (formSubmitted && emailControl.errors) {
       <small class="inline-block mt-2 text-red-500">Preencha com seu e-mail.</small>
-      } @else if (form.get('email')?.touched && form.get('email')?.hasError('required')) {
+      } @else if (emailControl.touched && emailControl.hasError('required')) {
       <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
       }
     </div>
     <div class="col-12 md:col-6">
       <label for="phoneNumber" class="inline-block text-white mb-2">Telefone</label>
       <input pInputText formControlName="phoneNumber" type="tel" id="phoneNumber" name="phoneNumber" autocomplete="off" class="w-full" placeholder="(00) 9 0000-0000" aria-label="Campo para telefone">
-      @if (formSubmitted && form.get('phoneNumber')?.errors) {
+      @if (formSubmitted && phoneNumberControl.errors) {
       <small class="inline-block mt-2 text-red-500">Preencha com número de telefone.</small>
       }
     </div>

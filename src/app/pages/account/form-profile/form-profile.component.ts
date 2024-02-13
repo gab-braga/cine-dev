@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -20,8 +21,8 @@ import { Router } from '@angular/router';
   styleUrl: './form-profile.component.css',
 })
 export class FormProfileComponent implements OnInit {
-  formSubmitted: boolean = false;
-  form: FormGroup = this.fb.group({
+  protected formSubmitted: boolean = false;
+  protected form: FormGroup = this.fb.group({
     name: ['', [Validators.required, Validators.maxLength(120)]],
     email: ['', [Validators.required, Validators.email]],
     cpf: ['', [Validators.required]],
@@ -38,6 +39,22 @@ export class FormProfileComponent implements OnInit {
 
   public ngOnInit(): void {
     this.loadData();
+  }
+
+  protected get nameControl(): FormControl {
+    return this.form.get('name') as FormControl;
+  }
+
+  protected get emailControl(): FormControl {
+    return this.form.get('email') as FormControl;
+  }
+
+  protected get cpfControl(): FormControl {
+    return this.form.get('cpf') as FormControl;
+  }
+
+  protected get phoneNumberControl(): FormControl {
+    return this.form.get('phoneNumber') as FormControl;
   }
 
   private loadData(): void {

@@ -45,13 +45,13 @@
         <tr>
           <td class="flex gap-3 align-items-center justify-content-start">
             <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
-            {{ session?.film?.title }}
+            {{ session?.film?.title || '...' }}
           </td>
-          <td>{{ session?.date | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ session?.hour | hour }}</td>
+          <td>{{ (session?.date | date: 'dd/MM/yyyy') || '...' }}</td>
+          <td>{{ (session?.hour | hour) || '...' }}</td>
           <td><tag-session [open]="session?.open" styleClass="w-full" /></td>
-          <td>R$ {{ session?.ticketPrice }}</td>
-          <td>{{ session?.room?.number }}</td>
+          <td>R$ {{ session?.ticketPrice || '...' }}</td>
+          <td>{{ session?.room?.number || '...' }}</td>
           <td>
             <button (click)="showInfoModal(session)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
               <span class="pi pi-external-link"></span>

@@ -45,12 +45,12 @@
         <tr>
           <td class="flex gap-3 align-items-center justify-content-start">
             <img [src]="user?.profilePicture || '../../../../assets/person.png'" [alt]="user?.name" width="40" height="40" class="border-round" style="object-fit: cover;">
-            {{ user?.name }}
+            {{ user?.name || '...' }}
           </td>
-          <td>{{ user?.email }}</td>
-          <td>{{ user?.cpf }}</td>
-          <td>{{ user?.phoneNumber }}</td>
-          <td>{{ user?.role }}</td>
+          <td>{{ user?.email || '...' }}</td>
+          <td>{{ user?.cpf || '...' }}</td>
+          <td>{{ user?.phoneNumber || '...' }}</td>
+          <td>{{ user?.role || '...' }}</td>
           <td>
             <tag-user [active]="user?.active" styleClass="w-full" />
           </td>

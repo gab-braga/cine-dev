@@ -1,7 +1,12 @@
 import { Component } from '@angular/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
@@ -33,6 +38,14 @@ export class LoginComponent {
     private messageService: MessageService,
     private router: Router
   ) {}
+
+  protected get emailControl(): FormControl {
+    return this.loginForm.get('email') as FormControl;
+  }
+
+  protected get passwordControl(): FormControl {
+    return this.loginForm.get('password') as FormControl;
+  }
 
   protected onSubmit(): void {
     this.loginFormSubmitted = true;

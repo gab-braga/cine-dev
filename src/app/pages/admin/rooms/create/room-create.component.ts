@@ -51,8 +51,16 @@ export class RoomCreateComponent {
     private messageService: MessageService
   ) {}
 
-  protected get mapForm(): FormGroup {
+  protected get mapGroup(): FormGroup {
     return this.form.get('map') as FormGroup;
+  }
+
+  protected get numberControl(): FormGroup {
+    return this.form.get('number') as FormGroup;
+  }
+
+  protected get projectionTypeControl(): FormGroup {
+    return this.form.get('projectionType') as FormGroup;
   }
 
   protected onSubmit(): void {

@@ -5,6 +5,7 @@ import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -20,8 +21,8 @@ import { Router } from '@angular/router';
   styleUrl: './form-access.component.css',
 })
 export class FormAccessComponent {
-  formSubmitted: boolean = false;
-  form: FormGroup = this.fb.group({
+  protected formSubmitted: boolean = false;
+  protected form: FormGroup = this.fb.group({
     currentPassword: ['', [Validators.required]],
     newPassword: ['', [Validators.required]],
     confirmPassword: ['', [Validators.required]],
@@ -34,6 +35,18 @@ export class FormAccessComponent {
     private messageService: MessageService,
     private router: Router
   ) {}
+
+  protected get currentPasswordControl(): FormControl {
+    return this.form.get('currentPassword') as FormControl;
+  }
+
+  protected get newPasswordControl(): FormControl {
+    return this.form.get('newPassword') as FormControl;
+  }
+
+  protected get confirmPasswordControl(): FormControl {
+    return this.form.get('confirmPassword') as FormControl;
+  }
 
   protected onSubmit(): void {
     this.formSubmitted = true;

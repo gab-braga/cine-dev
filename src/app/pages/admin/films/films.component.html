@@ -42,11 +42,11 @@
         <tr>
           <td class="flex gap-3 align-items-center justify-content-start">
             <img [src]="film?.coverImage" [alt]="film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
-            {{ film?.title }}
+            {{ film?.title || '...' }}
           </td>
-          <td>{{ film?.genres }}</td>
-          <td>{{ film?.duration }} minutos</td>
-          <td>{{ film?.publishedIn | date: 'dd/MM/yyyy' }}</td>
+          <td>{{ film?.genres || '...' }}</td>
+          <td>{{ film?.duration || '...' }} minutos</td>
+          <td>{{ (film?.publishedIn | date: 'dd/MM/yyyy') || '...' }}</td>
           <td>
             <button (click)="showInfoModal(film)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
               <span class="pi pi-external-link"></span>

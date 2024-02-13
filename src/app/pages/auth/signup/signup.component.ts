@@ -46,6 +46,22 @@ export class SignupComponent {
     private messageService: MessageService
   ) {}
 
+  protected get nameControl(): FormControl {
+    return this.signupForm.get('name') as FormControl;
+  }
+
+  protected get cpfControl(): FormControl {
+    return this.signupForm.get('cpf') as FormControl;
+  }
+
+  protected get emailControl(): FormControl {
+    return this.signupForm.get('email') as FormControl;
+  }
+
+  protected get passwordControl(): FormControl {
+    return this.signupForm.get('password') as FormControl;
+  }
+
   protected onSubmit(): void {
     this.signupFormSubmitted = true;
     if (this.acceptedTermsAndPolicies() && this.signupForm.valid) {

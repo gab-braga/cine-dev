@@ -41,10 +41,10 @@
       </ng-template>
       <ng-template pTemplate="body" let-room>
         <tr>
-          <td>{{ room?.number }}</td>
-          <td>{{ room?.map?.width }} x {{ room?.map?.height }}</td>
-          <td>{{ room?.capacity }} assentos</td>
-          <td>{{ room?.projectionType}}</td>
+          <td>{{ room?.number || '...' }}</td>
+          <td>{{ room?.map?.width || '...' }} x {{ room?.map?.height || '...' }}</td>
+          <td>{{ room?.capacity || '...' }} assentos</td>
+          <td>{{ room?.projectionType || '...' }}</td>
           <td>
             <button (click)="showEditModal(room)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
               <span class="pi pi-pencil"></span>

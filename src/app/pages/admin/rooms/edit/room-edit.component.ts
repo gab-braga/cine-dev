@@ -30,8 +30,8 @@ import {
 })
 export class RoomEditComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  formSubmitted: boolean = false;
-  form: FormGroup = this.fb.group({
+  protected formSubmitted: boolean = false;
+  protected form: FormGroup = this.fb.group({
     uuid: ['', [Validators.required]],
     map: this.fb.group({
       width: ['', [Validators.required, Validators.min(1)]],

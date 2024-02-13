@@ -13,9 +13,9 @@
       <div class="mt-3 col-12 md:col-6">
         <label for="number" class="inline-block text-white mb-2">Número da Sala</label>
         <input pInputText formControlName="number" type="number" id="number" name="number" autocomplete="off" class="w-full" placeholder="Preencha com o número de identificação da sala." aria-label="Campo para número da sala">
-        @if (formSubmitted && form.get('number')?.errors) {
+        @if (formSubmitted && numberControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com o número da sala.</small>
-        } @else if (form.get('number')?.touched && form.get('number')?.hasError('required')) {
+        } @else if (numberControl.touched && numberControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -27,15 +27,15 @@
           <option value="2D">2D</option>
           <option value="3D">3D</option>
         </select>
-        @if (formSubmitted && form.get('projectionType')?.errors) {
+        @if (formSubmitted && projectionTypeControl.errors) {
         <small class="inline-block mt-2 text-red-500">Selecione o tipo de projeção.</small>
-        } @else if (form.get('projectionType')?.touched && form.get('projectionType')?.hasError('required')) {
+        } @else if (projectionTypeControl.touched && projectionTypeControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
     </div>
 
-    <c-seat-map-creator [mapForm]="mapForm" class="w-full" />
+    <c-seat-map-creator [mapForm]="mapGroup" class="w-full" />
 
     <div class="w-full mt-4 flex justify-content-between align-content-center">
       <a routerLink="/admin/rooms">
