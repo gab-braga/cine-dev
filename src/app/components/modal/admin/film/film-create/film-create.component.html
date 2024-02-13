@@ -5,9 +5,9 @@
       <div class="mt-2">
         <label for="title" class="inline-block text-gray-700 mb-2">Título<span class="text-red-600">*</span></label>
         <input formControlName="title" type="text" id="title" name="title" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Título do filme" aria-label="Campo para título">
-        @if (formFilmCreateSubmitted && formFilmCreate.get('title')?.errors) {
+        @if (formFilmCreateSubmitted && titleControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com o título do filme.</small>
-        } @else if (formFilmCreate.get('title')?.touched && formFilmCreate.get('title')?.hasError('required')) {
+        } @else if (titleControl.touched && titleControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -15,9 +15,9 @@
       <div class="mt-2">
         <label for="resume" class="inline-block text-gray-700 mb-2">Sinopse<span class="text-red-600">*</span></label>
         <textarea formControlName="resume" type="text" id="resume" name="resume" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Sinopse do filme" aria-label="Campo para sinopse"></textarea>
-        @if (formFilmCreateSubmitted && formFilmCreate.get('resume')?.errors) {
+        @if (formFilmCreateSubmitted && resumeControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com a sinopse do filme.</small>
-        } @else if (formFilmCreate.get('resume')?.touched && formFilmCreate.get('resume')?.hasError('required')) {
+        } @else if (resumeControl.touched && resumeControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -25,9 +25,9 @@
       <div class="mt-2">
         <label for="genres" class="inline-block text-gray-700 mb-2">Gêneros<span class="text-red-600">*</span></label>
         <input formControlName="genres" type="text" id="genres" name="genres" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Ação, Comédia, Ficção" aria-label="Campo para lista de gêneros">
-        @if (formFilmCreateSubmitted && formFilmCreate.get('genres')?.errors) {
+        @if (formFilmCreateSubmitted && genresControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com os gêneros do filme.</small>
-        } @else if (formFilmCreate.get('genres')?.touched && formFilmCreate.get('genres')?.hasError('required')) {
+        } @else if (genresControl.touched && genresControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -35,9 +35,9 @@
       <div class="mt-2">
         <label for="duration" class="inline-block text-gray-700 mb-2">Duração em Minutos<span class="text-red-600">*</span></label>
         <input formControlName="duration" type="number" id="duration" name="duration" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Duração em minutos" aria-label="Campo para duração do filme">
-        @if (formFilmCreateSubmitted && formFilmCreate.get('duration')?.errors) {
+        @if (formFilmCreateSubmitted && durationControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com a duração do filme em minutos.</small>
-        } @else if (formFilmCreate.get('duration')?.touched && formFilmCreate.get('duration')?.hasError('required')) {
+        } @else if (durationControl.touched && durationControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -45,9 +45,9 @@
       <div class="mt-2">
         <label for="publishedIn" class="inline-block text-gray-700 mb-2">Lançamento<span class="text-red-600">*</span></label>
         <input formControlName="publishedIn" type="date" id="publishedIn" name="publishedIn" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data de lançamento">
-        @if (formFilmCreateSubmitted && formFilmCreate.get('publishedIn')?.errors) {
+        @if (formFilmCreateSubmitted && publishedInControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com a data de lançamento do filme.</small>
-        } @else if (formFilmCreate.get('publishedIn')?.touched && formFilmCreate.get('publishedIn')?.hasError('required')) {
+        } @else if (publishedInControl.touched && publishedInControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -56,9 +56,9 @@
         <label for="coverImage" class="inline-block text-gray-700 mb-2">Imagem de Capa<span class="text-red-600">*</span></label>
         <label for="coverImage" class="w-full p-button p-button-outlined flex align-content-center justify-content-center gap-2" aria-label="Campo para imagem de capa"><span class="pi pi-upload"></span>Selecionar Imagem de Capa</label>
         <input formControlName="coverImageFile" (change)="selectCoverImage($event)" type="file" id="coverImage" accept="image/*" max="5000000" class="hidden" />
-        @if (formFilmCreateSubmitted && formFilmCreate.get('coverImage')?.errors) {
+        @if (formFilmCreateSubmitted && coverImageControl.errors) {
         <small class="inline-block mt-2 text-red-500">Escolha uma imagem de capa para o filme.</small>
-        } @else if (formFilmCreate.get('coverImage')?.touched && formFilmCreate.get('coverImage')?.hasError('required')) {
+        } @else if (coverImageControl.touched && coverImageControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>

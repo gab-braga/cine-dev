@@ -7,9 +7,9 @@
       <div class="mt-2">
         <label for="name" class="inline-block text-gray-700 mb-2">Nome<span class="text-red-600">*</span></label>
         <input formControlName="name" type="text" id="name" name="name" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Nome do usuário" aria-label="Campo para nome">
-        @if (formUserEditSubmitted && formUserEdit.get('name')?.errors) {
-        <small class="inline-block mt-2 text-red-500">Preencha com o nome do usuário.</small>
-        } @else if (formUserEdit.get('name')?.touched && formUserEdit.get('name')?.hasError('required')) {
+        @if (formUserEditSubmitted && nameControl.errors) {
+        <small class="inline-block mt-2 text-red-500">Preencha com um nome válido.</small>
+        } @else if (nameControl.touched && nameControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -17,9 +17,9 @@
       <div class="mt-2">
         <label for="cpf" class="inline-block text-gray-700 mb-2">CPF<span class="text-red-600">*</span></label>
         <input formControlName="cpf" type="text" id="cpf" name="cpf" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="000.000.000-00" aria-label="Campo para CPF">
-        @if (formUserEditSubmitted && formUserEdit.get('cpf')?.errors) {
+        @if (formUserEditSubmitted && cpfControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com um CPF válido.</small>
-        } @else if (formUserEdit.get('cpf')?.touched && formUserEdit.get('cpf')?.hasError('required')) {
+        } @else if (cpfControl.touched && cpfControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -31,9 +31,9 @@
           <option value="CLIENT">Cliente</option>
           <option value="ADMIN">Administrador</option>
         </select>
-        @if (formUserEditSubmitted && formUserEdit.get('role')?.errors) {
+        @if (formUserEditSubmitted && roleControl.errors) {
         <small class="inline-block mt-2 text-red-500">Selecione um nível de acesso para o usuário.</small>
-        } @else if (formUserEdit.get('role')?.touched && formUserEdit.get('role')?.hasError('required')) {
+        } @else if (roleControl.touched && roleControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -41,9 +41,9 @@
       <div class="mt-2">
         <label for="email" class="inline-block text-gray-700 mb-2">E-mail<span class="text-red-600">*</span></label>
         <input formControlName="email" type="text" id="email" name="email" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="E-mail do usuário" aria-label="Campo para email">
-        @if (formUserEditSubmitted && formUserEdit.get('email')?.errors) {
+        @if (formUserEditSubmitted && emailControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com um e-mail válido.</small>
-        } @else if (formUserEdit.get('email')?.touched && formUserEdit.get('email')?.hasError('required')) {
+        } @else if (emailControl.touched && emailControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
@@ -51,7 +51,7 @@
       <div class="mt-2">
         <label for="phoneNumber" class="inline-block text-gray-700 mb-2">Telefone</label>
         <input formControlName="phoneNumber" type="text" id="phoneNumber" name="phoneNumber" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="(00) 9 0000-0000" aria-label="Campo para telefone">
-        @if (formUserEditSubmitted && formUserEdit.get('phoneNumber')?.errors) {
+        @if (formUserEditSubmitted && phoneNumberControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com um número de telefone válido.</small>
         }
       </div>

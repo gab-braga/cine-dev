@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -42,6 +43,30 @@ export class ModalFilmCreateComponent implements OnChanges {
 
   public ngOnChanges(changes: SimpleChanges): void {
     this.initializeForm();
+  }
+
+  protected get titleControl(): FormControl {
+    return this.formFilmCreate.get('title') as FormControl;
+  }
+
+  protected get resumeControl(): FormControl {
+    return this.formFilmCreate.get('resume') as FormControl;
+  }
+
+  protected get genresControl(): FormControl {
+    return this.formFilmCreate.get('genres') as FormControl;
+  }
+
+  protected get durationControl(): FormControl {
+    return this.formFilmCreate.get('duration') as FormControl;
+  }
+
+  protected get publishedInControl(): FormControl {
+    return this.formFilmCreate.get('publishedIn') as FormControl;
+  }
+
+  protected get coverImageControl(): FormControl {
+    return this.formFilmCreate.get('coverImage') as FormControl;
   }
 
   protected onSubmit(): void {

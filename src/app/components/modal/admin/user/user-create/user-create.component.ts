@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -32,6 +33,30 @@ export class ModalUserCreateComponent implements OnChanges {
 
   protected formUserCreateSubmitted: boolean = false;
   protected formUserCreate: FormGroup = this.fb.group(this.getUserFormGroup());
+
+  protected get nameControl(): FormControl {
+    return this.formUserCreate.get('name') as FormControl;
+  }
+
+  protected get cpfControl(): FormControl {
+    return this.formUserCreate.get('cpf') as FormControl;
+  }
+
+  protected get roleControl(): FormControl {
+    return this.formUserCreate.get('role') as FormControl;
+  }
+
+  protected get emailControl(): FormControl {
+    return this.formUserCreate.get('email') as FormControl;
+  }
+
+  protected get passwordControl(): FormControl {
+    return this.formUserCreate.get('password') as FormControl;
+  }
+
+  protected get phoneNumberControl(): FormControl {
+    return this.formUserCreate.get('phoneNumber') as FormControl;
+  }
 
   constructor(
     private fb: FormBuilder,

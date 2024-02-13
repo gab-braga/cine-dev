@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -51,6 +52,30 @@ export class ModalUserEditComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     const user = changes['user']?.currentValue;
     if (user) this.initializeForm(user);
+  }
+
+  protected get nameControl(): FormControl {
+    return this.formUserEdit.get('name') as FormControl;
+  }
+
+  protected get cpfControl(): FormControl {
+    return this.formUserEdit.get('cpf') as FormControl;
+  }
+
+  protected get roleControl(): FormControl {
+    return this.formUserEdit.get('role') as FormControl;
+  }
+
+  protected get emailControl(): FormControl {
+    return this.formUserEdit.get('email') as FormControl;
+  }
+
+  protected get passwordControl(): FormControl {
+    return this.formUserEdit.get('password') as FormControl;
+  }
+
+  protected get phoneNumberControl(): FormControl {
+    return this.formUserEdit.get('phoneNumber') as FormControl;
   }
 
   protected onSubmit(): void {

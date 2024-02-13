@@ -7,7 +7,13 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FilmService } from '../../../../../services/film.service';
@@ -34,7 +40,9 @@ export class ModalSessionCreateComponent implements OnChanges, OnInit {
   protected rooms: Room[] = [];
 
   protected formSessionCreateSubmitted: boolean = false;
-  protected formSessionCreate = this.fb.group(this.getSessionFormGroup());
+  protected formSessionCreate: FormGroup = this.fb.group(
+    this.getSessionFormGroup()
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -50,6 +58,34 @@ export class ModalSessionCreateComponent implements OnChanges, OnInit {
 
   public ngOnInit(): void {
     this.loadData();
+  }
+
+  protected get dateControl(): FormControl {
+    return this.formSessionCreate.get('date') as FormControl;
+  }
+
+  protected get hourControl(): FormControl {
+    return this.formSessionCreate.get('hour') as FormControl;
+  }
+
+  protected get ticketPriceControl(): FormControl {
+    return this.formSessionCreate.get('ticketPrice') as FormControl;
+  }
+
+  protected get filmGroup(): FormGroup {
+    return this.formSessionCreate.get('film') as FormGroup;
+  }
+
+  protected get roomGroup(): FormGroup {
+    return this.formSessionCreate.get('room') as FormGroup;
+  }
+
+  protected get filmIdControl(): FormGroup {
+    return this.filmGroup.get('uuid') as FormGroup;
+  }
+
+  protected get roomIdControl(): FormGroup {
+    return this.roomGroup.get('uuid') as FormGroup;
   }
 
   private loadData(): void {
@@ -96,8 +132,12 @@ export class ModalSessionCreateComponent implements OnChanges, OnInit {
       ticketPrice: ['', [Validators.required]],
       date: ['', [Validators.required]],
       hour: ['', [Validators.required]],
-      filmId: ['', [Validators.required]],
-      roomId: ['', [Validators.required]],
+      film: this.fb.group({
+        uuid: ['', [Validators.required]],
+      }),
+      room: this.fb.group({
+        uuid: ['', [Validators.required]],
+      }),
     };
   }
 }

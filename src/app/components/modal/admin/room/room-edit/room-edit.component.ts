@@ -8,6 +8,7 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -50,6 +51,14 @@ export class ModalRoomEditComponent implements OnChanges {
   public ngOnChanges(changes: SimpleChanges): void {
     const room = changes['room']?.currentValue;
     if (room) this.initializeForm(room);
+  }
+
+  protected get numberControl(): FormControl {
+    return this.formRoomEdit.get('number') as FormControl;
+  }
+
+  protected get projectionTypeControl(): FormControl {
+    return this.formRoomEdit.get('projectionType') as FormControl;
   }
 
   protected onSubmit(): void {

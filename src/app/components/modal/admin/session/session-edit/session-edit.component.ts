@@ -9,6 +9,7 @@ import {
 } from '@angular/core';
 import {
   FormBuilder,
+  FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
@@ -45,9 +46,13 @@ export class ModalSessionEditComponent implements OnChanges, OnInit {
     uuid: ['', [Validators.required]],
     date: ['', [Validators.required]],
     hour: ['', [Validators.required]],
-    filmId: ['', [Validators.required]],
-    roomId: ['', [Validators.required]],
     ticketPrice: ['', [Validators.required]],
+    film: this.fb.group({
+      uuid: ['', [Validators.required]],
+    }),
+    room: this.fb.group({
+      uuid: ['', [Validators.required]],
+    }),
   });
 
   constructor(
@@ -72,7 +77,35 @@ export class ModalSessionEditComponent implements OnChanges, OnInit {
     });
   }
 
-  onSubmit(): void {
+  protected get dateControl(): FormControl {
+    return this.formSessionEdit.get('date') as FormControl;
+  }
+
+  protected get hourControl(): FormControl {
+    return this.formSessionEdit.get('hour') as FormControl;
+  }
+
+  protected get ticketPriceControl(): FormControl {
+    return this.formSessionEdit.get('ticketPrice') as FormControl;
+  }
+
+  protected get filmGroup(): FormGroup {
+    return this.formSessionEdit.get('film') as FormGroup;
+  }
+
+  protected get roomGroup(): FormGroup {
+    return this.formSessionEdit.get('room') as FormGroup;
+  }
+
+  protected get filmIdControl(): FormGroup {
+    return this.filmGroup.get('uuid') as FormGroup;
+  }
+
+  protected get roomIdControl(): FormGroup {
+    return this.roomGroup.get('uuid') as FormGroup;
+  }
+
+  protected onSubmit(): void {
     this.formSessionEditSubmitted = true;
     if (this.formSessionEdit.valid) {
       const session = this.formSessionEdit.value;
@@ -105,8 +138,8 @@ export class ModalSessionEditComponent implements OnChanges, OnInit {
       uuid: session?.uuid,
       date: session?.date,
       hour: session?.hour,
-      filmId: session?.film?.uuid,
-      roomId: session?.room?.uuid,
+      film: { uuid: session?.film?.uuid },
+      room: { uuid: session?.room?.uuid },
       ticketPrice: session?.ticketPrice,
     });
   }

@@ -7,27 +7,27 @@
 
       <div class="mt-2">
         <label for="date" class="inline-block text-gray-700 mb-2">Data<span class="text-red-600">*</span></label>
-        <input formControlName="date" [value]="session?.date" type="date" id="date" name="date" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data">
-        @if (formSessionEditSubmitted && formSessionEdit.get('date')?.errors) {
+        <input formControlName="date" type="date" id="date" name="date" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para data">
+        @if (formSessionEditSubmitted && dateControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com a data da sessão.</small>
-        } @else if (formSessionEdit.get('date')?.touched && formSessionEdit.get('date')?.hasError('required')) {
+        } @else if (dateControl.touched && dateControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
 
       <div class="mt-2">
         <label for="hour" class="inline-block text-gray-700 mb-2">Hora<span class="text-red-600">*</span></label>
-        <input formControlName="hour" [value]="session?.hour" type="time" id="hour" name="hour" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para hora">
-        @if (formSessionEditSubmitted && formSessionEdit.get('hour')?.errors) {
+        <input formControlName="hour" type="time" id="hour" name="hour" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para hora">
+        @if (formSessionEditSubmitted && hourControl.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com a hora da sessão.</small>
-        } @else if (formSessionEdit.get('hour')?.touched && formSessionEdit.get('hour')?.hasError('required')) {
+        } @else if (hourControl.touched && hourControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
 
       <div class="mt-2">
         <label for="ticketPrice" class="inline-block text-gray-700 mb-2">Preço da Reserva<span class="text-red-600">*</span></label>
-        <input formControlName="ticketPrice" [value]="session?.ticketPrice" type="text" id="ticketPrice" name="ticketPrice" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Preço da reserva" aria-label="Campo para preço da reserva">
+        <input formControlName="ticketPrice" type="text" id="ticketPrice" name="ticketPrice" autocomplete="off" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" placeholder="Preço da reserva" aria-label="Campo para preço da reserva">
         @if (formSessionEditSubmitted && formSessionEdit.get('ticketPrice')?.errors) {
         <small class="inline-block mt-2 text-red-500">Preencha com o preço da reserva.</small>
         } @else if (formSessionEdit.get('ticketPrice')?.touched && formSessionEdit.get('ticketPrice')?.hasError('required')) {
@@ -35,32 +35,32 @@
         }
       </div>
 
-      <div class="mt-2">
+      <div class="mt-2" [formGroup]="filmGroup">
         <label for="filmId" class="inline-block text-gray-700 mb-2">Filme<span class="text-red-600">*</span></label>
-        <select formControlName="filmId" id="filmId" name="filmId" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para filme">
+        <select formControlName="uuid" id="filmId" name="filmId" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para filme">
           <option value="" selected disabled>Selecione o filme</option>
           @for(film of films; track film.uuid) {
           <option [value]="film?.uuid">{{film?.title}}</option>
           }
         </select>
-        @if (formSessionEditSubmitted && formSessionEdit.get('filmId')?.errors) {
+        @if (formSessionEditSubmitted && filmIdControl.errors) {
         <small class="inline-block mt-2 text-red-500">Selecione o filme da sessão.</small>
-        } @else if (formSessionEdit.get('filmId')?.touched && formSessionEdit.get('filmId')?.hasError('required')) {
+        } @else if (filmIdControl.touched && filmIdControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
 
-      <div class="mt-2">
+      <div class="mt-2" [formGroup]="roomGroup">
         <label for="roomId" class="inline-block text-gray-700 mb-2">Sala de Cinema<span class="text-red-600">*</span></label>
-        <select formControlName="roomId" id="roomId" name="roomId" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para sala de cinema">
+        <select formControlName="uuid" id="roomId" name="roomId" class="w-full p-2 border-round border-2 border-gray-300 outline-none focus:border-primary" aria-label="Campo para sala de cinema">
           <option value="" selected disabled>Selecione a sala de cinema</option>
           @for(room of rooms; track room.uuid) {
           <option [value]="room?.uuid">{{room?.number}}</option>
           }
         </select>
-        @if (formSessionEditSubmitted && formSessionEdit.get('roomId')?.errors) {
+        @if (formSessionEditSubmitted && roomIdControl.errors) {
         <small class="inline-block mt-2 text-red-500">Selecione a sala de cinema.</small>
-        } @else if (formSessionEdit.get('roomId')?.touched && formSessionEdit.get('roomId')?.hasError('required')) {
+        } @else if (roomIdControl.touched && roomIdControl.hasError('required')) {
         <small class="inline-block mt-2 text-red-500">Este campo é obrigatório.</small>
         }
       </div>
