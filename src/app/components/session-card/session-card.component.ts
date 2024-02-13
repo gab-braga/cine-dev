@@ -14,5 +14,5 @@ import { TimePipe } from '../../pipes/time.pipe';
 })
 export class SessionCardComponent {
   @Input()
-  session: Session | null = null;
+  session: Session | undefined;
 }

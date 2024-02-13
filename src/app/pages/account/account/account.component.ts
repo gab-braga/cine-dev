@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { LayoutComponent } from '../../../components/layout/layout.component';
-import { InputTextModule } from 'primeng/inputtext';
-import { ButtonModule } from 'primeng/button';
 import { User } from '../../../interfaces/user';
 import { UserService } from '../../../services/user.service';
 import { AuthService } from '../../../services/auth.service';

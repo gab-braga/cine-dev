@@ -26,7 +26,7 @@ import { FilmService } from '../../../services/film.service';
   styleUrl: './films.component.css',
 })
 export class FilmsControlComponent implements OnInit, OnDestroy {
-  film: Film | null = null;
+  film: Film | undefined;
   films: Film[] = [];
   visibilityInfoModal: boolean = false;
   visibleCreateModal: boolean = false;
@@ -71,7 +71,7 @@ export class FilmsControlComponent implements OnInit, OnDestroy {
 
   protected changeVisibilityOfInfoModal(value: boolean) {
     this.visibilityInfoModal = value;
-    if (!value) this.film = null;
+    if (!value) this.film = undefined;
   }
 
   protected showCreateModal(): void {

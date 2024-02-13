@@ -27,7 +27,7 @@ import { TimePipe } from '../../../pipes/time.pipe';
 })
 export class SessionComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  protected session: Session | null = null;
+  protected session: Session | undefined;
   protected sessions: Session[] = [];
 
   constructor(

@@ -24,7 +24,7 @@ import { ModalRoomEditComponent } from '../../../../components/modal/admin/room/
   styleUrl: './rooms.component.css',
 })
 export class RoomsControlComponent implements OnInit, OnDestroy {
-  room: Room | null = null;
+  room: Room | undefined;
   visibilityEditModal: boolean = false;
   private subscriptions: Subscription[] = [];
 
@@ -71,6 +71,6 @@ export class RoomsControlComponent implements OnInit, OnDestroy {
 
   protected changeVisibilityOfEditModal(value: boolean) {
     this.visibilityEditModal = value;
-    if (!value) this.room = null;
+    if (!value) this.room = undefined;
   }
 }

@@ -32,7 +32,7 @@ export class ModalRoomEditComponent implements OnChanges {
   @Output()
   visibleChange = new EventEmitter<boolean>();
   @Input({ required: true })
-  room: Room | null = null;
+  room: Room | undefined;
 
   protected formRoomEditSubmitted: boolean = false;
   protected formRoomEdit: FormGroup = this.fb.group({
@@ -52,7 +52,7 @@ export class ModalRoomEditComponent implements OnChanges {
     if (room) this.initializeForm(room);
   }
 
-  onSubmit(): void {
+  protected onSubmit(): void {
     this.formRoomEditSubmitted = true;
     if (this.formRoomEdit.valid) {
       const room = this.formRoomEdit.value;
@@ -73,10 +73,10 @@ export class ModalRoomEditComponent implements OnChanges {
     }
   }
 
-  changeVisibilityModal(visible: boolean): void {
+  protected changeVisibilityModal(visible: boolean): void {
     this.visible = visible;
     this.visibleChange.emit(visible);
-    if (!visible) this.room = null;
+    if (!visible) this.room = undefined;
   }
 
   private initializeForm(room: any): void {

@@ -29,7 +29,7 @@ import { TimePipe } from '../../../pipes/time.pipe';
 })
 export class FilmComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  protected film: Film | null = null;
+  protected film: Film | undefined;
   protected sessions: Session[] = [];
   protected films: Film[] = [];
 

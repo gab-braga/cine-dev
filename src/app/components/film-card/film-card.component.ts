@@ -13,5 +13,5 @@ import { TimePipe } from '../../pipes/time.pipe';
 })
 export class FilmCardComponent {
   @Input()
-  film: Film | null = null;
+  film: Film | undefined;
 }

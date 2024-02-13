@@ -33,7 +33,7 @@ export class SessionsControlComponent {
   visibilityInfoModal: boolean = false;
   visibilityCreateModal: boolean = false;
 
-  protected session: Session | null = null;
+  protected session: Session | undefined;
   protected sessions: Session[] = [];
   private subscriptions: Subscription[] = [];
 
@@ -80,7 +80,7 @@ export class SessionsControlComponent {
 
   protected changeVisibilityOfInfoModal(value: boolean) {
     this.visibilityInfoModal = value;
-    if (!value) this.session = null;
+    if (!value) this.session = undefined;
   }
 
   protected showCreateModal(): void {

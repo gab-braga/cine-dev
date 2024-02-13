@@ -27,7 +27,7 @@ import { User } from '../../../interfaces/user';
 })
 export class UsersControlComponent implements OnInit, OnDestroy {
   users: User[] = [];
-  user: User | null = null;
+  user: User | undefined;
   visibilityInfoModal: boolean = false;
   visibilityCreateModal: boolean = false;
   private subscriptions: Subscription[] = [];
@@ -72,7 +72,7 @@ export class UsersControlComponent implements OnInit, OnDestroy {
 
   protected changeVisibilityOfInfoModal(value: boolean) {
     this.visibilityInfoModal = value;
-    if (!value) this.user = null;
+    if (!value) this.user = undefined;
   }
 
   protected showCreateModal(): void {
