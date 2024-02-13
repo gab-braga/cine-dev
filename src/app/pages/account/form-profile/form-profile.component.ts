@@ -59,7 +59,7 @@ export class FormProfileComponent implements OnInit {
 
   private loadData(): void {
     const { uuid } = this.authService.getAuthUser();
-    this.userService.findByIdForClient(uuid).subscribe((user) => {
+    this.userService.findById(uuid).subscribe((user) => {
       this.form.patchValue({
         name: user.name,
         email: user.email,

@@ -17,7 +17,7 @@ export class AuthService {
       .pipe(
         map((data: any) => {
           const { accessToken } = data;
-          this.storeToken(accessToken);
+          this.setStoreToken(accessToken);
           return data;
         }),
         catchError((error) => {
@@ -76,7 +76,7 @@ export class AuthService {
     throw new Error('User not authenticated');
   }
 
-  private storeToken(accessToken: string): void {
+  private setStoreToken(accessToken: string): void {
     localStorage.setItem('accessToken', accessToken);
   }
 

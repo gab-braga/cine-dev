@@ -47,7 +47,7 @@ export class SessionComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.route.params.subscribe((params) => {
         const uuid: string = params['uuid'];
-        this.sessionService.findByIdForClient(uuid).subscribe((session) => {
+        this.sessionService.findByIdPublic(uuid).subscribe((session) => {
           this.session = session;
           const genres = this.extractFirstGenre(session?.film?.genres);
           this.loadSessionsByGenres(genres);
@@ -57,7 +57,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   }
 
   private loadSessionsByGenres(genres: string): void {
-    this.sessionService.findByGenresForClient(genres).subscribe((sessions) => {
+    this.sessionService.findByGenres(genres).subscribe((sessions) => {
       this.sessions = sessions;
     });
   }

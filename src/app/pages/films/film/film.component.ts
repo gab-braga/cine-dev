@@ -51,7 +51,7 @@ export class FilmComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.route.params.subscribe((params) => {
         const uuid: string = params['uuid'];
-        this.filmService.findByIdForClient(uuid).subscribe((film) => {
+        this.filmService.findByIdPublic(uuid).subscribe((film) => {
           this.film = film;
           const genres = this.extractFirstGenre(film?.genres);
           this.loadFilmsByGenres(genres);
@@ -62,7 +62,7 @@ export class FilmComponent implements OnInit, OnDestroy {
   }
 
   private loadFilmsByGenres(genres: string): void {
-    this.filmService.findByGenresForClient(genres).subscribe((films) => {
+    this.filmService.findByGenres(genres).subscribe((films) => {
       this.films = films;
     });
   }

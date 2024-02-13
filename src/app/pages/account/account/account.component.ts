@@ -30,7 +30,7 @@ export class AccountComponent implements OnInit {
 
   private loadData(): void {
     const { uuid } = this.authService.getAuthUser();
-    this.userService.findByIdForClient(uuid).subscribe((user) => {
+    this.userService.findById(uuid).subscribe((user) => {
       this.user = user;
     });
   }

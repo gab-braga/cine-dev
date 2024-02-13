@@ -22,20 +22,6 @@ export class UserService {
     this.usersModifiedSubject.next();
   }
 
-  public findAll(filter?: UserFilter): Observable<User[]> {
-    const params = this.generateParamsToFindUsers(filter || {});
-    const headers = this.authService.generateAuthorizationHeader();
-    return this.http
-      .get<User[]>(`${environment.apiBaseUrl}/users`, { headers, params })
-      .pipe(
-        catchError((error) => {
-          console.error(error);
-          return throwError(() => error);
-        }),
-        first()
-      );
-  }
-
   public findById(uuid: string): Observable<User> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
@@ -49,10 +35,11 @@ export class UserService {
       );
   }
 
-  public findByIdForClient(uuid: string): Observable<User> {
+  public findAll(filter?: UserFilter): Observable<User[]> {
+    const params = this.generateParamsToFindUsers(filter || {});
     const headers = this.authService.generateAuthorizationHeader();
     return this.http
-      .get<User>(`${environment.apiBaseUrl}/users/${uuid}/client`, { headers })
+      .get<User[]>(`${environment.apiBaseUrl}/users`, { headers, params })
       .pipe(
         catchError((error) => {
           console.error(error);

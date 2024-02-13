@@ -22,6 +22,19 @@ export class FilmService {
     this.filmsModifiedSubject.next();
   }
 
+  public findById(uuid: string): Observable<Film> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<Film>(`${environment.apiBaseUrl}/films/${uuid}`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public findAll(filter?: FilmFilter): Observable<Film[]> {
     const params = this.generateParamsToFindFilms(filter || {});
     const headers = this.authService.generateAuthorizationHeader();
@@ -36,20 +49,7 @@ export class FilmService {
       );
   }
 
-  public findById(uuid: string): Observable<Film> {
-    const headers = this.authService.generateAuthorizationHeader();
-    return this.http
-      .get<Film>(`${environment.apiBaseUrl}/films/${uuid}`, { headers })
-      .pipe(
-        catchError((error) => {
-          console.error(error);
-          return throwError(() => error);
-        }),
-        first()
-      );
-  }
-
-  public findByGenresForClient(genres: string): Observable<Film[]> {
+  public findByGenres(genres: string): Observable<Film[]> {
     return this.http
       .get<Film[]>(`${environment.apiBaseUrl}/public/films/genres`, {
         params: { genres },
@@ -63,7 +63,7 @@ export class FilmService {
       );
   }
 
-  public findForClient(): Observable<Film[]> {
+  public findAllPublic(): Observable<Film[]> {
     return this.http.get<Film[]>(`${environment.apiBaseUrl}/public/films`).pipe(
       catchError((error) => {
         console.error(error);
@@ -73,7 +73,7 @@ export class FilmService {
     );
   }
 
-  public findByIdForClient(uuid: string): Observable<Film> {
+  public findByIdPublic(uuid: string): Observable<Film> {
     return this.http
       .get<Film>(`${environment.apiBaseUrl}/public/films/${uuid}`)
       .pipe(

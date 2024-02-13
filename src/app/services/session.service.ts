@@ -22,6 +22,19 @@ export class SessionService {
     this.sessionsModifiedSubject.next();
   }
 
+  public findById(uuid: string): Observable<Session> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<Session>(`${environment.apiBaseUrl}/sessions/${uuid}`, { headers })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public findAll(filter?: SessionFilter): Observable<Session[]> {
     const params = this.generateParamsToFindSessions(filter || {});
     const headers = this.authService.generateAuthorizationHeader();
@@ -61,7 +74,7 @@ export class SessionService {
       );
   }
 
-  public findByIdForClient(uuid: string): Observable<Session> {
+  public findByIdPublic(uuid: string): Observable<Session> {
     return this.http
       .get<Session>(`${environment.apiBaseUrl}/public/sessions/${uuid}`)
       .pipe(
@@ -85,24 +98,11 @@ export class SessionService {
       );
   }
 
-  public findByGenresForClient(genres: string): Observable<Session[]> {
+  public findByGenres(genres: string): Observable<Session[]> {
     return this.http
       .get<Session[]>(`${environment.apiBaseUrl}/public/sessions/genres`, {
         params: { genres },
       })
-      .pipe(
-        catchError((error) => {
-          console.error(error);
-          return throwError(() => error);
-        }),
-        first()
-      );
-  }
-
-  public findById(uuid: string): Observable<Session> {
-    const headers = this.authService.generateAuthorizationHeader();
-    return this.http
-      .get<Session>(`${environment.apiBaseUrl}/sessions/${uuid}`, { headers })
       .pipe(
         catchError((error) => {
           console.error(error);

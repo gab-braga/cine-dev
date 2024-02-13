@@ -57,7 +57,7 @@ export class FilmsComponent implements OnInit, OnDestroy {
   }
 
   private loadData(): void {
-    this.filmService.findForClient().subscribe((films) => {
+    this.filmService.findAllPublic().subscribe((films) => {
       this.intializeData(films);
     });
   }

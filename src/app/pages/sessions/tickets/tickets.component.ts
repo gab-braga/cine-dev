@@ -72,7 +72,7 @@ export class TicketsComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.route.params.subscribe((parms) => {
         const uuid = parms['uuid'];
-        this.sessionService.findByIdForClient(uuid).subscribe((session) => {
+        this.sessionService.findByIdPublic(uuid).subscribe((session) => {
           this.session = session;
         });
       })
