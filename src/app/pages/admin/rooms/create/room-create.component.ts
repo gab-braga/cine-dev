@@ -72,11 +72,11 @@ export class RoomCreateComponent {
         next: () => {
           this.router.navigate(['/admin/rooms']);
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Tente mais tarde.',
+            detail: error.message,
           });
         },
       });

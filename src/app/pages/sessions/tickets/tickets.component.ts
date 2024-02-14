@@ -36,6 +36,8 @@ import { SessionService } from '../../../services/session.service';
   styleUrl: './tickets.component.css',
 })
 export class TicketsComponent implements OnInit, OnDestroy {
+  DEFAULT_ERRO_MESSAGE =
+    'Algo deu errado. Por favor, tente novamente mais tarde. Se o problema persistir, entre em contato com o suporte.';
   private subscriptions: Subscription[] = [];
   protected session: Session | undefined;
   protected formSubmitted: boolean = false;
@@ -100,12 +102,11 @@ export class TicketsComponent implements OnInit, OnDestroy {
         next: () => {
           this.router.navigate(['/sessions']);
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail:
-              'Algo deu errado. Por favor, tente novamente mais tarde. Se o problema persistir, entre em contato com o suporte.',
+            detail: error.message || this.DEFAULT_ERRO_MESSAGE,
           });
         },
       });

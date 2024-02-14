@@ -56,11 +56,11 @@ export class ModalUserInfoComponent {
         this.changeVisibilityModal(false);
         this.userService.notifyChangesToUsersData();
       },
-      error: () => {
+      error: ({ error }) => {
         this.messageService.add({
           severity: 'error',
           summary: 'ERRO',
-          detail: 'Algo deu errado. Tente mais tarde.',
+          detail: error.message,
         });
       },
     });
@@ -73,11 +73,11 @@ export class ModalUserInfoComponent {
         this.changeVisibilityModal(false);
         this.userService.notifyChangesToUsersData();
       },
-      error: () => {
+      error: ({ error }) => {
         this.messageService.add({
           severity: 'error',
           summary: 'ERRO',
-          detail: 'Algo deu errado. Tente mais tarde.',
+          detail: error.message,
         });
       },
     });

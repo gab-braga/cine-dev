@@ -71,11 +71,11 @@ export class SignupComponent {
         next: () => {
           this.router.navigate(['/auth/login']);
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Erro interno. Tente mais tarde.',
+            detail: error.message,
           });
         },
       });

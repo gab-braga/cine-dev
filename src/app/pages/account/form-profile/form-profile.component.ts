@@ -83,11 +83,11 @@ export class FormProfileComponent implements OnInit {
             detail: 'Perfil atualizado.',
           });
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             summary: 'ERRO',
             severity: 'error',
-            detail: 'Algo deu errado.',
+            detail: error.message,
           });
         },
       });

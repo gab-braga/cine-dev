@@ -62,11 +62,11 @@ export class FormAccessComponent {
             detail: 'Senha alterada.',
           });
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             summary: 'ERRO',
             severity: 'error',
-            detail: 'Algo deu errado.',
+            detail: error.message,
           });
         },
       });

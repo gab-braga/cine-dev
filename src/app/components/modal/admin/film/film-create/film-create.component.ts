@@ -78,11 +78,11 @@ export class ModalFilmCreateComponent implements OnChanges {
           this.changeVisibilityModal(false);
           this.filmService.notifyChangesToFilmsData();
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Confira o formato dos dados.',
+            detail: error.message,
           });
         },
       });

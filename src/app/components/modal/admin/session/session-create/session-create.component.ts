@@ -106,11 +106,11 @@ export class ModalSessionCreateComponent implements OnChanges, OnInit {
           this.sessionService.notifyChangesToSessionsData();
           this.changeVisibilityModal(false);
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Confira os valores.',
+            detail: error.message,
           });
         },
       });

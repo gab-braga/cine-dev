@@ -55,11 +55,11 @@ export class LoginComponent {
         next: () => {
           this.router.navigate(['/']);
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Senha incorreta. Por favor, tente novamente.',
+            detail: error.message,
           });
         },
       });

@@ -71,11 +71,11 @@ export class ModalRoomEditComponent implements OnChanges {
           this.changeVisibilityModal(false);
           this.roomService.notifyChangesToRoomsData();
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Confira os valores.',
+            detail: error.message,
           });
         },
       });

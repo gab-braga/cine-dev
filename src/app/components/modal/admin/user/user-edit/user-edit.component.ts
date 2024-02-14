@@ -88,11 +88,11 @@ export class ModalUserEditComponent implements OnChanges {
           this.changeVisibilityModal(false);
           this.userService.notifyChangesToUsersData();
         },
-        error: () => {
+        error: ({ error }) => {
           this.messageService.add({
             severity: 'error',
             summary: 'ERRO',
-            detail: 'Algo deu errado. Verifique o formato dos dados.',
+            detail: error.message,
           });
         },
       });
