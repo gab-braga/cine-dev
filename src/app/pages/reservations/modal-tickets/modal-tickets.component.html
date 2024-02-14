@@ -9,7 +9,7 @@
           {{ (reservation?.session?.hour | hour) || '...' }}
         </p>
         @if(reservation?.status !== 'CANCELED') {
-        <p-button label="Cancelar" icon="pi pi-times" severity="error" styleClass="p-2 text-sm" />
+        <p-button (onClick)="cancelReservation()" label="Cancelar" icon="pi pi-times" severity="error" styleClass="p-2 text-sm" />
         }
       </div>
     </div>
@@ -26,6 +26,8 @@
     <p class="ml-4 my-1">
       Sala: {{ reservation?.session?.room?.number || '...' }}
     </p>
+    } @empty {
+    <p class="text-400 m-0">Nenhum ingresso encontrado.</p>
     }
   </div>
 </p-dialog>

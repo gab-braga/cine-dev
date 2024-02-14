@@ -43,6 +43,15 @@ export class ReservationsComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     this.loadData();
+    this.synchronizeDataWithChanges();
+  }
+
+  private synchronizeDataWithChanges(): void {
+    this.subscriptions.push(
+      this.reservationService.getListenerOfReservationsData().subscribe(() => {
+        this.loadData();
+      })
+    );
   }
 
   public ngOnDestroy(): void {

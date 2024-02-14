@@ -13,6 +13,8 @@ import { MessageService } from 'primeng/api';
 import { HourPipe } from '../../../pipes/hour.pipe';
 import { Ticket } from '../../../interfaces/ticket';
 import { TicketService } from '../../../services/ticket.service';
+import { Reservation } from '../../../interfaces/reservartion';
+import { ReservationService } from '../../../services/reservation.service';
 
 @Component({
   selector: 'modal-tickets',
@@ -32,7 +34,8 @@ export class ModalTicketsComponent implements OnChanges {
 
   constructor(
     private messageService: MessageService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private reservatonService: ReservationService
   ) {}
 
   public ngOnChanges(changes: SimpleChanges): void {
@@ -49,6 +52,14 @@ export class ModalTicketsComponent implements OnChanges {
     const { uuid } = this.reservation;
     this.ticketService.findByReservationId(uuid).subscribe((tickets) => {
       this.tickets = tickets;
+    });
+  }
+
+  protected cancelReservation(): void {
+    const { uuid } = this.reservation;
+    this.reservatonService.cancel(uuid).subscribe(() => {
+      this.reservatonService.notifyChangesToReservationsData();
+      this.changeVisibilityModal(false);
     });
   }
 }
