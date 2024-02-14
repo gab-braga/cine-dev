@@ -11,6 +11,24 @@ import { Reservation } from '../interfaces/reservartion';
 export class ReservationService {
   constructor(private http: HttpClient, private authService: AuthService) {}
 
+  public findByUserId(uuid: string): Observable<Reservation[]> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<Reservation[]>(
+        `${environment.apiBaseUrl}/reservations/users/${uuid}`,
+        {
+          headers,
+        }
+      )
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
+
   public create(reservation: Reservation): Observable<void> {
     const headers = this.authService.generateAuthorizationHeader();
     return this.http

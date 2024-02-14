@@ -8,6 +8,7 @@
       <li><a routerLink="/sessions" class="no-underline text-gray-300 hover:text-gray-50">Sessões</a></li>
       <li><a routerLink="/films" class="no-underline text-gray-300 hover:text-gray-50">Filmes</a></li>
       @if(isLogged) {
+      <li><a routerLink="/reservations" class="no-underline text-gray-300 hover:text-gray-50">Reservas</a></li>
       <li><a routerLink="/account" class="no-underline text-gray-300 hover:text-gray-50">Conta</a></li>
       <li><a (click)="logout()" class="no-underline text-gray-300 hover:text-gray-50 cursor-pointer">Sair</a></li>
       }

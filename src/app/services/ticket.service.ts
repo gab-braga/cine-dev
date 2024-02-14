@@ -26,4 +26,19 @@ export class TicketService {
         first()
       );
   }
+
+  public findByReservationId(uuid: string): Observable<Ticket[]> {
+    const headers = this.authService.generateAuthorizationHeader();
+    return this.http
+      .get<Ticket[]>(`${environment.apiBaseUrl}/tickets/reservations/${uuid}`, {
+        headers,
+      })
+      .pipe(
+        catchError((error) => {
+          console.error(error);
+          return throwError(() => error);
+        }),
+        first()
+      );
+  }
 }

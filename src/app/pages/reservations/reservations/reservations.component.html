@@ -1,0 +1,47 @@
+<c-layout>
+  <div class="mb-5">
+    <h1 class="text-3xl text-gray-300 uppercase m-0">
+      Minhas Reservas
+    </h1>
+    <span class="inline-block text-gray-600 mt-1">
+      Todas as minhas reservas
+    </span>
+  </div>
+
+  <p-table [value]="reservations" [paginator]="true" [rows]="10" [showCurrentPageReport]="true" currentPageReportTemplate="{first} a {last} de {totalRecords}" [rowsPerPageOptions]="[10, 20, 50, 100]" [tableStyle]="{ 'min-width': '60rem' }">
+    <ng-template pTemplate="header">
+      <tr>
+        <th>Filme</th>
+        <th>Data</th>
+        <th>Horário</th>
+        <th>Sala</th>
+        <th>Status</th>
+        <th>Reservado em</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-reservation>
+      <tr>
+        <td class="flex gap-3 align-items-center justify-content-start">
+          <img [src]="reservation?.session?.film?.coverImage" [alt]="reservation?.session?.film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
+          {{ reservation?.session?.film?.title || '...' }}
+        </td>
+        <td>{{ (reservation?.session?.date | date: "dd/MM/yyyy") || '...' }}</td>
+        <td>{{ (reservation?.session?.hour | hour) || '...' }}</td>
+        <td>
+          {{ reservation?.session?.room?.number || '...' }} -
+          {{ reservation?.session?.room?.projectionType || '...' }}
+        </td>
+        <td>{{ reservation?.status || '...' }}</td>
+        <td>{{ (reservation?.reservedAt | date: "dd/MM/yyyy") || '...' }}</td>
+        <td>
+          <button (click)="showTicketsModal(reservation)" class="flex align-items-center p-2 bg-white border-none border-round cursor-pointer active:surface-50" aria-label="Mais detalhes">
+            <span class="pi pi-external-link"></span>
+          </button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</c-layout>
+
+<modal-tickets [visible]="visibilityTicketsModal" [reservation]="reservation" (visibleChange)="changeVisibilityOfTicketsModal($event)" />
