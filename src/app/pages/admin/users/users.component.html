@@ -44,7 +44,7 @@
       <ng-template pTemplate="body" let-user>
         <tr>
           <td class="flex gap-3 align-items-center justify-content-start">
-            <img [src]="user?.profilePicture || '../../../../assets/person.png'" [alt]="user?.name" width="40" height="40" class="border-round" style="object-fit: cover;">
+            <img [src]="user?.profilePicture || 'assets/person.png'" [alt]="user?.name" width="40" height="40" class="border-round" style="object-fit: cover;">
             {{ user?.name || '...' }}
           </td>
           <td>{{ user?.email || '...' }}</td>
