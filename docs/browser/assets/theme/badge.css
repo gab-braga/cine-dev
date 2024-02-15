@@ -1,0 +1,48 @@
+.p-badge {
+  background: var(--primary-color);
+  color: var(--primary-color-text);
+  font-size: 0.75rem;
+  font-weight: 700;
+  min-width: 1.5rem;
+  height: 1.5rem;
+  line-height: 1.5rem;
+}
+
+.p-badge.p-badge-secondary {
+  background-color: var(--bluegray-500);
+  color: var(--primary-color-text);
+}
+
+.p-badge.p-badge-success {
+  background-color: var(--green-500);
+  color: var(--primary-color-text);
+}
+
+.p-badge.p-badge-info {
+  background-color: var(--blue-500);
+  color: var(--primary-color-text);
+}
+
+.p-badge.p-badge-warning {
+  background-color: var(--orange-500);
+  color: var(--primary-color-text);
+}
+
+.p-badge.p-badge-danger {
+  background-color: var(--red-500);
+  color: var(--primary-color-text);
+}
+
+.p-badge.p-badge-lg {
+  font-size: 1.125rem;
+  min-width: 2.25rem;
+  height: 2.25rem;
+  line-height: 2.25rem;
+}
+
+.p-badge.p-badge-xl {
+  font-size: 1.5rem;
+  min-width: 3rem;
+  height: 3rem;
+  line-height: 3rem;
+}

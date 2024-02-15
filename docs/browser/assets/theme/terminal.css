@@ -1,0 +1,12 @@
+.p-terminal {
+  background: var(--surface-a);
+  color: var(--text-color);
+  border: 1px solid var(--surface-d);
+  padding: 1.25rem;
+}
+
+.p-terminal .p-terminal-input {
+  font-family: var(--font-family);
+  font-feature-settings: var(--font-feature-settings, normal);
+  font-size: 1rem;
+}

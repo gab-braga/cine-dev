@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: '',
+  apiBaseUrl: 'https://cine-dev-api.onrender.com',
 };

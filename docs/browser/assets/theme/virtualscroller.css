@@ -1,0 +1,26 @@
+.p-virtualscroller .p-virtualscroller-header {
+  background: var(--surface-b);
+  color: var(--gray-700);
+  border: 1px solid var(--surface-d);
+  border-width: 1px 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 700;
+}
+
+.p-virtualscroller .p-virtualscroller-content {
+  background: var(--surface-a);
+  color: var(--text-color);
+  border: 0 none;
+  padding: 0;
+}
+
+.p-virtualscroller .p-virtualscroller-footer {
+  background: var(--surface-b);
+  color: var(--gray-700);
+  border: 1px solid var(--surface-d);
+  border-width: 0 0 1px 0;
+  padding: 1rem 1rem;
+  font-weight: 700;
+  border-bottom-left-radius: var(--border-radius);
+  border-bottom-right-radius: var(--border-radius);
+}

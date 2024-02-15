@@ -1,0 +1,57 @@
+.p-fileupload .p-fileupload-buttonbar {
+  background: var(--surface-b);
+  padding: 1.25rem;
+  border: 1px solid var(--surface-d);
+  color: var(--gray-700);
+  border-bottom: 0 none;
+  border-top-right-radius: var(--border-radius);
+  border-top-left-radius: var(--border-radius);
+}
+
+.p-fileupload .p-fileupload-buttonbar .p-button {
+  margin-right: 0.5rem;
+}
+
+.p-fileupload .p-fileupload-buttonbar .p-button.p-fileupload-choose.p-focus {
+  outline: 0 none;
+  outline-offset: 0;
+}
+
+.p-fileupload .p-fileupload-content {
+  background: var(--surface-a);
+  padding: 2rem 1rem;
+  border: 1px solid var(--surface-d);
+  color: var(--text-color);
+  border-bottom-right-radius: var(--border-radius);
+  border-bottom-left-radius: var(--border-radius);
+}
+
+.p-fileupload .p-fileupload-content.p-fileupload-highlight {
+  border-color: 1px dashed var(--primary-color);
+  border-style: dashed;
+  background-color: var(--highlight-bg);
+}
+
+.p-fileupload .p-progressbar {
+  height: 0.25rem;
+}
+
+.p-fileupload .p-fileupload-row > div {
+  padding: 1rem 1rem;
+}
+
+.p-fileupload.p-fileupload-advanced .p-message {
+  margin-top: 0;
+}
+
+.p-fileupload-choose:not(.p-disabled):hover {
+  background: var(--primary-500);
+  color: var(--primary-color-text);
+  border-color: var(--primary-500);
+}
+
+.p-fileupload-choose:not(.p-disabled):active {
+  background: var(--highlight-text-color);
+  color: var(--primary-color-text);
+  border-color: var(--highlight-text-color);
+}

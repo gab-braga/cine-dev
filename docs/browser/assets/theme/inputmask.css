@@ -1,0 +1,11 @@
+p-inputmask.ng-dirty.ng-invalid > .p-inputtext {
+  border-color: var(--red-500);
+}
+
+p-inputmask.p-inputmask-clearable .p-inputtext {
+  padding-right: 2.5rem;
+}
+p-inputmask.p-inputmask-clearable .p-inputmask-clear-icon {
+  color: var(--text-color-secondary);
+  right: 0.75rem;
+}
