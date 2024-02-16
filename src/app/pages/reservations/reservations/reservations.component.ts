@@ -31,6 +31,9 @@ import { ModalTicketsComponent } from '../modal-tickets/modal-tickets.component'
   styleUrl: './reservations.component.css',
 })
 export class ReservationsComponent implements OnInit, OnDestroy {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
   private subscriptions: Subscription[] = [];
   protected reservations: Reservation[] = [];
   protected reservation: Reservation | undefined;

@@ -13,6 +13,9 @@ import { TimePipe } from '../../pipes/time.pipe';
   styleUrl: './session-card.component.css',
 })
 export class SessionCardComponent {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
   @Input()
   session: Session | undefined;
 }

@@ -15,7 +15,7 @@ import { FormAccessComponent } from '../form-access/form-access.component';
   styleUrl: './account.component.css',
 })
 export class AccountComponent implements OnInit {
-  DEFAULT_PERSON: string = 'assets/person.png';
+  protected DEFAULT_PERSON: string = 'assets/images/placeholders/person.jpg';
   user: User | undefined;
 
   constructor(

@@ -1,7 +1,7 @@
 <p-dialog header="Informação da Sessão" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
-      <img [src]="session?.film?.coverImage" [alt]="session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
+      <img [src]="session?.film?.coverImage || DEFAULT_COVER" [alt]="session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
         <h2 class="text-lg text-gray-500">{{ session?.film?.title }}</h2>
         <div class="flex gap-3">

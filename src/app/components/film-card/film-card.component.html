@@ -1,6 +1,6 @@
 <div class="w-full">
   <a [routerLink]="['/films', film?.uuid]" class="block no-underline">
-    <img [src]="film?.coverImage" [alt]="film?.title" draggable="false" class="w-full h-12rem sm:h-16rem md:h-20rem border-round" style="object-fit: cover;">
+    <img [src]="film?.coverImage || DEFAULT_COVER" [alt]="film?.title" draggable="false" class="w-full h-12rem sm:h-16rem md:h-20rem border-round" style="object-fit: cover;">
   </a>
   <div>
     <p class="text-sm text-gray-50 font-semibold sm:text-base md:text-lg my-2 overflow-hidden" style="white-space:nowrap; text-overflow: ellipsis;">

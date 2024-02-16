@@ -1,7 +1,7 @@
 <p-dialog header="Detalhes da Reserva" [visible]="visible" (visibleChange)="changeVisibilityModal($event)" [modal]="true" [style]="{ width: '80vw', maxWidth: '30rem' }" [draggable]="false" [resizable]="false" styleClass="overflow-hidden">
   <div class="flex flex-column justify-content-start align-items-stretch">
     <div class="flex gap-3 align-items-center mb-3">
-      <img [src]="reservation?.session?.film?.coverImage" [alt]="reservation?.session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
+      <img [src]="reservation?.session?.film?.coverImage || DEFAULT_COVER" [alt]="reservation?.session?.film?.title" width="120" height="150" class="border-round" style="object-fit: cover;">
       <div class="flex-1 flex flex-column justify-content-between align-items-start">
         <h2 class="text-lg text-gray-500">{{ reservation?.session?.film?.title || '...' }}</h2>
         <p class="mt-0">
@@ -15,6 +15,9 @@
     </div>
   </div>
   <div>
+    @if(loadingTickets) {
+    <p class="text-400 m-0">Carregando...</p>
+    } @else {
     @for(ticket of tickets; track ticket.uuid) {
     <h4 class="my-2 text-gray-400"><span class="pi pi-ticket pr-2"></span>Ingresso</h4>
     <p class="ml-4 my-1">
@@ -28,6 +31,7 @@
     </p>
     } @empty {
     <p class="text-400 m-0">Nenhum ingresso encontrado.</p>
+    }
     }
   </div>
 </p-dialog>

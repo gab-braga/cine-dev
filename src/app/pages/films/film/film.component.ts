@@ -28,6 +28,11 @@ import { TimePipe } from '../../../pipes/time.pipe';
   styleUrl: './film.component.css',
 })
 export class FilmComponent implements OnInit, OnDestroy {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
+  protected loadingFilms: boolean = true;
+  protected loadingSessions: boolean = true;
   private subscriptions: Subscription[] = [];
   protected film: Film | undefined;
   protected sessions: Session[] = [];
@@ -64,12 +69,14 @@ export class FilmComponent implements OnInit, OnDestroy {
   private loadFilmsByGenres(genres: string): void {
     this.filmService.findByGenres(genres).subscribe((films) => {
       this.films = films;
+      this.loadingFilms = false;
     });
   }
 
   private loadSessionsByFilm(uuid: string): void {
     this.sessionService.findByFilmId(uuid).subscribe((sessions) => {
       this.sessions = sessions;
+      this.loadingSessions = false;
     });
   }
 

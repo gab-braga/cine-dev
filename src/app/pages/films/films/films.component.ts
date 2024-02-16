@@ -22,6 +22,7 @@ import { FilmCardComponent } from '../../../components/film-card/film-card.compo
   styleUrl: './films.component.css',
 })
 export class FilmsComponent implements OnInit, OnDestroy {
+  protected loadingFilms: boolean = true;
   private subscriptions: Subscription[] = [];
   private films: Film[] = [];
   protected filmsFiltered: Film[] = [];
@@ -59,6 +60,7 @@ export class FilmsComponent implements OnInit, OnDestroy {
   private loadData(): void {
     this.filmService.findAllPublic().subscribe((films) => {
       this.intializeData(films);
+      this.loadingFilms = false;
     });
   }
 

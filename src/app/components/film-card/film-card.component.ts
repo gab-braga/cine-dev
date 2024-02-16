@@ -12,6 +12,9 @@ import { TimePipe } from '../../pipes/time.pipe';
   styleUrl: './film-card.component.css',
 })
 export class FilmCardComponent {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
   @Input()
   film: Film | undefined;
 }

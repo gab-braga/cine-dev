@@ -4,10 +4,11 @@
 
     <div class="grid surface-900 border-round">
       <div class="col-12 sm:col-6 md:col-4 lg:col-3">
-        <img [src]="film?.coverImage" [alt]="film?.title" class="w-full h-25rem border-round" style="object-fit: cover">
+        <img [src]="film?.coverImage || DEFAULT_COVER" [alt]="film?.title" class="w-full h-25rem border-round" style="object-fit: cover">
       </div>
       <div class="col-12 sm:col-6 md:col-8 lg:col-9">
         <div class="h-full flex flex-column justify-content-center p-3 md:p-5">
+          @if(film) {
           <p class="text-white my-2 overflow-hidden" style="white-space: nowrap; text-overflow: ellipsis;">
             <span class="text-gray-500">Título:</span> {{ film?.title || '...' }}
           </p>
@@ -24,6 +25,9 @@
             <span class="text-gray-500">Sinopse:</span>
             {{ film?.resume || '...' }}
           </p>
+          } @else {
+          <p class="text-400 m-0">Carregando...</p>
+          }
         </div>
       </div>
     </div>
@@ -34,10 +38,14 @@
     <hr class="w-full border-1 border-gray-600 mb-4">
 
     <div class="w-full overflow-x-auto pb-2 mb-4" style="white-space: nowrap;">
+      @if(loadingFilms) {
+      <p class="text-400 m-0">Carregando...</p>
+      } @else {
       @for(session of sessions; track session?.uuid) {
       <c-session-card [session]="session" class="inline-block w-8rem sm:w-10rem md:w-13rem mr-4" />
       } @empty {
       <p class="text-400 m-0">Nenhuma sessão relacionada.</p>
+      }
       }
     </div>
 
@@ -45,10 +53,14 @@
     <hr class="w-full border-1 border-gray-600 mb-4">
 
     <div class="w-full overflow-x-auto pb-2 mb-4" style="white-space: nowrap;">
+      @if(loadingFilms) {
+      <p class="text-400 m-0">Carregando...</p>
+      } @else {
       @for(film of films; track film?.uuid) {
       <c-film-card [film]="film" class="inline-block w-8rem sm:w-10rem md:w-13rem mr-4" />
       } @empty {
       <p class="text-400 m-0">Nenhum filme relacionado.</p>
+      }
       }
     </div>
   </div>

@@ -23,7 +23,7 @@
     <ng-template pTemplate="body" let-reservation>
       <tr>
         <td class="flex gap-3 align-items-center justify-content-start">
-          <img [src]="reservation?.session?.film?.coverImage" [alt]="reservation?.session?.film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
+          <img [src]="reservation?.session?.film?.coverImage || DEFAULT_COVER" [alt]="reservation?.session?.film?.title" width="40" height="60" class="border-round" style="object-fit: cover;">
           {{ reservation?.session?.film?.title || '...' }}
         </td>
         <td>{{ (reservation?.session?.date | date: "dd/MM/yyyy") || '...' }}</td>

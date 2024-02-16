@@ -27,6 +27,7 @@ const NUMBER_OF_SESSIONS_SHORTCUTS = 14;
   styleUrl: './sessions.component.css',
 })
 export class SessionsComponent implements OnInit, OnDestroy {
+  protected loadingSessions: boolean = true;
   private subscriptions: Subscription[] = [];
   private sessions: Session[] = [];
   protected sessionsFiltered: Session[] = [];
@@ -78,6 +79,7 @@ export class SessionsComponent implements OnInit, OnDestroy {
         const date = params.get('date') || '';
         this.sessionService.findRecent({ date }).subscribe((sessions) => {
           this.intializeData(sessions);
+          this.loadingSessions = false;
         });
       })
     );

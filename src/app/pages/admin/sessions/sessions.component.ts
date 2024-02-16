@@ -30,6 +30,8 @@ import { HourPipe } from '../../../pipes/hour.pipe';
   styleUrl: './sessions.component.css',
 })
 export class SessionsControlComponent {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
   visibilityInfoModal: boolean = false;
   visibilityCreateModal: boolean = false;
 

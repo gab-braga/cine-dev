@@ -12,6 +12,9 @@ import { DatePipe } from '@angular/common';
   styleUrl: './film-info.component.css',
 })
 export class ModalFilmInfoComponent {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
   @Input({ required: true })
   film: any;
   @Input()

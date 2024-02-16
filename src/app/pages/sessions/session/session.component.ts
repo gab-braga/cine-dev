@@ -26,6 +26,9 @@ import { TimePipe } from '../../../pipes/time.pipe';
   styleUrl: './session.component.css',
 })
 export class SessionComponent implements OnInit, OnDestroy {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+  protected loadingSessions: boolean = true;
   private subscriptions: Subscription[] = [];
   protected session: Session | undefined;
   protected sessions: Session[] = [];
@@ -59,6 +62,7 @@ export class SessionComponent implements OnInit, OnDestroy {
   private loadSessionsByGenres(genres: string): void {
     this.sessionService.findByGenres(genres).subscribe((sessions) => {
       this.sessions = sessions;
+      this.loadingSessions = false;
     });
   }
 

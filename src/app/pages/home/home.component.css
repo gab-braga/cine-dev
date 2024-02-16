@@ -1,7 +1,7 @@
 .image-overlay {
   width: 100%;
   min-height: 100vh;
-  background: url("../../../assets/cover-image.jpg");
+  background: url("../../../assets/images/cover-image.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;

@@ -26,6 +26,8 @@ import { FilmService } from '../../../services/film.service';
   styleUrl: './films.component.css',
 })
 export class FilmsControlComponent implements OnInit, OnDestroy {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
   film: Film | undefined;
   films: Film[] = [];
   visibilityInfoModal: boolean = false;

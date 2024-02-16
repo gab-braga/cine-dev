@@ -23,6 +23,9 @@ import { HourPipe } from '../../../../../pipes/hour.pipe';
   styleUrl: './session-info.component.css',
 })
 export class ModalSessionInfoComponent {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
   @Input({ required: true })
   session: any;
   @Input()

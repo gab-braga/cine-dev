@@ -22,10 +22,14 @@
       </form>
 
       <div class="grid">
+        @if(loadingSessions) {
+        <p class="text-400 m-0">Carregando...</p>
+        } @else {
         @for(session of sessionsFiltered; track session?.uuid) {
         <c-session-card [session]="session" class="col-6 sm:col-4 md:col-3" />
         } @empty {
         <p class="text-400 m-0">Nenhuma sessão encontrada.</p>
+        }
         }
       </div>
     </div>

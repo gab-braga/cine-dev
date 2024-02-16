@@ -26,6 +26,7 @@ import { User } from '../../../interfaces/user';
   styleUrl: './users.component.css',
 })
 export class UsersControlComponent implements OnInit, OnDestroy {
+  protected DEFAULT_PERSON: string = 'assets/images/placeholders/person.jpg';
   users: User[] = [];
   user: User | undefined;
   visibilityInfoModal: boolean = false;

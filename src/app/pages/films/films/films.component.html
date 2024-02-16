@@ -15,10 +15,14 @@
       </form>
 
       <div class="grid">
+        @if(loadingFilms) {
+        <p class="text-400 m-0">Carregando...</p>
+        } @else {
         @for(film of filmsFiltered; track film?.uuid) {
         <c-film-card [film]="film" class="col-6 md:col-4 lg:col-3 xl:col-2" />
         } @empty {
         <p class="text-400 m-0">Nenhum filme encontrado.</p>
+        }
         }
       </div>
     </div>

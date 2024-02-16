@@ -24,12 +24,17 @@ import { ReservationService } from '../../../services/reservation.service';
   styleUrl: './modal-tickets.component.css',
 })
 export class ModalTicketsComponent implements OnChanges {
+  protected DEFAULT_COVER: string =
+    'assets/images/placeholders/cover-image.jpg';
+
   @Input({ required: true })
   reservation: any;
   @Input()
   visible: boolean = false;
   @Output()
   visibleChange = new EventEmitter<boolean>();
+
+  protected loadingTickets: boolean = true;
   protected tickets: Ticket[] = [];
 
   constructor(
@@ -52,6 +57,7 @@ export class ModalTicketsComponent implements OnChanges {
     const { uuid } = this.reservation;
     this.ticketService.findByReservationId(uuid).subscribe((tickets) => {
       this.tickets = tickets;
+      this.loadingTickets = false;
     });
   }
 
