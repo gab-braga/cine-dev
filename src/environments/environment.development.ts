@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'https://cine-dev-api.onrender.com',
+  apiBaseUrl: 'http://localhost:8080',
 };
