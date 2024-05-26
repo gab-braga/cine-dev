@@ -4,7 +4,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build --output-path docs/ --base-href /cine-dev/",
+    "build": "ng build",
+    "pages": "ng build --output-path docs/ --base-href /cine-dev/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
