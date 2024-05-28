@@ -1,3 +1,3 @@
 export const environment = {
-  apiBaseUrl: 'http://cinedev.brazilsouth.cloudapp.azure.com:8080',
+  apiBaseUrl: 'https://api-cinedev.azurewebsites.net',
 };
